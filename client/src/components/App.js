@@ -86,6 +86,7 @@ class App extends React.Component {
                     rounds: [],
                     },
                    authenticated: false,
+                   profileOpen: false,
                    menuOpen: false});
   }
   
@@ -234,7 +235,11 @@ class App extends React.Component {
                 modalOpen={this.state.modalOpen}
                 toggleModalOpen={this.toggleModalOpen}
                 userData={this.state.userData}
-                updateUserData={this.updateUserData} /> 
+                updateUserData={this.updateUserData} 
+                profileOpen={this.state.profileOpen}
+                toggleProfileOpen={this.toggleProfileOpen}
+                
+                /> 
         <ModeTabs mode={this.state.mode}
                   setMode={this.setMode} 
                   menuOpen={this.state.menuOpen}

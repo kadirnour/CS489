@@ -32,6 +32,14 @@ class ProfileDialog extends React.Component {
         } 
     }
 
+    handleSubmit = (e) => {
+        console.log("saving!!!");
+    }
+
+    handleChange = (e) => {
+        console.log("changing!!!");
+    }
+
     render() {
             return(
                 <div ref={this.dialogContent}
@@ -44,6 +52,23 @@ class ProfileDialog extends React.Component {
                 <p className="mode-page-content">This page is under construction.</p>
                 <img className="mode-page-icon" 
                      src={logo} alt="SpeedScore logo"></img>
+
+
+                <form id="logRoundForm" 
+                    onSubmit={this.handleSubmit} noValidate>
+                    <div className="mb-3 centered">
+                        <label htmlFor="roundCourse" className="form-label">Course:
+                            <input id="roundCourse" name="course" 
+                                className="form-control centered" type="text" 
+                                aria-describedby="roundCourseDescr"
+                                size="50" maxLength="50"  value={this.props.userData.users.identityData.displayName} 
+                                onChange={this.handleChange} required />
+                        </label>
+                        <div id="roundCourseDescr" className="form-text">
+                        Enter a course name of at most 50 characters
+                        </div>
+                    </div>
+                </form>
 
                 <div className="mode-page-btn-container">
                     <button ref={this.saveBtn}
