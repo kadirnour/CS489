@@ -3,7 +3,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { faWindowClose, faEdit, faCalendar, 
         faSpinner, faSignInAlt, faBars, faTimes, faSearch,
         faSort, faTrash, faEye, faUserPlus } from '@fortawesome/free-solid-svg-icons';
-import { faGithub} from '@fortawesome/free-brands-svg-icons';
+import { faGithub, faLastfmSquare} from '@fortawesome/free-brands-svg-icons';
 import NavBar from './NavBar.js';
 import ModeTabs from './ModeTabs.js';
 import LoginPage from './LoginPage.js';
@@ -13,6 +13,7 @@ import CoursesPage from './CoursesPage.js';
 import BuddiesPage from './BuddiesPage.js';
 import SideMenu from './SideMenu.js';
 import AppMode from './AppMode.js';
+import ProfileDialog from './ProfileDialog.js';
 
 library.add(faWindowClose,faEdit, faCalendar, 
             faSpinner, faSignInAlt, faBars, faTimes, faSearch,
@@ -25,6 +26,7 @@ class App extends React.Component {
     this.state = {mode: AppMode.LOGIN,
                   menuOpen: false,
                   modalOpen: false,
+                  profileOpen: false,
                   userData: {
                     accountData: {},
                     identityData: {},
@@ -99,6 +101,10 @@ class App extends React.Component {
 
   toggleModalOpen = () => {
     this.setState(prevState => ({dialogOpen: !prevState.dialogOpen}));
+  }
+
+  toggleProfileOpen = () => {
+    this.setState(prevState => ({profileOpen: !prevState.profileOpen}));
   }
 
   //Account Management methods
@@ -232,7 +238,15 @@ class App extends React.Component {
         <ModeTabs mode={this.state.mode}
                   setMode={this.setMode} 
                   menuOpen={this.state.menuOpen}
-                  modalOpen={this.state.modalOpen}/> 
+                  modalOpen={this.state.modalOpen}/>
+        <ProfileDialog mode={this.state.mode}
+                menuOpen={this.state.menuOpen}
+                toggleMenuOpen={this.toggleMenuOpen}
+                modalOpen={this.state.modalOpen}
+                toggleModalOpen={this.toggleModalOpen}
+                profileOpen={this.state.profileOpen}
+                toggleProfileOpen={this.toggleProfileOpen}
+                /> 
         {this.state.menuOpen  ? <SideMenu logOut={this.logOut}/> : null}
         {
           {LoginMode:
