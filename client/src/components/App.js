@@ -14,6 +14,7 @@ import BuddiesPage from './BuddiesPage.js';
 import SideMenu from './SideMenu.js';
 import AppMode from './AppMode.js';
 import ProfileDialog from './ProfileDialog.js';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 library.add(faWindowClose,faEdit, faCalendar, 
             faSpinner, faSignInAlt, faBars, faTimes, faSearch,
@@ -157,8 +158,11 @@ class App extends React.Component {
   }
 
   updateUserData = (data) => {
+    console.log(data);  // ensure state is set to data
+
    localStorage.setItem(data.accountData.email,JSON.stringify(data));
    this.setState({userData: data});
+
   }
 
   //Round Management methods
