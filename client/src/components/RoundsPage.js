@@ -25,7 +25,7 @@ class RoundsPage extends React.Component {
     
     initiateDeleteRound = (val) => {
         this.setState({deleteId: val},
-        () => alert("Confirm delete goes here!"));
+        () => alert("Confirm delete goes here!?"+deleteId));
     }
 
     render() {
