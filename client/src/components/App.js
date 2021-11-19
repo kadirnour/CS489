@@ -201,23 +201,14 @@ class App extends React.Component {
   }
 
   deleteRound = (id) => {
-    const newRounds = [...this.state.userData.rounds];
     let r;
     for (r = 0; r < newRounds.length; ++r) {
-        if (newRounds[r].roundNum === this.state.deleteId) {
+        if (newRounds[r].roundNum === id) {
             break;
         }
     }
     delete newRounds[r];
-    const newUserData = {
-      accountData: this.state.userData.accountData,
-      identityData: this.state.userData.identityData,
-      speedgolfProfileData: this.state.userData.speedgolfProfileData,
-      rounds: newRounds, 
-      roundCount: this.state.userData.roundCount
-    }
-    localStorage.setItem(newUserData.accountData.email,JSON.stringify(newUserData));
-    this.setState({userData: newUserData});
+    
   }
   handleClose= () =>
   {
