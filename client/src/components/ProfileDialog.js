@@ -49,19 +49,19 @@ class ProfileDialog extends React.Component {
                     onKeyDown={this.handleKeyPress}
                     >
                 <h1 className="mode-page-header">Account & Profile</h1>
-                <p className="mode-page-content">This page is under construction.</p>
+                <p className="mode-page-content">Edit Your Information</p>
                 <img className="mode-page-icon" 
                      src={logo} alt="SpeedScore logo"></img>
 
 
-                <form id="logRoundForm" 
+                <form id="editProfileForm" 
                     onSubmit={this.handleSubmit} noValidate>
                     <div className="mb-3 centered">
-                        <label htmlFor="roundCourse" className="form-label">Course:
-                            <input id="roundCourse" name="course" 
-                                className="form-control centered" type="text" 
+                        <label htmlFor="profileName" className="form-label">Course:
+                            <input id="profileName" name="course" 
+                                className="form-control centered" type="text"
                                 aria-describedby="roundCourseDescr"
-                                size="50" maxLength="50"  value={this.props.userData.users.identityData.displayName} 
+                                size="50" maxLength="50"  value={this.props.userData !== undefined ? this.props.userData.identityData.displayName : null} 
                                 onChange={this.handleChange} required />
                         </label>
                         <div id="roundCourseDescr" className="form-text">

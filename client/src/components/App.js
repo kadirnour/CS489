@@ -26,6 +26,7 @@ class App extends React.Component {
     this.state = {mode: AppMode.LOGIN,
                   menuOpen: false,
                   modalOpen: false,
+                  dialogOpen: false,
                   profileOpen: false,
                   userData: {
                     accountData: {},
@@ -87,7 +88,9 @@ class App extends React.Component {
                     },
                    authenticated: false,
                    profileOpen: false,
-                   menuOpen: false});
+                   menuOpen: false,
+                   dialogOpen: false
+                  });
   }
   
    //User interface state management methods
@@ -245,6 +248,7 @@ class App extends React.Component {
                   menuOpen={this.state.menuOpen}
                   modalOpen={this.state.modalOpen}/>
         <ProfileDialog mode={this.state.mode}
+                userData={this.state.userData}
                 menuOpen={this.state.menuOpen}
                 toggleMenuOpen={this.toggleMenuOpen}
                 modalOpen={this.state.modalOpen}
@@ -253,7 +257,7 @@ class App extends React.Component {
                 toggleProfileOpen={this.toggleProfileOpen}
                 /> 
         {this.state.menuOpen  ? <SideMenu logOut={this.logOut}/> : null}
-        {
+        {this.state.dialogOpen === false ?
           {LoginMode:
             <LoginPage modalOpen={this.state.modalOpen}
                        toggleModalOpen={this.toggleModalOpen} 
@@ -286,7 +290,7 @@ class App extends React.Component {
                         menuOpen={this.state.menuOpen}
                         userId={this.state.userId}/>
         }[this.state.mode]
-        }
+        : <div></div>}
       </>
     ); 
   }

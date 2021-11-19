@@ -13,7 +13,6 @@ class ProfileSettings extends React.Component {
                 aria-label="Account and Profile Settings"
                 onClick={() => {this.props.toggleProfileOpen();
                     this.props.toggleModalOpen();
-                    this.props.setMode(AppMode.PROFILE);
                 }}
                 style={{backgroundImage: this.props.userData.identityData.profilePic === "" ? 
                             `url(${profilePic})` : 
