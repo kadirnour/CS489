@@ -255,6 +255,7 @@ class App extends React.Component {
                 toggleModalOpen={this.toggleModalOpen}
                 profileOpen={this.state.profileOpen}
                 toggleProfileOpen={this.toggleProfileOpen}
+                updateUserData={this.updateUserData}
                 /> 
         {this.state.menuOpen  ? <SideMenu logOut={this.logOut}/> : null}
         {this.state.dialogOpen === false ?
