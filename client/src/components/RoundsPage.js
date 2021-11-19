@@ -1,16 +1,20 @@
-import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import RoundsMode  from './RoundsMode.js';
 import RoundsTable from './RoundsTable.js';
 import RoundForm from './RoundForm.js';
 import FloatingButton from './FloatingButton.js'
+import Modal from 'react-bootstrap/Modal'
+import React, { useState} from "react";
+import { Button} from 'react-bootstrap';
+import Delete from './Delete.js';
 
 class RoundsPage extends React.Component {
     constructor(props) {
             super(props);
             this.state = {mode: RoundsMode.ROUNDSTABLE,
                           deleteId: -1,
-                          editId: -1};        
+                          editId: -1
+                          };        
     }
 
     setMode = (newMode) => {
@@ -25,14 +29,19 @@ class RoundsPage extends React.Component {
     
     initiateDeleteRound = (val) => {
         this.setState({deleteId: val},
-        () => alert("Confirm delete goes here!?"+deleteId));
-    }
+        this.props.showModal,
+        this.props.show = true);
 
+        }
+    
+      
     render() {
         switch (this.state.mode) {
         case RoundsMode.ROUNDSTABLE: 
             return (
+                
                 <>
+                
                     <RoundsTable rounds={this.props.rounds}
                                 initiateDeleteRound={this.initiateDeleteRound}
                                 deleteRound={this.props.deleteRound} 
@@ -47,8 +56,12 @@ class RoundsPage extends React.Component {
                         label={"Log Round"}
                         menuOpen={this.props.menuOpen}
                         action={()=>this.setState({mode: RoundsMode.LOGROUND},
-                                    this.props.toggleModalOpen)} />
+                                    this.props.toggleModalOpen)} /> 
+                                    {<Delete
+                                    showModal = {this.props.showModal} show = {this.props.show} handleClose = {this.props.handleClose}>
+                                </Delete>}              
             </>
+            
             );
         case RoundsMode.LOGROUND:
             return (
@@ -67,6 +80,7 @@ class RoundsPage extends React.Component {
                 setMode={this.setMode}
                 toggleModalOpen={this.props.toggleModalOpen} />
             );
+           
         }
     }  
 

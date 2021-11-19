@@ -31,7 +31,8 @@ class App extends React.Component {
                     speedgolfData: {},
                     rounds: [],
                     roundCount: 0},
-                  authenticated: false                  
+                  authenticated: false,
+                  show: false                 
                   };
   }
 
@@ -218,7 +219,15 @@ class App extends React.Component {
     localStorage.setItem(newUserData.accountData.email,JSON.stringify(newUserData));
     this.setState({userData: newUserData});
   }
-
+  handleClose= () =>
+  {
+    this.setState({show: false})
+  }
+  
+  showModal= () =>
+  {
+    this.setState({show: true})
+  }
   render() {
     return (
       <>
@@ -252,6 +261,9 @@ class App extends React.Component {
                         addRound={this.addRound}
                         updateRound={this.updateRound}
                         deleteRound={this.deleteRound}
+                        show={this.state.show}
+                        showModal={this.showModal}
+                        handleClose={this.handleClose}
                         modalOpen={this.state.modalOpen}
                         toggleModalOpen={this.toggleModalOpen} 
                         menuOpen={this.state.menuOpen}
