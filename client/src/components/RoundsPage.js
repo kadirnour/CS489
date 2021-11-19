@@ -58,7 +58,8 @@ class RoundsPage extends React.Component {
                         action={()=>this.setState({mode: RoundsMode.LOGROUND},
                                     this.props.toggleModalOpen)} /> 
                                     {<Delete
-                                    showModal = {this.props.showModal} show = {this.props.show} handleClose = {this.props.handleClose}>
+                                    showModal = {this.props.showModal} show = {this.props.show} handleClose = {this.props.handleClose} deleteRound={this.props.deleteRound} 
+                                    deleteId={this.state.deleteId}>
                                 </Delete>}              
             </>
             
