@@ -3,7 +3,7 @@
 //The following code imports necessary dependencies and initializes
 //variables used in the server middleware.
 //////////////////////////////////////////////////////////////////////////
-//import path from 'path';
+import path from 'path';
 import { URL } from 'url';
 import express from 'express';
 import passportConfig from './passport/config.js';
@@ -38,7 +38,8 @@ mongoose.connect(connectStr, {useNewUrlParser: true, useUnifiedTopology: true})
 
 passportConfig(app); //Configure session and passport
 app
-  .use(express.static(buildPath))
+  .use(express.static(path.join(path.resolve(), "client", "build")))
+ //.use(express.static(buildPath))
   .use(express.json({limit: '20mb'}))
   .use(authRoute)
   .use(userRoute)
