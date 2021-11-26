@@ -157,6 +157,24 @@ class App extends React.Component {
     }
   }
 
+  updateAccount = async(data) => {
+    const url = '/users/' + data.accountData.id;
+    const res = await fetch(url, {
+      headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+        method: 'PUT',
+        body: JSON.stringify(data)}); 
+    if (res.status == 201 || res.status == 200) { 
+        //this.setState({userData: data});
+        return("Account updated with email " + data.accountData.id);
+    } else { 
+        const resText = await res.text();
+        return("Account was not updated. " + resText);
+    }
+  }
+
   updateUserData = (data) => {
     console.log(data);  // ensure state is set to data
 
@@ -259,8 +277,8 @@ class App extends React.Component {
                 toggleModalOpen={this.toggleModalOpen}
                 profileOpen={this.state.profileOpen}
                 toggleProfileOpen={this.toggleProfileOpen}
-                updateUserData={this.updateUserData}
-                /> 
+                updateAccount={this.updateAccount}
+                />
         {this.state.menuOpen  ? <SideMenu logOut={this.logOut}/> : null}
         {this.state.dialogOpen === false ?
           {LoginMode:

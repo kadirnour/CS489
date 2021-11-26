@@ -117,10 +117,10 @@ class ProfileDialog extends React.Component {
                 homeCourse: (this.state.homeCourse !== "" ? this.state.homeCourse : this.props.userData.speedgolfData.homeCourse),
                 clubComments: (this.state.clubComments !== "" ? this.state.homeCourse : this.props.userData.speedgolfData.homeCourse),
             },
-            rounds: this.props.userData.rounds
+            //rounds: this.props.userData.rounds
         };
         
-        const res = await this.props.updateUserData(newUserData);
+        const res = await this.props.updateAccount(newUserData);
         this.props.toggleModalOpen();
         this.props.toggleProfileOpen();
     }
