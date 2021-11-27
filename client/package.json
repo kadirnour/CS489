@@ -42,7 +42,10 @@
       "last 1 safari version"
     ]
   },
-    "engines": {
+  "engines": {
     "node": "16.x"
+  },
+  "devDependencies": {
+    "testcafe": "^1.17.1"
   }
 }
