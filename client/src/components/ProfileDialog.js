@@ -10,21 +10,6 @@ class ProfileDialog extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            /*
-            accountData: {
-                password: "",
-                securityQuestion: "",
-                securityAnswer: "",
-            },
-            identityData: {
-                displayName: "",
-                profilePic: "",
-            },
-            speedgolfData: {
-                bio: "",
-                homeCourse: "",
-                clubComments: "",
-            },*/
 
             password: "",
             securityQuestion: "",
@@ -34,18 +19,13 @@ class ProfileDialog extends React.Component {
             bio: "",
             homeCourse: "",
             clubComments: "",
-
-            //tab1Open: true,
-            //tab2Open: false,
-            //tab3Open: false,
             
             formSubmitted: false,
             securityAnswerValid: true,
             securityQuestionValid: true,
           };
         this.securityQuestionError = React.createRef();
-        this.securityAnswerError = React.createRef();
-        
+        this.securityAnswerError = React.createRef(); 
     }
 
     passwordIsValid = (pass) => {
@@ -86,8 +66,8 @@ class ProfileDialog extends React.Component {
     handleSubmit = (event) => {
         event.preventDefault();
         //Are fields valid?
-        const sqValid = (this.state.securityQuestion.length > 5) || this.state.securityQuestion === "";
-        const saValid = (this.state.securityAnswer.length > 5) || this.state.securityAnswer === "";
+        const sqValid = (this.state.securityQuestion.length >= 5) || this.state.securityQuestion === "";
+        const saValid = (this.state.securityAnswer.length >= 5) || this.state.securityAnswer === "";
 
         if (sqValid && saValid) { 
             this.setState({btnIcon: "spinner", btnLabel: "Saving..."},this.handleSubmitCallback);
@@ -128,9 +108,23 @@ class ProfileDialog extends React.Component {
         this.props.toggleProfileOpen();
     }
 
+    clearForm = () => {
+      
+      this.setState({ password: "",
+      securityQuestion: "",
+      securityAnswer: "",
+      displayName: "",
+      profilePic: "",
+      bio: "",
+      homeCourse: "",
+      clubComments: "",
+      formSubmitted: false,
+      securityAnswerValid: true,
+      securityQuestionValid: true});
+    }
+
     renderErrorBox = () => {
-        if (
-            this.state.securityQuestionValid &&
+        if (this.state.securityQuestionValid &&
             this.state.securityAnswerValid) {
             return null;
         }
@@ -144,7 +138,7 @@ class ProfileDialog extends React.Component {
             </a>
           }
           {!this.state.securityAnswerValid && 
-            <a id="securityAnswerError" href="#securityError" 
+            <a id="securityAnswerError" href="#securityAnswer" 
                 className="alert-link" 
                 ref={this.securityAnswerError}>
                 Enter a valid security answer<br/>
@@ -155,10 +149,8 @@ class ProfileDialog extends React.Component {
     }
 
     render() {
-            
             return(
-
-                    
+     
                 <div id="profileSettingsDialog" className={"mode-page action-dialog" + ( this.props.profileOpen === false ? " hidden" : "")}
                     role="dialog" aria-modal="true" 
                     aria-labelledby="accountProfileHeader">
@@ -174,7 +166,6 @@ class ProfileDialog extends React.Component {
                               data-bs-toggle="collapse" data-bs-target="#accountSettingsPanel" 
                               aria-expanded="true" 
                               aria-controls="accountSettingsPanel"
-                              
                               >
                               <legend>Account</legend>
                             </button>
@@ -189,7 +180,7 @@ class ProfileDialog extends React.Component {
                               <label for="profileEmail" className="form-label">Email:
                                   <input id="profileEmail" type="email" className="form-control centered"
                                   aria-describedby="profileEmailDescr" readonly
-                                  value=""
+                                  value="" disabled="true"
                                   />
                               </label>
                               <div id="profileEmailDescr" className="form-text">
@@ -202,15 +193,15 @@ class ProfileDialog extends React.Component {
                                   pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"
                                   aria-describedby="profilePasswordDescr"
                                   value={this.state.password}
-                                  readonly />
+                                  readonly disabled="true"/>
                               </label>
                               <div id="profilePasswordDescr" className="form-text">
                                 Use the "Reset Password" option on the Log In page to reset your password.
                               </div>
                             </div>
                             <div className="mb-3">
-                              <label for="profileSecurityQuestion" className="form-label">Security Question:
-                                  <input id="profileSecurityQuestion" type="text" className="form-control centered"
+                              <label for="securityQuestion" className="form-label">Security Question:
+                                  <input id="securityQuestion" type="text" className="form-control centered"
                                   minlength="5"
                                   aria-describedby="profileSecurityQuestionDescr"
                                   name="securityQuestion"
@@ -224,8 +215,8 @@ class ProfileDialog extends React.Component {
                               </div>
                             </div>
                             <div className="mb-3">
-                              <label for="profileSecurityAnswer" className="form-label">Answer to Security Question:
-                                  <input id="profileSecurityAnswer" type="text" className="form-control centered"
+                              <label for="securityAnswer" className="form-label">Answer to Security Question:
+                                  <input id="securityAnswer" type="text" className="form-control centered"
                                   minlength="5"
                                   aria-describedby="profileSecurityAnswerDescr"
                                   name="securityAnswer"
@@ -361,7 +352,9 @@ class ProfileDialog extends React.Component {
                       <button type="button" id="cancelUpdateProfileBtn" 
                           className="btn btn-secondary dialog-cancel-btn"
                           onClick={() => {
-                            this.props.toggleModalOpen(); this.props.toggleProfileOpen();}}
+                            this.props.toggleModalOpen(); this.props.toggleProfileOpen();
+                            this.clearForm();
+                          }}
                           >
                           <span className="fas fa-window-close" 
                           aria-hidden="true"></span>
