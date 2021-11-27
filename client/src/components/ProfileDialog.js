@@ -42,8 +42,9 @@ class ProfileDialog extends React.Component {
             formSubmitted: false,
             securityAnswerValid: true,
             securityQuestionValid: true,
-            passwordValid: true,
           };
+        this.securityQuestionError = React.createRef();
+        this.securityAnswerError = React.createRef();
         
     }
 
@@ -78,9 +79,6 @@ class ProfileDialog extends React.Component {
           if (!this.state.securityQuestionValid) {
               this.securityQuestionError.current.focus();
           }
-          if (!this.state.passwordValid) {
-              this.passwordError.current.focus();
-          }
           this.formSubmitted = false;
         }
     }
@@ -88,14 +86,19 @@ class ProfileDialog extends React.Component {
     handleSubmit = (event) => {
         event.preventDefault();
         //Are fields valid?
-        const pValid = this.passwordIsValid(this.state.password) || this.state.password === "";
-        const sqValid = (this.state.securityQuestion.length > 0) || this.state.securityQuestion === "";
-        const saValid = (this.state.securityAnswer.length > 0) || this.state.securityAnswer === "";
+        const sqValid = (this.state.securityQuestion.length > 5) || this.state.securityQuestion === "";
+        const saValid = (this.state.securityAnswer.length > 5) || this.state.securityAnswer === "";
 
-        if (pValid && sqValid && saValid) { 
+        if (sqValid && saValid) { 
             this.setState({btnIcon: "spinner", btnLabel: "Saving..."},this.handleSubmitCallback);
         } else {
-            this.formSubmitted = true;
+            //At least one field invalid
+            //Clear out invalid fields and display errors
+            this.formSubmitted = true; //Ensures error message gets focus
+            this.setState({
+                          securityQuestionValid: sqValid,
+                          securityAnswerValid: saValid,
+                          });
         }
     }
 
@@ -126,20 +129,13 @@ class ProfileDialog extends React.Component {
     }
 
     renderErrorBox = () => {
-        if (this.state.passwordValid &&
+        if (
             this.state.securityQuestionValid &&
             this.state.securityAnswerValid) {
             return null;
         }
         return (
         <p id="errorBox" className="alert alert-danger centered">
-          {!this.state.passwordValid && 
-            <a id="passwordError" href="#password" 
-                className="alert-link" 
-                ref={this.passwordError}>
-                Enter a valid password<br/>
-            </a>
-          }
            {!this.state.securityQuestionValid && 
             <a id="securityQuestionError" href="#securityQuestion" 
                 className="alert-link" 
@@ -167,12 +163,7 @@ class ProfileDialog extends React.Component {
                     role="dialog" aria-modal="true" 
                     aria-labelledby="accountProfileHeader">
                   <h1 id="accountProfileHeader" className="mode-page-header">Account & Profile</h1>
-                  <p id="profileErrorBox" className="alert alert-danger centered hidden">
-                    <a id="profileEmailError" href="#profileEmail" className="alert-link">Enter a valid email address<br/></a>
-                    <a id="profileDisplayNameError" href="#profileDisplayName" className="alert-link">Enter a valid display name<br/></a>
-                    <a id="profileSecurityQuestionError" href="#profileSecurityQuestion" className="alert-link">Enter a valid security question<br/></a>
-                    <a id="profileSecurityAnswerError" href="#profileSecurityAnswer" className="alert-link">Enter a valid security question answer</a>
-                  </p>
+                  {this.renderErrorBox()}
                   
                   <form id="editProfileForm" className="centered" onSubmit={this.handleSubmit} noValidate>
                     <div id="profileFormAccordion" className="accordion">
