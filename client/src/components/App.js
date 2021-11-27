@@ -201,13 +201,13 @@ class App extends React.Component {
       const idx = newRounds.indexOf(round);
       newRounds.splice(idx, 1, newRoundData);
       const newUserData = {
-        // accountData: this.state.userData.accountData,
-        // identityData: this.state.userData.identityData,
-        // speedgolfProfileData: this.state.userData.speedgolfProfileData,
-        // rounds: newRounds,
-        // roundCount: this.state.userData.roundCount
-        ...this.state.userData,
+        accountData: this.state.userData.accountData,
+        identityData: this.state.userData.identityData,
+        speedgolfProfileData: this.state.userData.speedgolfProfileData,
         rounds: newRounds,
+        roundCount: this.state.userData.roundCount
+        // ...this.state.userData,
+        // rounds: newRounds,
       }
       localStorage.setItem(newUserData.accountData.email, JSON.stringify(newUserData));
       this.setState({ userData: newUserData });
