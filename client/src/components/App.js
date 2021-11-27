@@ -3,7 +3,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { faWindowClose, faEdit, faCalendar, 
         faSpinner, faSignInAlt, faBars, faTimes, faSearch,
         faSort, faTrash, faEye, faUserPlus } from '@fortawesome/free-solid-svg-icons';
-import { faGithub} from '@fortawesome/free-brands-svg-icons';
+import { faGithub, faLastfmSquare} from '@fortawesome/free-brands-svg-icons';
 import NavBar from './NavBar.js';
 import ModeTabs from './ModeTabs.js';
 import LoginPage from './LoginPage.js';
@@ -13,6 +13,8 @@ import CoursesPage from './CoursesPage.js';
 import BuddiesPage from './BuddiesPage.js';
 import SideMenu from './SideMenu.js';
 import AppMode from './AppMode.js';
+import ProfileDialog from './ProfileDialog.js';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 library.add(faWindowClose,faEdit, faCalendar, 
             faSpinner, faSignInAlt, faBars, faTimes, faSearch,
@@ -25,6 +27,8 @@ class App extends React.Component {
     this.state = {mode: AppMode.LOGIN,
                   menuOpen: false,
                   modalOpen: false,
+                  dialogOpen: false,
+                  profileOpen: false,
                   userData: {
                     accountData: {},
                     identityData: {},
@@ -84,7 +88,10 @@ class App extends React.Component {
                     rounds: [],
                     },
                    authenticated: false,
-                   menuOpen: false});
+                   profileOpen: false,
+                   menuOpen: false,
+                   dialogOpen: false
+                  });
   }
   
    //User interface state management methods
@@ -99,6 +106,10 @@ class App extends React.Component {
 
   toggleModalOpen = () => {
     this.setState(prevState => ({dialogOpen: !prevState.dialogOpen}));
+  }
+
+  toggleProfileOpen = () => {
+    this.setState(prevState => ({profileOpen: !prevState.profileOpen}));
   }
 
   //Account Management methods
@@ -146,9 +157,30 @@ class App extends React.Component {
     }
   }
 
+  updateAccount = async(data) => {
+    const url = '/users/' + data.accountData.id;
+    const res = await fetch(url, {
+      headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+        method: 'PUT',
+        body: JSON.stringify(data)}); 
+    if (res.status == 201 || res.status == 200) { 
+        //this.setState({userData: data});
+        return("Account updated with email " + data.accountData.id);
+    } else { 
+        const resText = await res.text();
+        return("Account was not updated. " + resText);
+    }
+  }
+
   updateUserData = (data) => {
+    console.log(data);  // ensure state is set to data
+
    localStorage.setItem(data.accountData.email,JSON.stringify(data));
    this.setState({userData: data});
+
   }
 
   //Round Management methods
@@ -228,13 +260,27 @@ class App extends React.Component {
                 modalOpen={this.state.modalOpen}
                 toggleModalOpen={this.toggleModalOpen}
                 userData={this.state.userData}
-                updateUserData={this.updateUserData} /> 
+                updateUserData={this.updateUserData} 
+                profileOpen={this.state.profileOpen}
+                toggleProfileOpen={this.toggleProfileOpen}
+                
+                /> 
         <ModeTabs mode={this.state.mode}
                   setMode={this.setMode} 
                   menuOpen={this.state.menuOpen}
-                  modalOpen={this.state.modalOpen}/> 
+                  modalOpen={this.state.modalOpen}/>
+        <ProfileDialog mode={this.state.mode}
+                userData={this.state.userData}
+                menuOpen={this.state.menuOpen}
+                toggleMenuOpen={this.toggleMenuOpen}
+                modalOpen={this.state.modalOpen}
+                toggleModalOpen={this.toggleModalOpen}
+                profileOpen={this.state.profileOpen}
+                toggleProfileOpen={this.toggleProfileOpen}
+                updateAccount={this.updateAccount}
+                />
         {this.state.menuOpen  ? <SideMenu logOut={this.logOut}/> : null}
-        {
+        {this.state.dialogOpen === false ?
           {LoginMode:
             <LoginPage modalOpen={this.state.modalOpen}
                        toggleModalOpen={this.toggleModalOpen} 
@@ -267,7 +313,7 @@ class App extends React.Component {
                         menuOpen={this.state.menuOpen}
                         userId={this.state.userId}/>
         }[this.state.mode]
-        }
+        : <div></div>}
       </>
     ); 
   }

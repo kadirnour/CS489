@@ -2,6 +2,7 @@
 
 const AppMode = {
     LOGIN: "LoginMode",
+    PROFILE: "ProfileMode",
     FEED: "FeedMode",
     ROUNDS: "RoundsMode",
     COURSES: "CoursesMode",
