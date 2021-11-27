@@ -70,7 +70,59 @@ roundRoute.get('/rounds/:userId', async(req, res) => {
   
 //UPDATE round route: Updates a specific round for a given user
 //in the users collection (PUT)
-//TO DO: Implement this route
+//TODO: Implement this route
+//DONE
+roundRoute.put("/rounds/:userId", async (req, res, next) => {
+  console.log(
+    "in /rounds (PUT) route with params = " + JSON.stringify(req.params) + " and body = " + JSON.stringify(req.body)
+  );
+  if (
+    !req.body.hasOwnProperty("date") ||
+    !req.body.hasOwnProperty("course") ||
+    !req.body.hasOwnProperty("type") ||
+    !req.body.hasOwnProperty("holes") ||
+    !req.body.hasOwnProperty("strokes") ||
+    !req.body.hasOwnProperty("minutes") ||
+    !req.body.hasOwnProperty("seconds") ||
+    !req.body.hasOwnProperty("notes")
+  ) {
+    //Body does not contain correct properties
+    return res
+      .status(400)
+      .send(
+        "PUT request on /rounds formulated incorrectly." +
+          "Body must contain all 8 required fields: date, course, type, holes, strokes, " +
+          "minutes, seconds, notes."
+      );
+  }
+  try {
+    const round = new Round(req.body);
+    const error = round.validateSync();
+    if (error) {
+      //Schema validation error occurred
+      return res.status(400).send("Round not updated. " + error.message);
+    }
+    const status = await User.updateOne(
+      {
+        "accountData.id": req.params.userId,
+        "rounds._id": req.body.id,
+      },
+      {
+        $set: { "rounds.$": req.body },
+      }
+    );
+    if (status.modifiedCount != 1) {
+      return res
+        .status(404)
+        .send("Round not updated. Either no round with that id " + "exists, or no value in the round was changed.");
+    } else {
+      return res.status(200).send("Round successfully updated.");
+    }
+  } catch (err) {
+    console.log(err);
+    return res.status(400).send("Round not updated. " + "Unexpected error occurred: " + err);
+  }
+});
 
 //DELETE round route: Deletes a specific round for a given user
 //in the users collection (DELETE)
