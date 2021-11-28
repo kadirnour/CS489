@@ -14,6 +14,7 @@ import BuddiesPage from './BuddiesPage.js';
 import SideMenu from './SideMenu.js';
 import AppMode from './AppMode.js';
 
+
 library.add(faWindowClose,faEdit, faCalendar, 
             faSpinner, faSignInAlt, faBars, faTimes, faSearch,
             faSort, faTrash, faEye, faUserPlus, faGithub);
@@ -200,14 +201,60 @@ class App extends React.Component {
     this.setState({userData: newUserData}); 
   }
 
-  deleteRound = (id) => {
-    let r;
-    for (r = 0; r < newRounds.length; ++r) {
-        if (newRounds[r].roundNum === id) {
-            break;
-        }
+  deleteRound = async(id) => {
+    var MongoClient = require('mongodb').MongoClient;
+    alert("in delete round")
+          const url = '//localhost:27017/appdb';
+         MongoClient.connect(url, function(err, db){
+          alert("connecting to database");
+          if (err) throw err;
+          var dbo = db;
+          dbo.collection("users").deleteOne("rounds", function(err, id){
+            if(err) throw err;
+            alert("deleted round");
+            console.log("deleted round #" + id);
+          });
+  });
+  /*const url = "/rounds/" + this.state.userData.accountData.id;
+  let res = await fetch(url, {
+    method: "DELETE",
+
+  });
+  alert(res.status);
+  if (res.status === 200) {
+    const newRounds = [...this.state.userData.rounds];
+    const round = newRounds.find((r) => r.id === newRoundData.id);
+    const idx = newRounds.indexOf(round);
+    newRounds.splice(idx, 1, newRoundData);
+    const newUserData = {
+      accountData: this.state.userData.accountData,
+      identityData: this.state.userData.identityData,
+      speedgolfProfileData: this.state.userData.speedgolfProfileData,
+      rounds: newRounds,
+      roundCount: this.state.userData.roundCount
+      // ...this.state.userData,
+      // rounds: newRounds,
     }
-    delete newRounds[r];
+    localStorage.removeItem(this.state.userData.accountData.id);
+    //this.setState({ userData: newUserData });
+  }*/
+
+
+          /*
+          var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  var myquery = { address: 'Mountain 21' };
+  dbo.collection("customers").deleteOne(myquery, function(err, obj) {
+    if (err) throw err;
+    console.log("1 document deleted");
+    db.close();
+  });
+});
+          */
     
   }
   handleClose= () =>
