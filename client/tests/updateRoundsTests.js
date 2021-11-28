@@ -10,7 +10,7 @@ test('updateRoundsTests', async t => {
         .typeText(Selector('#password'), 'Password1')
         .click("#loginBtn")
         .expect(Selector('#feedModeTab').visible).eql(true)
-        .click('#roundsModeTab')
+        .click('#roundsMode')
         .expect(Selector('#roundsModeTab').visible).eql(true)
         .click('#editButton')
         .expect(Selector('#logRoundForm').visible).eql(true)
