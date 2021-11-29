@@ -66,7 +66,9 @@ class RoundsPage extends React.Component {
                 saveRound={this.props.updateRound}
                 setMode={this.setMode}
                 toggleModalOpen={this.props.toggleModalOpen} />
-            );
+                );
+            default:
+                return null;
         }
     }  
 

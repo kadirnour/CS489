@@ -42,5 +42,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "engines": {
+    "node": "16.x"
+  },
+  "devDependencies": {
+    "axe-core": "^4.3.5",
+    "axe-testcafe": "^3.0.0",
+    "testcafe": "^1.17.1"
   }
 }
