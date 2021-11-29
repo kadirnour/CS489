@@ -77,8 +77,8 @@ You can access our team's deployed app at [this Heroku site](https://ourapp.hero
 
 |Issue | Test File | Feature Tested | Results Summary | 
 |------|-----------|----------------|-----------------|
-|[Issue #5](https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/5)| [Google.js](https://www.github.com/)|Google Authentication| [3/3 tests passed](https://yoursite.com/animated.gif) | [
-|[Issue #](https://github.com/issue)| [routes.js](https://www.github.com/)|PUT and DELETE routes for rounds | [15/15 tests passed](https://yoursite.com/animated.gif) |
+|[Issue #5](https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/5)| [profileSettingsTests.js](https://github.com/wsu-cpts489-fa21/tp-anime-is-real/blob/main/client/tests/profileSettingsTests.js)|Update Profile Settings| [2/2 tests passed](https://github.com/wsu-cpts489-fa21/tp-anime-is-real/tree/main/client/test_recordings) | [
+|[Issue #7](https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/7)| [routes.js](https://www.github.com/)|PUT and DELETE routes for rounds | [15/15 tests passed](https://yoursite.com/animated.gif) |
   
 ### Communication
  
