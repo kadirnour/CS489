@@ -202,9 +202,9 @@ class App extends React.Component {
   }
 
   deleteRound = async(id) => {
-    var MongoClient = require('mongodb').MongoClient;
+    /*var MongoClient = require('mongodb').MongoClient;
     alert("in delete round")
-          const url = '//localhost:27017/appdb';
+          const url = 'mongodb://localhost:27017/appdb';
          MongoClient.connect(url, function(err, db){
           alert("connecting to database");
           if (err) throw err;
@@ -214,19 +214,21 @@ class App extends React.Component {
             alert("deleted round");
             console.log("deleted round #" + id);
           });
-  });
-  /*const url = "/rounds/" + this.state.userData.accountData.id;
+  });*/
+  const url = "/rounds/" + this.state.userData.accountData.id;
+  alert(id);
   let res = await fetch(url, {
-    method: "DELETE",
-
+    method: 'DELETE',
+    //headers: { "Content-Type": "application/json" },
+    body: {"id": id}
   });
   alert(res.status);
   if (res.status === 200) {
     const newRounds = [...this.state.userData.rounds];
-    const round = newRounds.find((r) => r.id === newRoundData.id);
-    const idx = newRounds.indexOf(round);
-    newRounds.splice(idx, 1, newRoundData);
-    const newUserData = {
+    //const round = newRounds.find((r) => r.id === newRoundData.id);
+    //const idx = newRounds.indexOf(round);
+    //newRounds.splice(idx, 1, newRoundData);
+    /*const newUserData = {
       accountData: this.state.userData.accountData,
       identityData: this.state.userData.identityData,
       speedgolfProfileData: this.state.userData.speedgolfProfileData,
@@ -234,10 +236,10 @@ class App extends React.Component {
       roundCount: this.state.userData.roundCount
       // ...this.state.userData,
       // rounds: newRounds,
-    }
+    }*/
     localStorage.removeItem(this.state.userData.accountData.id);
     //this.setState({ userData: newUserData });
-  }*/
+  }
 
 
           /*

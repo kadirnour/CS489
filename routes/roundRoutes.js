@@ -75,5 +75,45 @@ roundRoute.get('/rounds/:userId', async(req, res) => {
 //DELETE round route: Deletes a specific round for a given user
 //in the users collection (DELETE)
 //TO DO: Implement this route
+roundRoute.delete("/rounds/:userId", async (req, res, next) => {
+  console.log(
+    "in /rounds (DELETE) route"
+  );
+  if (
+    !req.body.hasOwnProperty("_id")
 
+  ) {
+    //Body does not contain correct properties
+    return res
+      .status(401)
+      .send(
+        "DELETE request on /rounds formulated incorrectly." +
+          "Body must contain id"
+      );
+  }
+  try {
+    //const round = new Round(req.body);
+    const error = round.validateSync();
+    if (error) {
+      //Schema validation error occurred
+      return res.status(400).send("Round not deleted " + error.message);
+    }
+    const status = await User.updateOne(
+      {
+        "rounds._id": req.body.id
+      },
+      
+    );
+    if (status.deletedCount != 1) {
+      return res
+        .status(404)
+        .send("Round not deleted. Either no round with that id " + "exists, or no value in the round was changed.");
+    } else {
+      return res.status(200).send("Round successfully deleted.");
+    }
+  } catch (err) {
+    console.log(err);
+    return res.status(400).send("Round not deleted. " + "Unexpected error occurred: " + err);
+  }
+});
 export default roundRoute;
