@@ -3,7 +3,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { faWindowClose, faEdit, faCalendar, 
         faSpinner, faSignInAlt, faBars, faTimes, faSearch,
         faSort, faTrash, faEye, faUserPlus } from '@fortawesome/free-solid-svg-icons';
-import { faGithub, faLastfmSquare} from '@fortawesome/free-brands-svg-icons';
+import { faGithub} from '@fortawesome/free-brands-svg-icons';
 import NavBar from './NavBar.js';
 import ModeTabs from './ModeTabs.js';
 import LoginPage from './LoginPage.js';
@@ -13,8 +13,6 @@ import CoursesPage from './CoursesPage.js';
 import BuddiesPage from './BuddiesPage.js';
 import SideMenu from './SideMenu.js';
 import AppMode from './AppMode.js';
-import ProfileDialog from './ProfileDialog.js';
-import "bootstrap/dist/css/bootstrap.min.css";
 
 library.add(faWindowClose,faEdit, faCalendar, 
             faSpinner, faSignInAlt, faBars, faTimes, faSearch,
@@ -27,15 +25,14 @@ class App extends React.Component {
     this.state = {mode: AppMode.LOGIN,
                   menuOpen: false,
                   modalOpen: false,
-                  dialogOpen: false,
-                  profileOpen: false,
                   userData: {
                     accountData: {},
                     identityData: {},
                     speedgolfData: {},
                     rounds: [],
                     roundCount: 0},
-                  authenticated: false                  
+                  authenticated: false,
+                  show: false                 
                   };
   }
 
@@ -88,10 +85,7 @@ class App extends React.Component {
                     rounds: [],
                     },
                    authenticated: false,
-                   profileOpen: false,
-                   menuOpen: false,
-                   dialogOpen: false
-                  });
+                   menuOpen: false});
   }
   
    //User interface state management methods
@@ -106,10 +100,6 @@ class App extends React.Component {
 
   toggleModalOpen = () => {
     this.setState(prevState => ({dialogOpen: !prevState.dialogOpen}));
-  }
-
-  toggleProfileOpen = () => {
-    this.setState(prevState => ({profileOpen: !prevState.profileOpen}));
   }
 
   //Account Management methods
@@ -157,30 +147,9 @@ class App extends React.Component {
     }
   }
 
-  updateAccount = async(data) => {
-    const url = '/users/' + data.accountData.id;
-    const res = await fetch(url, {
-      headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-              },
-        method: 'PUT',
-        body: JSON.stringify(data)}); 
-    if (res.status == 201 || res.status == 200) { 
-        //this.setState({userData: data});
-        return("Account updated with email " + data.accountData.id);
-    } else { 
-        const resText = await res.text();
-        return("Account was not updated. " + resText);
-    }
-  }
-
   updateUserData = (data) => {
-    console.log(data);  // ensure state is set to data
-
    localStorage.setItem(data.accountData.email,JSON.stringify(data));
    this.setState({userData: data});
-
   }
 
   //Round Management methods
@@ -204,7 +173,7 @@ class App extends React.Component {
                            speedgolfData: this.state.userData.speedgolfData,
                            rounds: newRounds};
       this.setState({userData: newUserData});
-      return("New round logged.");
+      return("New round logged.");  
     } else { 
       const resText = await res.text();
       return("New Round could not be logged. " + resText);
@@ -232,25 +201,30 @@ class App extends React.Component {
   }
 
   deleteRound = (id) => {
+    var mongoose_delete = require('mongoose-delete');
     const newRounds = [...this.state.userData.rounds];
     let r;
+    alert("goal id: "+id);
     for (r = 0; r < newRounds.length; ++r) {
-        if (newRounds[r].roundNum === this.state.deleteId) {
+        let myId = newRounds[r]._id;
+        if (r === id) {
+            alert('deleteround');
+            this.state.userData.deleteOne('_id', myId);
             break;
         }
     }
-    delete newRounds[r];
-    const newUserData = {
-      accountData: this.state.userData.accountData,
-      identityData: this.state.userData.identityData,
-      speedgolfProfileData: this.state.userData.speedgolfProfileData,
-      rounds: newRounds, 
-      roundCount: this.state.userData.roundCount
-    }
-    localStorage.setItem(newUserData.accountData.email,JSON.stringify(newUserData));
-    this.setState({userData: newUserData});
+    delete newRounds[r];    
   }
 
+  handleClose= () =>
+  {
+    this.setState({show: false})
+  }
+  
+  showModal= () =>
+  {
+    this.setState({show: true})
+  }
   render() {
     return (
       <>
@@ -260,27 +234,13 @@ class App extends React.Component {
                 modalOpen={this.state.modalOpen}
                 toggleModalOpen={this.toggleModalOpen}
                 userData={this.state.userData}
-                updateUserData={this.updateUserData} 
-                profileOpen={this.state.profileOpen}
-                toggleProfileOpen={this.toggleProfileOpen}
-                
-                /> 
+                updateUserData={this.updateUserData} /> 
         <ModeTabs mode={this.state.mode}
                   setMode={this.setMode} 
                   menuOpen={this.state.menuOpen}
-                  modalOpen={this.state.modalOpen}/>
-        <ProfileDialog mode={this.state.mode}
-                userData={this.state.userData}
-                menuOpen={this.state.menuOpen}
-                toggleMenuOpen={this.toggleMenuOpen}
-                modalOpen={this.state.modalOpen}
-                toggleModalOpen={this.toggleModalOpen}
-                profileOpen={this.state.profileOpen}
-                toggleProfileOpen={this.toggleProfileOpen}
-                updateAccount={this.updateAccount}
-                />
+                  modalOpen={this.state.modalOpen}/> 
         {this.state.menuOpen  ? <SideMenu logOut={this.logOut}/> : null}
-        {this.state.dialogOpen === false ?
+        {
           {LoginMode:
             <LoginPage modalOpen={this.state.modalOpen}
                        toggleModalOpen={this.toggleModalOpen} 
@@ -298,6 +258,9 @@ class App extends React.Component {
                         addRound={this.addRound}
                         updateRound={this.updateRound}
                         deleteRound={this.deleteRound}
+                        show={this.state.show}
+                        showModal={this.showModal}
+                        handleClose={this.handleClose}
                         modalOpen={this.state.modalOpen}
                         toggleModalOpen={this.toggleModalOpen} 
                         menuOpen={this.state.menuOpen}
@@ -313,7 +276,7 @@ class App extends React.Component {
                         menuOpen={this.state.menuOpen}
                         userId={this.state.userId}/>
         }[this.state.mode]
-        : <div></div>}
+        }
       </>
     ); 
   }
