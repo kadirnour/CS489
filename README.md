@@ -2,7 +2,7 @@
 This repository implements SpeedScore, a web app that enables users to log, analyze, share, and discuss their speedgolf rounds and experiences. SpeedScore is built using MongoDB, Express.js, React.js, and Node.js.
 
 ## Link to Deployed App
-We are awaiting communication from Kadir to get the link to our heroku site
+**We are awaiting communication from Kadir to get the link to our heroku site**
 You can access our team's deployed app at [this Heroku site](https://ourapp.herokuapp.com)
 
 ## Team members
@@ -54,10 +54,10 @@ You can access our team's deployed app at [this Heroku site](https://ourapp.hero
       <td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/3">Issue #3</a></td><td><a></a></td><td>3</td><td>0</td><td>3</td><td>0</td><td>0</td><td>0</td><td>100</td><td></td>
     </tr>
     <tr>
-      <td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/8">Issue #8</a></td><td><a></a></td><td>3</td><td>3</td><td>0</td><td>0</td><td>0</td><td>0</td><td>50</td><td></td>
+      <td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/8">Issue #8</a></td><td><a></a></td><td>3</td><td>3</td><td>0</td><td>0</td><td>0</td><td>0</td><td>50</td><td>trouble deleting rounds. This feature should be completed and merged early into the next milestone.</td>
     </tr>
     <tr>
-      <td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/6">Issue #6</a></td><td><a></a></td><td>3</td><td>3</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td></td>
+      <td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/6">Issue #6</a></td><td><a></a></td><td>3</td><td>3</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>Blocked by <a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/8">Issue #8</a> </td>
     </tr>
     <tr><td colspan="2" align="right"><b>Totals:</b></td><td><b>49</b></td><td><b>5.5</b></td><td><b>9</b></td><td><b>11</b></td><td><b>11</b></td><td><b>8</b></td><td colspan="2"></td>
     </tr>
@@ -77,8 +77,8 @@ You can access our team's deployed app at [this Heroku site](https://ourapp.hero
 
 |Issue | Test File | Feature Tested | Results Summary | 
 |------|-----------|----------------|-----------------|
-|[Issue #5](https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/5)| [profileSettingsTests.js](https://github.com/wsu-cpts489-fa21/tp-anime-is-real/blob/main/client/tests/profileSettingsTests.js)|Update Profile Settings| [2/2 tests passed](https://github.com/wsu-cpts489-fa21/tp-anime-is-real/tree/main/client/test_recordings) | [
-|[Issue #7](https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/7)| [routes.js](https://www.github.com/)|PUT and DELETE routes for rounds | [15/15 tests passed](https://yoursite.com/animated.gif) |
+|[Issue #5](https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/5)| [profileSettingsTests.js](https://github.com/wsu-cpts489-fa21/tp-anime-is-real/blob/main/client/tests/profileSettingsTests.js)|Update Profile Settings| [1/1 tests passed](https://github.com/wsu-cpts489-fa21/tp-anime-is-real/tree/main/client/test_recordings) | [
+|[Issue #7](https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/7)| [updateRoundsTests.js](https://github.com/wsu-cpts489-fa21/tp-anime-is-real/blob/main/client/tests/updateRoundsTests.js)|PUT and DELETE routes for rounds | [1/1 tests passed](https://github.com/wsu-cpts489-fa21/tp-anime-is-real/tree/main/client/test_recordings) |
   
 ### Communication
  
@@ -94,24 +94,24 @@ You can access our team's deployed app at [this Heroku site](https://ourapp.hero
   </thead> 
   <tbody>
     <tr>
-      <td>11/15/21</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+      <td>11/15/21</td><td>2</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td>
     </tr>
     <tr>
-      <td>11/18/21</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td>
+      <td>11/18/21</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td>
     </tr>
     <tr>
-     <td>11/19/21</td><td>1</td><td>1</td><td>2</td><td>0</td><td>7</td><td>0</td>
+     <td>11/19/21</td><td>12</td><td>1</td><td>1</td><td>2</td><td>7</td><td>1</td>
     </tr>
     <tr>
-      <td>11/26/21</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td>
+      <td>11/26/21</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td>
     </tr>
     <tr>
-      <td>11/27/21</td><td>0</td><td>0</td><td>2</td><td>1</td><td>0</td><td>0</td>
+      <td>11/27/21</td><td>3</td><td>0</td><td>0</td><td>2</td><td>1</td><td>0</td>
     </tr>
     <tr>
-      <td>11/28/21</td><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td>
+      <td>11/28/21</td><td>8</td><td>1</td><td>4</td><td>1</td><td>3</td><td>0</td>
     </tr>
-    <tr><td align="right"><b>Totals:</b></td><td><b>3</b></td><td><b>2</b></td><td><b>7</b></td><td><b>10</b></td><td><b>0</b></td><td><b>1</b></td>
+    <tr><td align="right"><b>Totals:</b></td><td><b>27</b></td><td><b>4</b></td><td><b>5</b></td><td><b>7</b></td><td><b>11</b></td><td><b>1</b></td>
     </tr>
   </tbody>
 </table>
@@ -123,17 +123,20 @@ You can access our team's deployed app at [this Heroku site](https://ourapp.hero
       <th colspan="2"></th><th colspan="5">In attendance?</th>
     </tr> 
     <tr>
-      <th>Date</th><th>Duration (min)</th><th>TM1</th><th>TM2</th><th>TM3</th><th>TM4</th><th>TM5</th>
+      <th>Date</th><th>Duration (min)</th><th>Kevin H.</th><th>Matt M.</th><th>Zach P.</th><th>Ayleah H.</th><th>Kadir N.</th>
     </tr>
   </thead> 
   <tbody>
     <tr>
-      <td>11/15/21</td><td>6</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td>
+      <td>11/15/21</td><td>6:00</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td>
     </tr>
      <tr>
-      <td>11/19/21</td><td>~</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td>
+      <td>11/19/21</td><td>meeting not recorded</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td><td></td>
     </tr>
-    <tr><td align="right"><b>Totals:</b></td><td><b>6</b></td><td><b>2</b></td><td><b>2</b></td><td><b>2</b></td><td><b>2</b></td><td><b>2</b></td>
+     <tr>
+      <td>11/29/21</td><td>24:07</td><td>&check;</td><td>&check;</td><td></td><td>&check;</td><td></td>
+    </tr>
+    <tr><td align="right"><b>Totals:</b></td><td><b>30:07</b></td><td><b>3</b></td><td><b>3</b></td><td><b>2</b></td><td><b>3</b></td><td><b>1</b></td>
     </tr>
   </tbody>
 </table>
@@ -145,7 +148,7 @@ You can access our team's deployed app at [this Heroku site](https://ourapp.hero
       <th colspan="2"></th><th colspan="5">In attendance?</th><th></th>
     </tr> 
     <tr>
-      <th>Date</th><th>Duration (min)</th><th>TM1</th><th>TM2</th><th>TM3</th><th>TM4</th><th>TM5</th><th>Notes</th>
+      <th>Date</th><th>Duration (min)</th><th>Kevin H.</th><th>Matt M.</th><th>Zach P.</th><th>Ayleah H.</th><th>Kadir N.</th>
     </tr>
   </thead> 
   <tbody>
@@ -156,19 +159,16 @@ You can access our team's deployed app at [this Heroku site](https://ourapp.hero
 
 #### Context Statements
 | Team Member   | Context Statement |
-|---------------|------------------------------------------------------------------------------------------------------------------|
-|Kevin Hermanson| <*A lot of communication is done in person with Matthew Molitor since we are roommates. We do not record these as| 
-|---------------|meetings. Team communication may seem sparse as we work together because of this>                                 |
-|Matthew Molitor| <*I did not take advantage of the slack space to the extent that I should have, instead using text messaging. I  |
-|---------------|do not sign in to zoom meetings on my device, I join Kevin Hermanson on his.>                                     |
+|---------------|-------------------|
+|Kevin Hermanson| <*A lot of communication is done in person with Matthew Molitor since we are roommates. We do not record these as meetings. Team communication may seem sparse as we work together because of this>|
+|Matthew Molitor| <*I did not take advantage of the slack space to the extent that I should have, instead using text messaging. I do not sign in to zoom meetings on my device, I join Kevin Hermanson on his.>|
 |Zachary Penn   | <*Communication is done between a mix of slack messages, our group chat, and individually messaging team members>|
-|Ayleah Hill    | <*I was not able to start working on this project until the end of thanksgiving break, this limited my ability to|  |               |make progress by the end of the initial deadline. As a result of having us having mixed communication it was hard |
-|---------------|for us to keep track of everything.>                                                                              |
-|Kadir Nour     | <*Was not initially added to the group text chat that was set up for a different project>                        |
+|Ayleah Hill    | <*I was not able to start working on this project until the end of thanksgiving break, this limited my ability to make progress by the end of the initial deadline. As a result of having us having mixed communication it was hard for us to keep track of everything>|
+|Kadir Nour     | <*Was not initially added to the group text chat that was set up for a different project>|
 
 ### Retrospective
 
-[Link to Recording](https://wsu.zoom.us/recording)
+[Link to Recording](https://files.slack.com/files-tmb/T02BD34SQDT-F02NWSGUXCL-dc67f85722/video1241975137.mp4)
 
 #### What went well
   - Teamwork: We already had a previous understanding with each other as a team (aside from kadir) from working in senior design together
