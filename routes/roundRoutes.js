@@ -77,31 +77,34 @@ roundRoute.get('/rounds/:userId', async(req, res) => {
 //TO DO: Implement this route
 roundRoute.delete("/rounds/:userId", async (req, res, next) => {
   console.log(
-    "in /rounds (DELETE) route"
+    "in /rounds (DELETE) route with params = " + JSON.stringify(req.params) + " and body = " + JSON.stringify(req.body)
   );
-  if (
+  console.log(
+    "in /rounds (DELETE) route with params = " + JSON.stringify(req.params) + " and body = " + JSON.stringify(req.body)
+  );
+  /*if (
     !req.body.hasOwnProperty("_id")
 
   ) {
     //Body does not contain correct properties
     return res
-      .status(401)
+      .status(400)
       .send(
         "DELETE request on /rounds formulated incorrectly." +
           "Body must contain id"
       );
-  }
+  }*/
   try {
-    //const round = new Round(req.body);
+    const round = new Round(req.body);
     const error = round.validateSync();
     if (error) {
       //Schema validation error occurred
       return res.status(400).send("Round not deleted " + error.message);
     }
-    const status = await User.updateOne(
+    const status = await User.deleteOne(
       {
-        "rounds._id": req.body.id
-      },
+        "round._id": req.body._id
+      }
       
     );
     if (status.deletedCount != 1) {

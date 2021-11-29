@@ -215,16 +215,19 @@ class App extends React.Component {
             console.log("deleted round #" + id);
           });
   });*/
+  const newRounds = [...this.state.userData.rounds];
+  alert(newRounds[id])
+  const delRound = newRounds[id]
   const url = "/rounds/" + this.state.userData.accountData.id;
   alert(id);
   let res = await fetch(url, {
     method: 'DELETE',
-    //headers: { "Content-Type": "application/json" },
-    body: {"id": id}
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(delRound)
   });
   alert(res.status);
   if (res.status === 200) {
-    const newRounds = [...this.state.userData.rounds];
+  
     //const round = newRounds.find((r) => r.id === newRoundData.id);
     //const idx = newRounds.indexOf(round);
     //newRounds.splice(idx, 1, newRoundData);
@@ -237,7 +240,7 @@ class App extends React.Component {
       // ...this.state.userData,
       // rounds: newRounds,
     }*/
-    localStorage.removeItem(this.state.userData.accountData.id);
+    localStorage.removeItem(newRounds[id]);
     //this.setState({ userData: newUserData });
   }
 
