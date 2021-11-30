@@ -79,9 +79,7 @@ roundRoute.delete("/rounds/:userId", async (req, res, next) => {
   console.log(
     "in /rounds (DELETE) route with params = " + JSON.stringify(req.params) + " and body = " + JSON.stringify(req.body)
   );
-  console.log(
-    "in /rounds (DELETE) route with params = " + JSON.stringify(req.params) + " and body = " + JSON.stringify(req.body)
-  );
+
   /*if (
     !req.body.hasOwnProperty("_id")
 
@@ -101,13 +99,17 @@ roundRoute.delete("/rounds/:userId", async (req, res, next) => {
       //Schema validation error occurred
       return res.status(400).send("Round not deleted " + error.message);
     }
-    const status = await User.deleteOne(
+    const status = await User.updateOne(
       {
-        "round._id": req.body._id
+          "rounds._id" : req.body._id
+
+      },
+      {
+        $pull: {rounds: {_id: req.body._id}}
       }
       
     );
-    if (status.deletedCount != 1) {
+    if (status.modifiedCount != 1) {
       return res
         .status(404)
         .send("Round not deleted. Either no round with that id " + "exists, or no value in the round was changed.");

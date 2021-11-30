@@ -216,10 +216,10 @@ class App extends React.Component {
           });
   });*/
   const newRounds = [...this.state.userData.rounds];
-  alert(newRounds[id])
+
   const delRound = newRounds[id]
   const url = "/rounds/" + this.state.userData.accountData.id;
-  alert(id);
+
   let res = await fetch(url, {
     method: 'DELETE',
     headers: { "Content-Type": "application/json" },
@@ -240,7 +240,7 @@ class App extends React.Component {
       // ...this.state.userData,
       // rounds: newRounds,
     }*/
-    localStorage.removeItem(newRounds[id]);
+    localStorage.removeItem(delRound);
     //this.setState({ userData: newUserData });
   }
 
