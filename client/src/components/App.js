@@ -31,7 +31,8 @@ class App extends React.Component {
                     speedgolfData: {},
                     rounds: [],
                     roundCount: 0},
-                  authenticated: false                  
+                  authenticated: false,
+                  show: false                 
                   };
   }
 
@@ -172,53 +173,73 @@ class App extends React.Component {
                            speedgolfData: this.state.userData.speedgolfData,
                            rounds: newRounds};
       this.setState({userData: newUserData});
-      return("New round logged.");
+      return("New round logged.");  
     } else { 
       const resText = await res.text();
       return("New Round could not be logged. " + resText);
     }
   }
 
-  updateRound = (newRoundData) => {
-    const newRounds = [...this.state.userData.rounds];
-    let r;
-    for (r = 0; r < newRounds.length; ++r) {
-        if (newRounds[r].roundNum === newRoundData.roundNum) {
-            break;
-        }
+  //DONE
+  //Modified to update both the local and db
+  updateRound = async (newRoundData) => {
+    const url = "/rounds/" + this.state.userData.accountData.id;
+    let res = await fetch(url, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newRoundData),
+    });
+    if (res.status === 200) {
+      const newRounds = [...this.state.userData.rounds];
+      // let r;
+      // for (r = 0; r < newRounds.length; ++r) {
+      //   if (newRounds[r].roundNum === newRoundData.roundNum) {
+      //     break;
+      //   }
+      // }
+      //newRounds[r] = newRoundData;
+      const round = newRounds.find((r) => r.id === newRoundData.id);
+      const idx = newRounds.indexOf(round);
+      newRounds.splice(idx, 1, newRoundData);
+      const newUserData = {
+        accountData: this.state.userData.accountData,
+        identityData: this.state.userData.identityData,
+        speedgolfProfileData: this.state.userData.speedgolfProfileData,
+        rounds: newRounds,
+        roundCount: this.state.userData.roundCount
+        // ...this.state.userData,
+        // rounds: newRounds,
+      }
+      localStorage.setItem(newUserData.accountData.email, JSON.stringify(newUserData));
+      this.setState({ userData: newUserData });
     }
-    newRounds[r] = newRoundData;
-    const newUserData = {
-      accountData: this.state.userData.accountData,
-      identityData: this.state.userData.identityData,
-      speedgolfProfileData: this.state.userData.speedgolfProfileData,
-      rounds: newRounds, 
-      roundCount: this.state.userData.roundCount
-    }
-    localStorage.setItem(newUserData.accountData.email,JSON.stringify(newUserData));
-    this.setState({userData: newUserData}); 
-  }
+  };
 
   deleteRound = (id) => {
+    var mongoose_delete = require('mongoose-delete');
     const newRounds = [...this.state.userData.rounds];
     let r;
+    alert("goal id: "+id);
     for (r = 0; r < newRounds.length; ++r) {
-        if (newRounds[r].roundNum === this.state.deleteId) {
+        let myId = newRounds[r]._id;
+        if (r === id) {
+            alert('deleteround');
+            this.state.userData.deleteOne('_id', myId);
             break;
         }
     }
-    delete newRounds[r];
-    const newUserData = {
-      accountData: this.state.userData.accountData,
-      identityData: this.state.userData.identityData,
-      speedgolfProfileData: this.state.userData.speedgolfProfileData,
-      rounds: newRounds, 
-      roundCount: this.state.userData.roundCount
-    }
-    localStorage.setItem(newUserData.accountData.email,JSON.stringify(newUserData));
-    this.setState({userData: newUserData});
+    delete newRounds[r];    
   }
 
+  handleClose= () =>
+  {
+    this.setState({show: false})
+  }
+  
+  showModal= () =>
+  {
+    this.setState({show: true})
+  }
   render() {
     return (
       <>
@@ -252,6 +273,9 @@ class App extends React.Component {
                         addRound={this.addRound}
                         updateRound={this.updateRound}
                         deleteRound={this.deleteRound}
+                        show={this.state.show}
+                        showModal={this.showModal}
+                        handleClose={this.handleClose}
                         modalOpen={this.state.modalOpen}
                         toggleModalOpen={this.toggleModalOpen} 
                         menuOpen={this.state.menuOpen}

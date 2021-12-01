@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import logo from '../images/sslogo.png'
 import profilePic from '../images/DefaultProfilePic.jpg';
 import AppMode from './AppMode';
+import ProfileSettings from './ProfileSettings';
 
 class NavBar extends React.Component {
     
@@ -33,13 +34,13 @@ class NavBar extends React.Component {
                     aria-label="Open Rounds Search">
                     <FontAwesomeIcon icon="search" className="navbar-btn-icon"/>
                 </button>
-                <button id="profileBtn" type="button" 
-                  className="navbar-btn navbar-profile-btn" 
-                  aria-label="Account and Profile Settings"
-                  style={{backgroundImage: this.props.userData.identityData.profilePic === "" ? 
-                            `url(${profilePic})` : 
-                            `url(${this.props.userData.identityData.profilePic})`}}>
-                </button> 
+                <ProfileSettings
+                    mode={this.props.mode}
+                    profileOpen={this.props.profileOpen} 
+                    toggleProfileOpen={this.props.toggleProfileOpen} 
+                    toggleModalOpen={this.props.toggleModalOpen}
+                    userData={this.props.userData}
+                    />
               </div> : 
               <div className="navbar-right-items"></div>}
       </header>

@@ -3,7 +3,7 @@
 //The following code imports necessary dependencies and initializes
 //variables used in the server middleware.
 //////////////////////////////////////////////////////////////////////////
-//import path from 'path';
+import path from 'path';
 import { URL } from 'url';
 import express from 'express';
 import passportConfig from './passport/config.js';
@@ -16,8 +16,8 @@ const buildPath = (PORT === process.env.PORT) ?
   new URL('client/build/', import.meta.url).pathname :
   (new URL('client/build/', import.meta.url).pathname).substring(1);
 import mongoose from 'mongoose';
-//const connectStr = 'mongodb://localhost:27017/appdb'; //Local
-const connectStr = 'mongodb://' + process.env.MONGODB_USER + ':' + 
+// const connectStr = 'mongodb://localhost:3000/appdb'; //Local
+const connectStr = 'mongodb+srv://' + process.env.MONGODB_USER + ':' + 
                   process.env.MONGODB_PW + process.env.MONGODB_CSTRING; //Remote DB
 //////////////////////////////////////////////////////////////////////////
 //MONGOOSE SET-UP
@@ -38,7 +38,8 @@ mongoose.connect(connectStr, {useNewUrlParser: true, useUnifiedTopology: true})
 
 passportConfig(app); //Configure session and passport
 app
-  .use(express.static(buildPath))
+  .use(express.static(path.join(path.resolve(), "client", "build")))
+ //.use(express.static(buildPath))
   .use(express.json({limit: '20mb'}))
   .use(authRoute)
   .use(userRoute)
