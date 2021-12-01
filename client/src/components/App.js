@@ -184,8 +184,6 @@ class App extends React.Component {
   //Modified to update both the local and db
   updateRound = async (newRoundData) => {
     const url = "/rounds/" + this.state.userData.accountData.id;
-    console.log("URL: " + url);
-    console.log(newRoundData);
     let res = await fetch(url, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
