@@ -152,7 +152,7 @@ function RoundForm(props) {
         <div className="mb-3 centered">
           <label htmlFor="roundSGS">Speedgolf Score:
             <input name="SGS" className="form-control centered" type="text"
-              size="6" value={SGS} readOnly={true} />
+              size="6" value={state.SGS} readOnly={true} />
           </label>
         </div>
         <div className="mb-3 centered">
