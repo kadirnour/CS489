@@ -11,7 +11,6 @@ https://nimblewebdeveloper.com/blog/convert-react-class-to-function-component
 */
 
 function ModeTabs(props) {
-
     return (
     (props.mode !== AppMode.LOGIN && !props.modalOpen) ?
     <div id="modeTabs" 
@@ -23,8 +22,7 @@ function ModeTabs(props) {
                         (props.mode === AppMode.FEED ? " modetab-selected" : "")}
                     role="tab" tabIndex="0" aria-selected="true"
                     aria-controls="feedModeTab"
-                onClick={props.handleModeChange}
-                value={AppMode.FEED}>
+                onClick={(e) => props.setMode(AppMode.FEED)}>
             Feed
         </button>
         <button id="roundsMode" type="button" 
@@ -32,17 +30,15 @@ function ModeTabs(props) {
                 (props.mode === AppMode.ROUNDS ? " modetab-selected" : "") } 
             role="tab" tabIndex="-1" aria-selected="false" 
             aria-controls="roundsModeTab"
-                onClick={props.handleModeChange}
-                value={AppMode.ROUNDS}>
-                Rounds
+            onClick={(e) => props.setMode(AppMode.ROUNDS)}>
+            Rounds
         </button>
         <button id="coursesMode" type="button" 
             className={"modetab-btn" +  
                 (props.mode === AppMode.COURSES ? " modetab-selected" : "") } 
             role="tab" tabIndex="-1" aria-selected="false" 
             aria-controls="coursesModeTab"
-             onClick={props.handleModeChange}
-            value={AppMode.COURSES}>
+            onClick={(e) => props.setMode(AppMode.COURSES)}>
             Courses
         </button>
         <button id="buddiesMode" type="button" 
@@ -51,7 +47,7 @@ function ModeTabs(props) {
             role="tab" tabIndex="-1" aria-selected="false" 
             aria-controls="buddiesModeTab"
             onClick={props.handleModeChange}
-                value={AppMode.BUDDIES}>
+                value={(e) => props.setMode(AppMode.BUDDIES)}>
                 Buddies
         </button>
     </div> : null
