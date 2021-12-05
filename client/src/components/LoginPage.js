@@ -21,7 +21,9 @@ class LoginPage extends React.Component {
                       loginBtnIcon: "sign-in",
                       loginBtnLabel: "Log In",
                       githubIcon: ['fab','github'],
-                      githubLabel: "Sign in with GitHub"
+                      githubLabel: "Sign in with GitHub",
+                      googleIcon: ['fab', 'google'],
+                      googleLabel: "Sign in with Google"
                     };
     }
 
@@ -202,15 +204,21 @@ class LoginPage extends React.Component {
                     <button id="resetPasswordBtn" className="nav-link btn btn-link">Reset Password</button>
                 </li>
                 </ul>
-                <div className="centered">
-                <button type="button" className="btn btn-github"
-                  onClick={() => this.handleOAuthLoginClick("github")}>
-                  <FontAwesomeIcon icon={this.state.githubIcon} 
-                                   className={this.state.githubIcon == "spinner" ? "fa-spin" : ""}/>
-                  &nbsp;{this.state.githubLabel}
-                </button>
+                <div className="nav justify-content-center">
+                    <button type="button" className="nav-item btn btn-github"
+                    onClick={() => this.handleOAuthLoginClick("github")}>
+                    <FontAwesomeIcon icon={this.state.githubIcon} 
+                                    className={this.state.githubIcon == "spinner" ? "fa-spin" : ""}/>
+                    &nbsp;{this.state.githubLabel}
+                    </button>
+                    <button type="button" className="nav-item btn btn-google"
+                    onClick={() => this.handleOAuthLoginClick("google")}>
+                    <FontAwesomeIcon icon={this.state.googleIcon} 
+                                    className={this.state.googleIcon == "spinner" ? "fa-spin" : ""}/>
+                    &nbsp;{this.state.googleLabel}
+                    </button>
                 </div>
-            </div>  
+            </div>    
         )
     }
 }
