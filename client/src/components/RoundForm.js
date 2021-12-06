@@ -54,16 +54,16 @@ function RoundForm(props) {
     }
   }
     
-  //NOTE: currently code uses callback. Callback can get swapped with a componentDidUpdate
-  //NOTE componentDidUpdate can get swapped with a useEffect for hooks?
-  //FIX the handleSubmitCallback should only be called when needed?
+
+//NOTE: useEffect will be in App.js to be able to run the update of the information to the database
+//NOTE: see saveRound() function
   //https://reactjs.org/docs/react-component.html#setstate
   const handleSubmit = (event) => {
     event.preventDefault();
-    setState({btnIcon: "spinner", btnLabel: "Saving..."},handleSubmitCallback);
+    setState(prev => ({...prev, btnIcon: "spinner", btnLabel: "Saving..."}));
+    handleSubmitCallback();
   }
 
-  //FIX: using state variable here?
   const handleSubmitCallback = async () => {
     const newRound = { ...state};
     delete newRound.btnIcon;
