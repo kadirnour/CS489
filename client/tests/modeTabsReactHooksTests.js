@@ -1,6 +1,6 @@
 import { Selector } from 'testcafe';
 
-fixture `updateRoundsTests`
+fixture `modeTabsTests`
     .page `http://localhost:3000/`;
 
 test('updateRoundsTests', async t => {
