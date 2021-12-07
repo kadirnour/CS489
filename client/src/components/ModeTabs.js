@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
 import AppMode from './AppMode';
 
-
-/*TODO: Tasks to change from class to hooks
-https://www.digitalocean.com/community/tutorials/five-ways-to-convert-react-class-components-to-functional-components-with-react-hooks
-https://nimblewebdeveloper.com/blog/convert-react-class-to-function-component
-  1) Add useStates
-  2) Add handlers for states    
-  3) Connect useState variables to the "values" and "onChange" events in return
-*/
-
+/**
+ * ModeTabs():
+ * Renders the navigation tabs for the SpeedScore web app, changing the value of the mode the app is in.
+ * @param {props} the properties of the current state of the application.
+ */
 function ModeTabs(props) {
 
     const handleModeChange = e => {
