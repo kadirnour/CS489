@@ -1,6 +1,11 @@
 import React from 'react';
 import logo from '../images/sslogo2.png'
 
+/**
+ * Feed Page:
+ * Renders contents of the Feed page on the Feed Tab for SpeedScore web app
+ * Designed as a functional component.
+ */
 function FeedPage() {
     return (
         <div id="feedModeTab" className="mode-page" role="tabpanel"
