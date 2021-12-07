@@ -2,7 +2,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import RoundsMode  from './RoundsMode.js';
 
-
+/**
+ * RoundForm():
+ * Displays the round form for both adding a new round and modifying an existing round.
+ * Function allows changes to current information in the web application.
+ * @param {props} the properties of the current state the application is in.
+ */
 function RoundForm(props) {
   const [state, setState] = useState(() => {
     let today = new Date(Date.now() - new Date().getTimezoneOffset() * 60000);
@@ -57,7 +62,6 @@ function RoundForm(props) {
 
 //NOTE: useEffect will be in App.js to be able to run the update of the information to the database
 //NOTE: see saveRound() function
-  //https://reactjs.org/docs/react-component.html#setstate
   const handleSubmit = (event) => {
     event.preventDefault();
     setState(prev => ({...prev, btnIcon: "spinner", btnLabel: "Saving..."}));
