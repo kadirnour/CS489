@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext,useState, useEffect} from 'react';
 import { library } from "@fortawesome/fontawesome-svg-core"; 
 import { faWindowClose, faEdit, faCalendar, 
         faSpinner, faSignInAlt, faBars, faTimes, faSearch,
@@ -18,37 +18,37 @@ library.add(faWindowClose,faEdit, faCalendar,
             faSpinner, faSignInAlt, faBars, faTimes, faSearch,
             faSort, faTrash, faEye, faUserPlus, faGithub, faGoogle);
 
-class App extends React.Component {
+function App() {
 
-  constructor(props) {
-    super(props);
-    this.state = {mode: AppMode.LOGIN,
-                  menuOpen: false,
-                  modalOpen: false,
-                  userData: {
-                    accountData: {},
-                    identityData: {},
-                    speedgolfData: {},
-                    rounds: [],
-                    roundCount: 0},
-                  authenticated: false,
-                  show: false                 
-                  };
-  }
+  const [mode, setMode] = useState(AppMode.Login);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [userData, setUserData] = useState(
+    {
+      accountData: {},
+      identityData: {},
+      speedgolfData: {},
+      rounds: [],
+      roundCount: 0
+    });
+  const [authenticated, setAuthenticated] = useState(false);
+  const [show, setShow] = useState(false);
 
-  componentDidMount() {
-    document.addEventListener("click",this.handleClick, true);
-    if (!this.state.authenticated) { 
+
+  useEffect(() => {
+    logOut();
+    document.addEventListener("click",handleClick, true);
+    if (!authenticated) { 
       //Use /auth/test route to (re)-test authentication and obtain user data
       fetch("/auth/test")
         .then((response) => response.json())
         .then((obj) => {
           if (obj.isAuthenticated) {
-            this.logInUser(obj.user);
+            logInUser(obj.user);
           }
         })
     } 
-  }
+  },[])
   
 
   /*
@@ -66,9 +66,9 @@ class App extends React.Component {
    the if body and the event bubbles to the target. 
   */
   
-  handleClick = (e) => {
-    if (this.state.menuOpen && e.target.getAttribute("role") !== "menuitem") {
-      this.toggleMenuOpen();
+  const handleClick = (e) => {
+    if (menuOpen && e.target.getAttribute("role") !== "menuitem") {
+      toggleMenuOpen();
       e.stopPropagation();
     }
   }
@@ -76,44 +76,57 @@ class App extends React.Component {
   /*
    * Menu item functionality 
    */
-  logOut = () => {
-    this.setState({mode:AppMode.LOGIN,
-                   userData: {
-                    accountData: {},
-                    identityData: {},
-                    speedgolfData: {},
-                    rounds: [],
-                    },
-                   authenticated: false,
-                   menuOpen: false});
+  const logOut = () => {
+    // this.setState({mode:AppMode.LOGIN,
+    //                userData: {
+    //                 accountData: {},
+    //                 identityData: {},
+    //                 speedgolfData: {},
+    //                 rounds: [],
+    //                 },
+    //                authenticated: false,
+    //                menuOpen: false});
+    setMode(AppMode.LOGIN);
+    setUserData(
+      {
+        accountData: {},
+        identityData: {},
+        speedgolfData: {},
+        rounds: [],
+        }
+      );
+    setAuthenticated(false);
+    setMenuOpen(false);
   }
   
    //User interface state management methods
    
-  setMode = (newMode) => {
-    this.setState({mode: newMode});
+  // setMode = (newMode) => {
+  //   this.setState({mode: newMode});
+  // }
+
+  const toggleMenuOpen = () => {
+    //this.setState(prevState => ({menuOpen: !prevState.menuOpen}));
+    setMenuOpen(!menuOpen);
   }
 
-  toggleMenuOpen = () => {
-    this.setState(prevState => ({menuOpen: !prevState.menuOpen}));
-  }
-
-  toggleModalOpen = () => {
-    this.setState(prevState => ({dialogOpen: !prevState.dialogOpen}));
+  const toggleModalOpen = () => {
+    //this.setState(prevState => ({dialogOpen: !prevState.dialogOpen}));
+    setModalOpen(!modalOpen);
   }
 
   //Account Management methods
    
-  accountExists = async(email) => {
+  const accountExists = async(email) => {
     const res = await fetch("/user/" + email);
     return (res.status === 200);
   }
 
-  getAccountData = (email) => {
+  const getAccountData = (email) => {
     return JSON.parse(localStorage.getItem(email));
   }
 
-  authenticateUser = async(id, pw) => {
+  const authenticateUser = async(id, pw) => {
     const url = "/auth/login?username=" + id + 
       "&password=" + pw;
     const res = await fetch(url,{method: 'POST'});
@@ -124,13 +137,16 @@ class App extends React.Component {
     } 
   }
 
-  logInUser = (userObj) => {
-      this.setState({userData: userObj,
-                     mode: AppMode.FEED,
-                     authenticated: true});
+  const logInUser = (userObj) => {
+      // this.setState({userData: userObj,
+      //                mode: AppMode.FEED,
+      //                authenticated: true});
+      setUserData(userObj);
+      setMode(AppMode.FEED);
+      setAuthenticated(true);
   }
 
-  createAccount = async(data) => {
+  const createAccount = async(data) => {
     const url = '/users/' + data.accountData.id;
     const res = await fetch(url, {
       headers: {
@@ -147,15 +163,17 @@ class App extends React.Component {
     }
   }
 
-  updateUserData = (data) => {
+  const updateUserData = (data) => {
    localStorage.setItem(data.accountData.email,JSON.stringify(data));
-   this.setState({userData: data});
+   //this.setState({userData: data});
+   setUserData(data);
   }
 
   //Round Management methods
 
-  addRound = async(newRoundData) => {
-    const url = "/rounds/" + this.state.userData.accountData.id;
+  const addRound = async(newRoundData) => {
+    //const url = "/rounds/" + this.state.userData.accountData.id;
+    const url = "/rounds/" + userData.accountData.id;
     let res = await fetch(url, {
                   method: 'POST',
                   headers: {
@@ -166,13 +184,22 @@ class App extends React.Component {
                           body: JSON.stringify(newRoundData)
                 }); 
     if (res.status == 201) { 
-      const newRounds = [...this.state.userData.rounds];
+      // const newRounds = [...this.state.userData.rounds];
+      // newRounds.push(newRoundData);
+      // const newUserData = {accountData: this.state.userData.accountData,
+      //                      identityData: this.state.userData.identityData,
+      //                      speedgolfData: this.state.userData.speedgolfData,
+      //                      rounds: newRounds};
+      // this.setState({userData: newUserData});
+
+      const newRounds = [...userData.rounds];
       newRounds.push(newRoundData);
-      const newUserData = {accountData: this.state.userData.accountData,
-                           identityData: this.state.userData.identityData,
-                           speedgolfData: this.state.userData.speedgolfData,
+      const newUserData = {accountData: userData.accountData,
+                           identityData: userData.identityData,
+                           speedgolfData: userData.speedgolfData,
                            rounds: newRounds};
-      this.setState({userData: newUserData});
+      setUserData(newUserData);
+
       return("New round logged.");  
     } else { 
       const resText = await res.text();
@@ -182,15 +209,17 @@ class App extends React.Component {
 
   //DONE
   //Modified to update both the local and db
-  updateRound = async (newRoundData) => {
-    const url = "/rounds/" + this.state.userData.accountData.id;
+  const updateRound = async (newRoundData) => {
+    //const url = "/rounds/" + this.state.userData.accountData.id;
+    const url = "/rounds/" + userData.accountData.id;
     let res = await fetch(url, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newRoundData),
     });
     if (res.status === 200) {
-      const newRounds = [...this.state.userData.rounds];
+      //const newRounds = [...this.state.userData.rounds];
+      const newRounds = [...userData.rounds];
       // let r;
       // for (r = 0; r < newRounds.length; ++r) {
       //   if (newRounds[r].roundNum === newRoundData.roundNum) {
@@ -201,100 +230,115 @@ class App extends React.Component {
       const round = newRounds.find((r) => r.id === newRoundData.id);
       const idx = newRounds.indexOf(round);
       newRounds.splice(idx, 1, newRoundData);
+      // const newUserData = {
+      //   accountData: this.state.userData.accountData,
+      //   identityData: this.state.userData.identityData,
+      //   speedgolfProfileData: this.state.userData.speedgolfProfileData,
+      //   rounds: newRounds,
+      //   roundCount: this.state.userData.roundCount
+      //   // ...this.state.userData,
+      //   // rounds: newRounds,
+      // }
       const newUserData = {
-        accountData: this.state.userData.accountData,
-        identityData: this.state.userData.identityData,
-        speedgolfProfileData: this.state.userData.speedgolfProfileData,
+        accountData: userData.accountData,
+        identityData: userData.identityData,
+        speedgolfProfileData: userData.speedgolfProfileData,
         rounds: newRounds,
-        roundCount: this.state.userData.roundCount
+        roundCount: userData.roundCount
         // ...this.state.userData,
         // rounds: newRounds,
       }
       localStorage.setItem(newUserData.accountData.email, JSON.stringify(newUserData));
-      this.setState({ userData: newUserData });
+      //this.setState({ userData: newUserData });
+      setUserData(newUserData);
     }
   };
 
-  deleteRound = (id) => {
+  const deleteRound = (id) => {
     var mongoose_delete = require('mongoose-delete');
-    const newRounds = [...this.state.userData.rounds];
+    //const newRounds = [...this.state.userData.rounds];
+    const newRounds = [...userData.rounds];
     let r;
     alert("goal id: "+id);
     for (r = 0; r < newRounds.length; ++r) {
         let myId = newRounds[r]._id;
         if (r === id) {
             alert('deleteround');
-            this.state.userData.deleteOne('_id', myId);
+            //this.state.userData.deleteOne('_id', myId);
+            userData.deleteOne('_id', myId);
             break;
         }
     }
     delete newRounds[r];    
   }
 
-  handleClose= () =>
+  const handleClose= () =>
   {
-    this.setState({show: false})
+    //this.setState({show: false})
+    setShow(false);
   }
   
-  showModal= () =>
+  const showModal= () =>
   {
-    this.setState({show: true})
+    //this.setState({show: true})
+    setShow(true);
   }
-  render() {
+
+  //render() {
     return (
       <>
-        <NavBar mode={this.state.mode}
-                menuOpen={this.state.menuOpen}
-                toggleMenuOpen={this.toggleMenuOpen}
-                modalOpen={this.state.modalOpen}
-                toggleModalOpen={this.toggleModalOpen}
-                userData={this.state.userData}
-                updateUserData={this.updateUserData} /> 
-        <ModeTabs mode={this.state.mode}
-                  setMode={this.setMode} 
-                  menuOpen={this.state.menuOpen}
-                  modalOpen={this.state.modalOpen}/> 
-        {this.state.menuOpen  ? <SideMenu logOut={this.logOut}/> : null}
+        <NavBar mode={mode}
+                menuOpen={menuOpen}
+                toggleMenuOpen={toggleMenuOpen}
+                modalOpen={modalOpen}
+                toggleModalOpen={toggleModalOpen}
+                userData={userData}
+                updateUserData={updateUserData} /> 
+        <ModeTabs mode={mode}
+                  setMode={setMode} 
+                  menuOpen={menuOpen}
+                  modalOpen={modalOpen}/> 
+        {menuOpen  ? <SideMenu logOut={logOut}/> : null}
         {
           {LoginMode:
-            <LoginPage modalOpen={this.state.modalOpen}
-                       toggleModalOpen={this.toggleModalOpen} 
-                       logInUser={this.logInUser}
-                       createAccount={this.createAccount}
-                       accountExists={this.accountExists}
-                       authenticateUser={this.authenticateUser}/>, 
+            <LoginPage modalOpen={modalOpen}
+                       toggleModalOpen={toggleModalOpen} 
+                       logInUser={logInUser}
+                       createAccount={createAccount}
+                       accountExists={accountExists}
+                       authenticateUser={authenticateUser}/>, 
           FeedMode:
-            <FeedPage modalOpen={this.state.modalOpen}
-                      toggleModalOpen={this.toggleModalOpen} 
-                      menuOpen={this.state.menuOpen}
-                      userId={this.state.userId}/>,
+            <FeedPage modalOpen={modalOpen}
+                      toggleModalOpen={toggleModalOpen} 
+                      menuOpen={menuOpen}
+                      userId={1}/>,
           RoundsMode:
-            <RoundsPage rounds={this.state.userData.rounds}
-                        addRound={this.addRound}
-                        updateRound={this.updateRound}
-                        deleteRound={this.deleteRound}
-                        show={this.state.show}
-                        showModal={this.showModal}
-                        handleClose={this.handleClose}
-                        modalOpen={this.state.modalOpen}
-                        toggleModalOpen={this.toggleModalOpen} 
-                        menuOpen={this.state.menuOpen}
-                        userId={this.state.userId}/>,
+            <RoundsPage rounds={userData.rounds}
+                        addRound={addRound}
+                        updateRound={updateRound}
+                        deleteRound={deleteRound}
+                        show={show}
+                        showModal={showModal}
+                        handleClose={handleClose}
+                        modalOpen={modalOpen}
+                        toggleModalOpen={toggleModalOpen} 
+                        menuOpen={menuOpen}
+                        userId={1}/>,
           CoursesMode:
-            <CoursesPage modalOpen={this.state.modalOpen}
-                        toggleModalOpen={this.toggleModalOpen} 
-                        menuOpen={this.state.menuOpen}
-                        userId={this.state.userId}/>,
+            <CoursesPage modalOpen={modalOpen}
+                        toggleModalOpen={toggleModalOpen} 
+                        menuOpen={menuOpen}
+                        userId={1}/>,
           BuddiesMode:
-            <BuddiesPage modalOpen={this.state.modalOpen}
-                        toggleModalOpen={this.toggleModalOpen} 
-                        menuOpen={this.state.menuOpen}
-                        userId={this.state.userId}/>
-        }[this.state.mode]
+            <BuddiesPage modalOpen={modalOpen}
+                        toggleModalOpen={toggleModalOpen} 
+                        menuOpen={menuOpen}
+                        userId={1}/>
+        }[mode]
         }
       </>
     ); 
   }
 
-}
+//}
 export default App;
