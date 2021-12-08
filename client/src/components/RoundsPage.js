@@ -15,6 +15,8 @@ function RoundsPage(props){
 
    const SetMode = (newMode) => {
         setMode(newMode);
+        alert("in set mode")
+        props.toggleModalOpen()
     }
 
     const initiateEditRound = (val) => {
@@ -43,11 +45,13 @@ function RoundsPage(props){
                                 toggleModalOpen={props.toggleModalOpen}
                                 menuOpen={props.menuOpen} /> 
                     <FloatingButton
+                    
                         icon="calendar"
                         label={"Log Round"}
                         menuOpen={props.menuOpen}
-                        action={()=>setMode(RoundsMode.LOGROUND),
-                                props.toggleModalOpen} />
+                        action={()=>SetMode(RoundsMode.LOGROUND)}
+
+                           />
             </>
             );
                         }
