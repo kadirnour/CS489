@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import AppMode from './AppMode.js'
 import CreateAccount from './CreateAccount.js';
 
@@ -27,7 +27,7 @@ function LoginPage(props) {
             const[ googleLabel, setGoogleLabel] = useState("Sign in with Google");
                 
 
-    const componentDidUpdate = () => {
+    useEffect(() => {
         if (showCreateAccount) {
             return;
         }
@@ -44,7 +44,7 @@ function LoginPage(props) {
             email.current.value = "";
             emailError.current.focus();
         } 
-    } 
+    } )
 
     const handleSubmit = (e) => {
         e.preventDefault();
