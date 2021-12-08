@@ -11,7 +11,7 @@ function RoundsPage(props){
             const [mode, setMode] = useState(RoundsMode.ROUNDSTABLE)
             const [deleteId, setDeleteId] = useState(-1)
             const [editId, setEditId]= useState(-1)        
-    
+            console.log(mode)
 
    const SetMode = (newMode) => {
         setMode(newMode);
@@ -28,9 +28,9 @@ function RoundsPage(props){
         alert("Confirm delete goes here!");
     }
 
-    const run = () => {
-        switch (mode) {
-        case RoundsMode.ROUNDSTABLE: 
+    if(mode == RoundsMode.ROUNDSTABLE)
+    {
+        console.log(mode)
             return (
                 <>
                     <RoundsTable rounds={props.rounds}
@@ -47,10 +47,13 @@ function RoundsPage(props){
                         label={"Log Round"}
                         menuOpen={props.menuOpen}
                         action={()=>setMode(RoundsMode.LOGROUND),
-                                this.props.toggleModalOpen} />
+                                props.toggleModalOpen} />
             </>
             );
-        case RoundsMode.LOGROUND:
+                        }
+        if(mode == RoundsMode.LOGROUND)
+        {
+            console.log(mode)
             return (
             <RoundForm mode={mode}
                     roundData={null}
@@ -58,7 +61,9 @@ function RoundsPage(props){
                     setMode={SetMode}
                     toggleModalOpen={props.toggleModalOpen} />
             );
-        case RoundsMode.EDITROUND:
+        }
+        if(mode == RoundsMode.EDITROUND){
+            console.log(mode)
             return (
             <RoundForm mode={mode}
                 editId = {editId}
@@ -67,82 +72,11 @@ function RoundsPage(props){
                 setMode={SetMode}
                 toggleModalOpen={props.toggleModalOpen} />
                 );
-            default:
+            }
+            else{
+                console.log(mode)
                 return null;
-        }
-    }  
-    run();
-}
-
-/*
-function RoundsPage (props){
-    const [state, setState] = useState(() => {
- 
-    });
-    const [mode, setMode] = useState('');
-    const [deleteId, setDeleteId] = useState('');
-    const [editId, setEditId] = useState('');
-
-    const initiateEditRound = (val) => {
-        setEditId({val,
-                       mode: RoundsMode.EDITROUND}, 
-                       props.toggleModalOpen);
-    }
-    
-    const initiateDeleteRound = (val) => {
-        setDeleteId({val},
-        () => alert("Confirm delete goes here!"));
-    }
-
-       const run = () => {
-           alert("in run");
-        switch(state.mode) {
-        case RoundsMode.ROUNDSTABLE: 
-            return (
-                <>
-                    <RoundsTable rounds={props.rounds}
-                                initiateDeleteRound={initiateDeleteRound}
-                                deleteRound={props.deleteRound} 
-                                deleteId={deleteId}
-                                initiateEditRound= {initiateEditRound}
-                                updateRound= {props.updateRound}
-                                setMode={setMode} 
-                                toggleModalOpen={props.toggleModalOpen}
-                                menuOpen={props.menuOpen} /> 
-                    <FloatingButton
-                        icon="calendar"
-                        label={"Log Round"}
-                        menuOpen={props.menuOpen}
-                        action={()=>setState({mode: RoundsMode.LOGROUND},
-                                    props.toggleModalOpen)} />
-            </>
-            );
-        case RoundsMode.LOGROUND:
-            return (
-            <RoundForm mode={mode}
-                    roundData={null}
-                    saveRound={props.addRound}
-                    setMode={setMode}
-                    toggleModalOpen={props.toggleModalOpen} />
-            );
-        case RoundsMode.EDITROUND:
-            return (
-            <RoundForm mode={mode}
-                editId = {editId}
-                roundData={props.rounds[editId]}
-                saveRound={props.updateRound}
-                setMode={setMode}
-                toggleModalOpen={props.toggleModalOpen} />
-                );
-            default:
-                alert("null");
-                return null;
-        }
-       }
-       alert("before run");
-       run();
-}  
-*/
-
-
+            }
+        
+    } 
 export default RoundsPage;
