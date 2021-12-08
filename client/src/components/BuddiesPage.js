@@ -4,7 +4,7 @@ import logo from '../images/sslogo2.png'
 class BuddiesPage extends React.Component {
 
     render() {
-        return (
+        return ( 
             <div id="buddiesModeTab" className="mode-page" role="tabpanel"
                  aria-label="Buddies Tab" tabIndex="0">
                 <h1 className="mode-page-header">Buddies</h1>
