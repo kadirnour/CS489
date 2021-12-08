@@ -15,7 +15,6 @@ function RoundsPage(props){
 
    const SetMode = (newMode) => {
         setMode(newMode);
-        alert("in set mode")
         props.toggleModalOpen()
     }
 
