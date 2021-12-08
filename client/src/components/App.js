@@ -36,6 +36,7 @@ function App() {
 
 
   useEffect(() => {
+    logOut();
     document.addEventListener("click",handleClick, true);
     if (!authenticated) { 
       //Use /auth/test route to (re)-test authentication and obtain user data
@@ -310,7 +311,7 @@ function App() {
             <FeedPage modalOpen={modalOpen}
                       toggleModalOpen={toggleModalOpen} 
                       menuOpen={menuOpen}
-                      userId={userId}/>,
+                      userId={1}/>,
           RoundsMode:
             <RoundsPage rounds={userData.rounds}
                         addRound={addRound}
@@ -322,17 +323,17 @@ function App() {
                         modalOpen={modalOpen}
                         toggleModalOpen={toggleModalOpen} 
                         menuOpen={menuOpen}
-                        userId={userId}/>,
+                        userId={1}/>,
           CoursesMode:
             <CoursesPage modalOpen={modalOpen}
                         toggleModalOpen={toggleModalOpen} 
                         menuOpen={menuOpen}
-                        userId={userId}/>,
+                        userId={1}/>,
           BuddiesMode:
             <BuddiesPage modalOpen={modalOpen}
                         toggleModalOpen={toggleModalOpen} 
                         menuOpen={menuOpen}
-                        userId={userId}/>
+                        userId={1}/>
         }[mode]
         }
       </>
