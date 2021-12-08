@@ -1,9 +1,8 @@
 import React from 'react';
 import logo from '../images/sslogo2.png'
 
-class CoursesPage extends React.Component {
+function CoursesPage(props){
 
-    render() {
         return (
             <div id="coursesModeTab" className="mode-page" role="tabpanel"
                  aria-label="Courses Tab" tabIndex="0">
@@ -14,6 +13,6 @@ class CoursesPage extends React.Component {
             </div>
         );
     }   
-}
+
 
 export default CoursesPage;

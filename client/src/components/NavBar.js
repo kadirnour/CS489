@@ -1,31 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import logo from '../images/sslogo.png'
 import profilePic from '../images/DefaultProfilePic.jpg';
 import AppMode from './AppMode';
 import ProfileSettings from './ProfileSettings';
 
-class NavBar extends React.Component {
+function NavBar(props) {
     
-    render() {
+    
        return (
         <header className="navbar">  
         <a id="sLink" className="skip-link" tabIndex="0">
          Skip to content</a>
-         {this.props.mode != AppMode.LOGIN && !this.props.modalOpen ?
+         {props.mode != AppMode.LOGIN && !props.modalOpen ?
          <button id="menuBtn" type="button" className="navbar-btn" 
             title="Menu" aria-controls="sideMenu" 
             aria-label="Actions" aria-haspopup="true" 
-            aria-expanded={this.props.menuOpen ? "true" : "false"}
-            onClick={this.props.toggleMenuOpen}>
+            aria-expanded={props.menuOpen ? "true" : "false"}
+            onClick={props.toggleMenuOpen}>
             <FontAwesomeIcon 
-              icon={this.props.menuOpen ? "times" : "bars"}
+              icon={props.menuOpen ? "times" : "bars"}
               className="navbar-btn-icon"/>
           </button> : null }
           <img src={logo} className="navbar-app-icon" 
             alt="SpeedScore logo" />
            <h1 id="appName" className="navbar-title">SpeedScore</h1> 
-           {this.props.mode != AppMode.LOGIN && !this.props.modalOpen ?
+           {props.mode != AppMode.LOGIN && !props.modalOpen ?
              <div className="navbar-right-items">
                 <input id="searchBox" className="form-control hidden" 
                 aria-label="Search Rounds" size="30"
@@ -35,17 +35,17 @@ class NavBar extends React.Component {
                     <FontAwesomeIcon icon="search" className="navbar-btn-icon"/>
                 </button>
                 <ProfileSettings
-                    mode={this.props.mode}
-                    profileOpen={this.props.profileOpen} 
-                    toggleProfileOpen={this.props.toggleProfileOpen} 
-                    toggleModalOpen={this.props.toggleModalOpen}
-                    userData={this.props.userData}
+                    mode={props.mode}
+                    profileOpen={props.profileOpen} 
+                    toggleProfileOpen={props.toggleProfileOpen} 
+                    toggleModalOpen={props.toggleModalOpen}
+                    userData={props.userData}
                     />
               </div> : 
               <div className="navbar-right-items"></div>}
       </header>
     ); 
   }
-}
+
 
 export default NavBar;
