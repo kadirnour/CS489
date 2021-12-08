@@ -1,9 +1,8 @@
 import React from 'react';
 import logo from '../images/sslogo2.png'
 
-class BuddiesPage extends React.Component {
+function BuddiesPage() {
 
-    render() {
         return (
             <div id="buddiesModeTab" className="mode-page" role="tabpanel"
                  aria-label="Buddies Tab" tabIndex="0">
@@ -13,7 +12,6 @@ class BuddiesPage extends React.Component {
                      src={logo} alt="SpeedScore logo"></img>
             </div>
         );
-    }   
 }
 
 export default BuddiesPage;
