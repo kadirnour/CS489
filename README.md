@@ -201,31 +201,77 @@ You can access our team's deployed app at [this Heroku site](https://anime-is-re
   </thead> 
   <tbody>
     <tr>
-      <td><a href="https://github.com/issue">Issue #</a></td><td><a href="https://github.com/PR">PR #</a></td><td>5</td><td>3</td><td>1</td><td>1</td><td>0</td><td>0</td><td>100</td><td></td>
+      <td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/34">Issue #34</a></td><td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/pull/78">PR #78</a></td><td>5</td><td>0</td><td>5</td><td>0</td><td>0</td><td>0</td><td>100</td><td></td>
     </tr>
     <tr>
-     <td><a href="https://github.com/issue">Issue #</a></td><td><a href="https://github.com/PR">PR #</a></td><td>3</td><td>0</td><td>0</td><td>0</td><td>0.8</td><td>0.4</td><td>40</td><td>Updated database schema. Updated server routes. Did not implement UI.</td>
+      <td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/28">Issue #28</a></td><td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/pull/74">PR #74</a></td><td>3</td><td>3</td><td>0</td><td>0</td><td>0</td><td>0</td><td>100</td><td></td>
     </tr>
-    <tr><td colspan="2" align="right"><b>Totals:</b></td><td><b>8</b></td><td><b>3</b></td><td><b>1</b></td><td><b>1</b></td><td><b>0.8</b></td><td><b>0.4</b></td><td colspan="2"></td>
+    <tr>
+      <td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/26">Issue #26</a></td><td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/pull/76">PR #76</a></td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>100</td><td></td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/24">Issue #24</a></td><td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/pull/75">PR #75</a></td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>100</td><td></td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/32">Issue #32</a></td><td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/pull/67">PR #67</a></td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>100</td><td></td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/30">Issue #30</a></td><td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/pull/71">PR #71</a></td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>100</td><td></td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/33">Issue #33</a></td><td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/pull/73">PR #73</a></td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>100</td><td></td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/29">Issue #29</a></td><td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/pull/70">PR #70</a></td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>100</td><td></td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/25">Issue #25</a></td><td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/pull/68">PR #68</a></td><td>3</td><td>0</td><td>0</td><td>3</td><td>0</td><td>0</td><td>100</td><td></td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/27">Issue #27</a></td><td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/pull/69">PR #69</a></td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>100</td><td></td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/22">Issue #22</a></td><td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/pull/65">PR #65</a></td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>100</td><td></td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/31">Issue #31</a></td><td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/pull/77">PR #77</a></td><td>3</td><td>0</td><td>0</td><td>0</td><td>0</td><td>3</td><td>100</td><td></td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/23">Issue #23</a></td><td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/pull/66">PR #66</a></td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>100</td><td></td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/21">Issue #21</a></td><td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/pull/72">PR #72</a></td><td>5</td><td>0</td><td>0</td><td>0</td><td>5</td><td>0</td><td>100</td><td></td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/41">Issue #41</a></td><td><a></a></td><td>4</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>100</td><td></td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/44">Issue #44</a></td><td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/pull/80">PR #80</a></td><td>7</td><td>1</td><td>3</td><td>1</td><td>1</td><td>1</td><td>100</td><td></td>
+    </tr>
+    <tr><td colspan="2" align="right"><b>Totals:</b></td><td><b>40</b></td><td><b>8</b></td><td><b>9</b></td><td><b>8</b></td><td><b>8</b></td><td><b>7</b></td><td colspan="2"></td>
     </tr>
   </tbody>
 </table>
 
 #### Context Statements
-| Team Member | Context Statement |
-|-------------|-------------------|
-|TM1| <*Optional but encouraged*: Brief statement explaining your contribution to this milestone> |
-|TM2| <*Optional but encouraged*: Brief statement explaining your contribution to this milestone> |
-|TM3| <*Optional but encouraged*: Brief statement explaining your contribution to this milestone> |
-|TM4| <*Optional but encouraged*: Brief statement explaining your contribution to this milestone> |
-|TM5| <*Optional but encouraged*: Brief statement explaining your contribution to this milestone> |
+| Team Member   | Context Statement                                        |
+|---------------|----------------------------------------------------------|
+|Kevin Hermanson| <*updated the login page, navbar, roundpage,and coursepage using react hooks>                |
+|Matthew Molitor| <*updated the app component to implement react hooks>                   |
+|Zachary Penn   | <*updated buddiespage using react hooks, and wrote a blog post describing the key differences between class based and hooks-based implementation in react >      |
+|Ayleah Hill    | <*updated feedpage, floatingbutton, modetabs, and round form to use react hooks>                |
+|Kadir Nour     | <*updated sidemenu, create account, and roundstable to implement react hooks> |
 
 ### Testing
 
 |Issue | Test File | Feature Tested | Results Summary | 
 |------|-----------|----------------|-----------------|
-|[Issue #](https://github.com/issue)| [Google.js](https://www.github.com/)|Google Authentication| [3/3 tests passed](https://yoursite.com/animated.gif) | [
-|[Issue #](https://github.com/issue)| [routes.js](https://www.github.com/)|PUT and DELETE routes for rounds | [15/15 tests passed](https://yoursite.com/animated.gif) |
+|[Issue #30](https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/30)| [feedPageReactHooksTests.js](https://github.com/wsu-cpts489-fa21/tp-anime-is-real/blob/main/client/tests/feedPageReactHooksTests.js)|feed page implementation with hooks| [1/1 tests passed](https://github.com/wsu-cpts489-fa21/tp-anime-is-real/blob/main/client/test_recordings/FeedPageReactHooks.gif) |
+|[Issue #33](https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/33)| [buddiesPageReactHooksTests.js](https://github.com/wsu-cpts489-fa21/tp-anime-is-real/blob/main/client/tests/buddiesPageReactHooksTests.js)|buddies page implementation with hooks| [1/1 tests passed](https://github.com/wsu-cpts489-fa21/tp-anime-is-real/blob/main/client/test_recordings/buddies-page-react-hook-test.mp4) | [
+|[Issue #31](https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/31)| [createAccountTests.js](https://github.com/wsu-cpts489-fa21/tp-anime-is-real/blob/main/client/tests/createAccountTests.js)|creating a new user account in hooks | [1/1 tests passed](https://github.com/wsu-cpts489-fa21/tp-anime-is-real/blob/main/client/test_recordings/createAccountTests.gif) |
+|[Issue #29](https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/29)| [floatingButtonReactHooksTests.js](https://github.com/wsu-cpts489-fa21/tp-anime-is-real/blob/main/client/tests/floatingButtonReactHooksTests.js)|floating button implementation with hooks | [1/1 tests passed](https://github.com/wsu-cpts489-fa21/tp-anime-is-real/blob/main/client/test_recordings/floatingButtonReactHooks.gif) |
+|[Issue #27](https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/27)| [modeTabsReactHooksTests.js](https://github.com/wsu-cpts489-fa21/tp-anime-is-real/blob/main/client/tests/modeTabsReactHooksTests.js)|mode tab implementation with hooks| [1/1 tests passed](https://github.com/wsu-cpts489-fa21/tp-anime-is-real/blob/main/client/test_recordings/modeTabsReactHooks.gif) |
+|[Issue #24](https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/24)| [roundsFormReactHookTests.js](https://github.com/wsu-cpts489-fa21/tp-anime-is-real/blob/main/client/tests/roundsFormReactHookTests.js)|rounds form implementation with hooks | [1/1 tests passed](https://github.com/wsu-cpts489-fa21/tp-anime-is-real/blob/main/client/test_recordings/roundsFormReactHooks.gif) |
   
 ### Communication
  
@@ -241,12 +287,27 @@ You can access our team's deployed app at [this Heroku site](https://anime-is-re
   </thead> 
   <tbody>
     <tr>
-      <td>11/9/21</td><td>5</td><td>2</td><td>1</td><td>1</td><td>1</td><td>0</td>
+      <td>12/1/21</td><td>4</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td>
     </tr>
     <tr>
-     <td>11/12/21</td><td>4</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td>
+     <td>12/3/21</td><td>2</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td>
     </tr>
-    <tr><td align="right"><b>Totals:</b></td><td><b>9</b></td><td><b>3</b></td><td><b>2</b></td><td><b>1</b></td><td><b>1</b></td><td><b>1</b></td>
+     <td>12/4/21</td><td>3</td><td>0</td><td>0</td><td>0</td><td>2</td><td>1</td>
+    </tr>
+    <tr>
+     <td>12/6/21</td><td>4</td><td>1</td><td>0</td><td>2</td><td>1</td><td>0</td>
+    </tr>
+    <tr>
+     <td>12/7/21</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td>
+    </tr>
+    <tr>
+    <tr>
+     <td>12/8/21</td><td>52</td><td>4</td><td>0</td><td>12</td><td>19</td><td>17</td>
+    </tr>
+    <tr>
+     <td>12/10/21</td><td>4</td><td>2</td><td>1</td><td>0</td><td>1</td><td>0</td>
+    </tr>
+    <tr><td align="right"><b>Totals:</b></td><td><b>70</b></td><td><b>12</b></td><td><b>1</b></td><td><b>16</b></td><td><b>24</b></td><td><b>19</b></td>
     </tr>
   </tbody>
 </table>
@@ -263,12 +324,15 @@ You can access our team's deployed app at [this Heroku site](https://anime-is-re
   </thead> 
   <tbody>
     <tr>
-      <td>11/9/21</td><td>17</td><td>&check;</td><td>&check;</td><td></td><td>&check;</td><td>&check;</td>
+      <td>12/3/21</td><td>10</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td>
+    </tr>
+    <tr>
+      <td>12/8/21</td><td>19</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td>
     </tr>
      <tr>
-      <td>11/12/21</td><td>31</td><td>&check;</td><td>&check;</td><td></td><td></td><td>&check;</td>
+      <td>12/10/21</td><td>31</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td>
     </tr>
-    <tr><td align="right"><b>Totals:</b></td><td><b>48</b></td><td><b>2</b></td><td><b>2</b></td><td><b>0</b></td><td><b>1</b></td><td><b>2</b></td>
+    <tr><td align="right"><b>Totals:</b></td><td><b>60</b></td><td><b>3</b></td><td><b>3</b></td><td><b>3</b></td><td><b>3</b></td><td><b>3</b></td>
     </tr>
   </tbody>
 </table>
@@ -280,17 +344,11 @@ You can access our team's deployed app at [this Heroku site](https://anime-is-re
       <th colspan="2"></th><th colspan="5">In attendance?</th><th></th>
     </tr> 
     <tr>
-      <th>Date</th><th>Duration (min)</th><th>TM1</th><th>TM2</th><th>TM3</th><th>TM4</th><th>TM5</th><th>Notes</th>
+      <th>Date</th><th>Duration (min)</th><th>Kevin H.</th><th>Matt M.</th><th>Zach P.</th><th>Ayleah H.</th><th>Kadir N.</th>
     </tr>
   </thead> 
   <tbody>
-    <tr>
-      <td>11/10/21</td><td>45</td><td>&check;</td><td>&check;</td><td></td><td>&check;</td><td>&check;</td><td>We met in CUB conference room</td>
-    </tr>
-     <tr>
-      <td>11/14/21</td><td>20</td><td>&check;</td><td>&check;</td><td></td><td></td><td>&check;</td><td>We met at Starbucks for coffee</td>
-    </tr>
-    <tr><td align="right"><b>Totals:</b></td><td><b>65</b></td><td><b>2</b></td><td><b>2</b></td><td><b>0</b></td><td><b>1</b></td><td><b>2</b></td><td></td>
+    <tr><td align="right"><b>Totals:</b></td><td><b>0</b></td><td><b>0</b></td><td><b>0</b></td><td><b>0</b></td><td><b>0</b></td><td><b>0</b></td><td></td>
     </tr>
   </tbody>
 </table>
@@ -298,30 +356,30 @@ You can access our team's deployed app at [this Heroku site](https://anime-is-re
 #### Context Statements
 | Team Member | Context Statement |
 |-------------|-------------------|
-|TM1| <*Optional but encouraged*: Brief statement explaining your communication to this milestone> |
-|TM2| <*Optional but encouraged*: Brief statement explaining your communication to this milestone> |
-|TM3| <*Optional but encouraged*: Brief statement explaining your communication to this milestone> |
-|TM4| <*Optional but encouraged*: Brief statement explaining your communication to this milestone> |
-|TM5| <*Optional but encouraged*: Brief statement explaining your communication to this milestone> |
+|Kevin Hermanson| <*Communication was much better, and we have scheduled meetings that everyone attended, however, there was even more in person communication that went unrecorded with Matthew Molitor>|
+|Matthew Molitor| <*I exclusively communicated via text messages this sprint to my own detriment. I do not have notifications turned on for slack. I tend to ask and answer questions to group members directly rather than in a group chat, or even in person..>|
+|Zachary Penn   | <*my portion of the profile button was deleted when it was merged for this milestone, this went unnoticed until the demonstration, but was fixed soon after>|
+|Ayleah Hill    | <*For the demonstration, we had several merge conflicts that did not go noticed until we presented>|
+|Kadir Nour     | <*I finished my tasks as well as helped others with problems created due to merge conflicts>|
 
 ### Retrospective
 
-[Link to Recording](https://wsu.zoom.us/recording)
+[Link to Recording](https://files.slack.com/files-tmb/T02BD34SQDT-F02PV1KBT46-27fd57ab74/video1245639240.mp4)
 
 #### What went well
-  - Item 1
-  - Item 2
-  - Item x
+  - Progress: Everyone finished all of their assigned tasks before the due date of this milestone
+  - Progress: For this milestone, each team member completed progress throughout the course of the project rather than everything being done at the last minute
+  - Communication: most team members were able to attend all meetings, and our communication was primarily done through one channel
+  - Task delegation: during our meeting at the beginning of the sprint, each task was delegated to a team member for the react hook epic. We were able to have each member work on a different portion of this epic to be able to complete it in a single milestone.
   
  #### What we'd like to improve
-  - Item 1
-  - Item 2
-  - Item x
+  - Communication: Although we communicated primarily through the slack channel, the total communication this milestone was sparse.
+  - Pull requests: We did not clear pull requests in a timely manner, creating a backlog that we had to go through all at once. 
   
 #### Changes we plan to implement in next milestone period
-  - Item 1
-  - Item 2
-  - Item x
+  - Communication: schedule a meeting ahead of time for a video call/chat in slack to make sure we are on the same page mid-milestone
+  - Communication/Notifications: Turn on slack notifications for each team member
+  - Communication: when a pull request is made, communicate through slack that is needs to be cleared
   
 ## Milestone 2 (Due 12/10)
 
