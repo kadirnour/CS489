@@ -24,6 +24,7 @@ function App() {
   const [mode, setMode] = useState(AppMode.Login);
   const [menuOpen, setMenuOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [userData, setUserData] = useState(
     {
@@ -317,7 +318,9 @@ function App() {
                 modalOpen={modalOpen}
                 toggleModalOpen={toggleModalOpen}
                 userData={userData}
-                updateUserData={updateUserData} /> 
+                updateUserData={updateUserData}
+                profileOpen={profileOpen}
+                toggleProfileOpen={toggleProfileOpen}/> 
         <ModeTabs mode={mode}
                 setMode={setMode} 
                 menuOpen={menuOpen}
@@ -333,7 +336,7 @@ function App() {
                 updateAccount={updateAccount}
                 />
         {menuOpen  ? <SideMenu logOut={logOut}/> : null}
-        {
+        {!profileOpen ?
           {LoginMode:
             <LoginPage modalOpen={modalOpen}
                        toggleModalOpen={toggleModalOpen} 
@@ -369,7 +372,7 @@ function App() {
                         menuOpen={menuOpen}
                         userId={1}/>
         }[mode]
-        }
+         : <div></div>}
       </>
     ); 
   }
