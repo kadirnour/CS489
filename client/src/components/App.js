@@ -13,6 +13,7 @@ import CoursesPage from './CoursesPage.js';
 import BuddiesPage from './BuddiesPage.js';
 import SideMenu from './SideMenu.js';
 import AppMode from './AppMode.js';
+import ProfileDialog from './ProfileDialog.js';
 
 library.add(faWindowClose,faEdit, faCalendar, 
             faSpinner, faSignInAlt, faBars, faTimes, faSearch,
@@ -23,6 +24,7 @@ function App() {
   const [mode, setMode] = useState(AppMode.Login);
   const [menuOpen, setMenuOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
   const [userData, setUserData] = useState(
     {
       accountData: {},
@@ -115,6 +117,10 @@ function App() {
     setModalOpen(!modalOpen);
   }
 
+  const toggleProfileOpen = () => {
+    setProfileOpen(!profileOpen);
+  }
+
   //Account Management methods
    
   const accountExists = async(email) => {
@@ -160,6 +166,24 @@ function App() {
     } else { 
         const resText = await res.text();
         return("New account was not created. " + resText);
+    }
+  }
+
+  const updateAccount = async(data) => {
+    const url = '/users/' + data.accountData.id;
+    const res = await fetch(url, {
+      headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+        method: 'PUT',
+        body: JSON.stringify(data)}); 
+    if (res.status == 201 || res.status == 200) { 
+        //this.setState({userData: data});
+        return("Account updated with email " + data.accountData.id);
+    } else { 
+        const resText = await res.text();
+        return("Account was not updated. " + resText);
     }
   }
 
@@ -295,9 +319,19 @@ function App() {
                 userData={userData}
                 updateUserData={updateUserData} /> 
         <ModeTabs mode={mode}
-                  setMode={setMode} 
-                  menuOpen={menuOpen}
-                  modalOpen={modalOpen}/> 
+                setMode={setMode} 
+                menuOpen={menuOpen}
+                modalOpen={modalOpen}/>
+        <ProfileDialog mode={mode}
+                userData={userData}
+                menuOpen={menuOpen}
+                toggleMenuOpen={toggleMenuOpen}
+                modalOpen={modalOpen}
+                toggleModalOpen={toggleModalOpen}
+                profileOpen={profileOpen}
+                toggleProfileOpen={toggleProfileOpen}
+                updateAccount={updateAccount}
+                />
         {menuOpen  ? <SideMenu logOut={logOut}/> : null}
         {
           {LoginMode:
