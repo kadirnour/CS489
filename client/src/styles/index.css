@@ -123,13 +123,6 @@ button::-moz-focus-inner {
   width: 38px;  
 }
 
-/*big red button for testing purposes
-*/
-.big-btn {
-  height: 999px;
-  width: 999px; 
-  color:#ff0f00;
-}
 /* navbar-title styles the navbar's title text (the name of the app). 
  It should be text color in a large font.
 */
@@ -281,6 +274,33 @@ button::-moz-focus-inner {
   cursor: pointer;
 }
 
+.mode-page-btn-green {
+  display: inline;
+  font-size: 36px;
+  width: 30%;
+  padding:30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  color: var(--text-color);
+  background-color: green;
+  cursor: pointer;
+}
+
+.mode-page-btn-gray {
+  display: inline;
+  font-size: 36px;
+  width: 30%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  color: var(--text-color);
+  background-color: gray;
+  cursor: pointer;
+}
+
 /*************************************************************************
 * CSS CLASSES FOR FLOATING ACTION BUTTON
 *************************************************************************/
@@ -421,5 +441,13 @@ button::-moz-focus-inner {
   left: 50%;
   margin-right: -50%;
   transform: translate(-50%, -50%)
+}
 
+.round-page-btn-container-live {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin: auto;
+  width: 80%;  
+  gap: 10%;
 }
