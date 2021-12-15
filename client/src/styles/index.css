@@ -122,6 +122,14 @@ button::-moz-focus-inner {
   height: 38px;
   width: 38px;  
 }
+
+/*big red button for testing purposes
+*/
+.big-btn {
+  height: 999px;
+  width: 999px; 
+  color:#ff0f00;
+}
 /* navbar-title styles the navbar's title text (the name of the app). 
  It should be text color in a large font.
 */
