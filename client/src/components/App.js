@@ -1,6 +1,6 @@
 import React, {useContext,useState, useEffect} from 'react';
 import { library } from "@fortawesome/fontawesome-svg-core"; 
-import { faWindowClose, faEdit, faCalendar, 
+import { faWindowClose, faEdit, faCalendar, faClock, faClipboardCheck,
         faSpinner, faSignInAlt, faBars, faTimes, faSearch,
         faSort, faTrash, faEye, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faGoogle} from '@fortawesome/free-brands-svg-icons';
@@ -15,7 +15,7 @@ import SideMenu from './SideMenu.js';
 import AppMode from './AppMode.js';
 import ProfileDialog from './ProfileDialog.js';
 
-library.add(faWindowClose,faEdit, faCalendar, 
+library.add(faWindowClose,faEdit, faCalendar, faClock, faClipboardCheck,
             faSpinner, faSignInAlt, faBars, faTimes, faSearch,
             faSort, faTrash, faEye, faUserPlus, faGithub, faGoogle);
 

@@ -17,25 +17,33 @@ function RoundForm(props) {
   return (
     <>
     { (!liveRound && !prevRound) ?
-      <div className="mode-page-btn-container">
-      <button type="button"
-        className="big-btn"
-        onClick={() => {
-          console.log('live round');
-          setLiveRound(true);
-        }}>
-          <span>live round</span>
+    <div id="roundsModeDialog"
+      className="mode-page action-dialog" role="dialog"
+      aria-modal="true" aria-labelledby="roundFormHeader" tabIndex="0">
+      <h1 id="roundFormHeader" className="mode-page-header">
+        {props.mode === RoundsMode.LOGROUND ? "Log Round" : "Edit Round"}
+      </h1>
+      <div className="round-form-btn-container">
+        <button type="button"
+          className="mode-page-btn action-dialog action-button"
+          onClick={() => {
+            console.log('live round');
+            setLiveRound(true);
+          }}>
+            <FontAwesomeIcon icon="clock" />
+            <span>&nbsp;Track Live (GUI)</span>
         </button>
         <button type="button"
-        className="big-btn"
-        onClick={() => {
-          console.log('log manually');
-          setPrevRound(true);
-        }}>
-          <span>log round manually</span>
+          className="mode-page-btn action-dialog action-button"
+          onClick={() => {
+            console.log('log manually');
+            setPrevRound(true);
+          }}>
+            <FontAwesomeIcon icon="clipboard-check" />
+            <span>&nbsp;Log Previously Played</span>
         </button>
+      </div> 
     </div>:
-
     <div>
       {liveRound &&   <div>
                         <LiveRoundForm mode={props.mode}
