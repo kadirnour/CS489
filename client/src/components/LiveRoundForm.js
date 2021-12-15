@@ -34,7 +34,8 @@ function LiveRoundForm(props) {
   const [currentTime, setCurrentTime] = useState("99:99:99");
   const [teeTime, setTeeTime] = useState("8:22");
   const [par, setPar] = useState(5);
-  const [strokes, setStrokes] = useState(5);
+  const [strokes, setStrokes] = useState(1);
+  const [holeNumber, setHoleNumber] = useState(1);
 
   const computeSGS = (strokes, min, sec) => {
     return (Number(strokes) + Number(min))
@@ -87,7 +88,14 @@ function LiveRoundForm(props) {
     else
         setStrokes(strokes -1);
   }
-    
+  
+  const completeHole = () => {
+    if(holeNumber >=18)
+        alert('completed course')
+    else
+        setHoleNumber(holeNumber+1);
+  }
+
   return (
     <>
     {!holeOpen?
@@ -131,7 +139,7 @@ function LiveRoundForm(props) {
     className="mode-page action-dialog" role="dialog"
     aria-modal="true" aria-labelledby="roundFormHeader" tabIndex="0">
     <h1 id="roundFormHeader" className="mode-page-header">
-      Hole N
+      Hole {holeNumber}
     </h1>
     <h2 className="mb-3 centered">
         <span> 
@@ -178,7 +186,7 @@ function LiveRoundForm(props) {
       <button type="button"
         className="mode-page-btn-green action-dialog action-button"
         onClick={() => {
-          setHoleOpen(false);
+          completeHole();
         }}>
           <span>Save &amp; Next Hole</span>
           <FontAwesomeIcon icon = "angle-right"></FontAwesomeIcon>

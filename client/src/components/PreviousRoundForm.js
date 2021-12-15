@@ -30,7 +30,6 @@ function PreviousRoundForm(props) {
           btnLabel: "Update Round",
         };
   });
-
   const computeSGS = (strokes, min, sec) => {
     return (Number(strokes) + Number(min))
       + ":" + sec;
