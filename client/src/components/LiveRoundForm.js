@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import RoundsMode  from './RoundsMode.js';
 
 /**
@@ -30,13 +30,21 @@ function LiveRoundForm(props) {
           btnLabel: "Update Round",
         };
   });
+  const current = new Date();
   const [holeOpen,setHoleOpen] = useState(false);
-  const [currentTime, setCurrentTime] = useState("99:99:99");
+  const [startTime, setStartTime] = useState();
+  const [currentTime, setCurrentTime] = useState({hr:0,min:0,sec:0});
+  const [elapsedTime, setElapsedTime] = useState({hr:0,min:0,sec:0});
   const [teeTime, setTeeTime] = useState("8:22");
+  const [isActive, setIsActive] = useState(true);
   const [par, setPar] = useState(5);
   const [strokes, setStrokes] = useState(1);
   const [holeNumber, setHoleNumber] = useState(1);
+  const [start, setStart] = useState(false);
 
+
+  const [cumulativeTime, setCumulativeTime] = useState([])
+  
   const computeSGS = (strokes, min, sec) => {
     return (Number(strokes) + Number(min))
       + ":" + sec;
@@ -82,6 +90,37 @@ function LiveRoundForm(props) {
     props.toggleModalOpen();
     props.setMode(RoundsMode.ROUNDSTABLE);
   }
+
+  useEffect(() => {
+    let interval = null;
+    if (isActive) {
+      interval = setInterval(() => {
+        setCurrentTime({hr:current.getHours(), min:current.getMinutes(), sec:current.getSeconds()});
+      }, 1000);
+    } else if (!isActive && currentTime !== 0) {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [currentTime]);
+
+  // useEffect(() => {
+  //   let interval = null;
+  //   let difference = startTime - curr;
+  //   if (isActive) {
+  //     interval = setInterval(() => {
+  //       setElapsedTime({hr:difference.getHours, min:difference.getMinutes(), sec:difference.getSeconds()});
+  //     }, 1000);
+  //   } else if (!isActive && elapsedTime !== 0) {
+  //     clearInterval(interval);
+  //   }
+  //   return () => clearInterval(interval);
+  // }, [elapsedTime]);
+
+  const openHole = () => {
+    if(start)
+      setHoleOpen(true);
+  }
+
   const minusStroke = () => {
     if(strokes <=1)
         setStrokes(1);
@@ -94,6 +133,14 @@ function LiveRoundForm(props) {
         alert('completed course')
     else
         setHoleNumber(holeNumber+1);
+  }
+
+  const copyStartTime = () => {
+    
+    setStartTime(currentTime);
+    setStart(true);
+    //alert('set new start time'+ startTime.getMinutes +':' + startTime.getMinutes + ':'+ startTime.getSeconds)
+    //setStartTime({hr:current.getHours(), min:current.getMinutes(), sec: current.getSeconds()})
   }
 
   return (
@@ -115,20 +162,17 @@ function LiveRoundForm(props) {
       <div className="round-page-btn-container-live">
         <button type="button"
           className="mode-page-btn action-dialog action-button"
-          onClick={() => {
-            console.log('log manually');
-            props.setMode(RoundsMode.ROUNDSTABLE);
-            props.toggleModalOpen();
+          onClick={() => {        
+            copyStartTime()
           }}>
-            <span>Start Time: {currentTime}</span>
+            <span>Start Time: {currentTime.hr + ':' + currentTime.min + ':' + currentTime.sec}</span>
             <br></br>
             <span className = "fm-legend-sm">Click again to update</span>
         </button>
         <button type="button"
           className="mode-page-btn-green action-dialog action-button"
           onClick={() => {
-            console.log('log manually');
-            setHoleOpen(true)
+            openHole()
           }}>
             <span>Go to Scoring</span>
             <FontAwesomeIcon icon = "angle-right"></FontAwesomeIcon>
@@ -153,7 +197,7 @@ function LiveRoundForm(props) {
           props.setMode(RoundsMode.ROUNDSTABLE);
           props.toggleModalOpen();
         }}>
-          <span>{currentTime}</span>
+          <span>{currentTime.hr - startTime.hr + ':'+currentTime.hr- startTime.min + ':' +currentTime.hr- startTime.sec}</span>
           <br></br>
           <span className = "fm-legend-sm">Click When in Hole</span>
       </button>
