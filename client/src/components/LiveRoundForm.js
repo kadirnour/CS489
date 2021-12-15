@@ -31,6 +31,10 @@ function LiveRoundForm(props) {
         };
   });
   const [holeOpen,setHoleOpen] = useState(false);
+  const [currentTime, setCurrentTime] = useState("99:99:99");
+  const [teeTime, setTeeTime] = useState("8:22");
+  const [par, setPar] = useState(5);
+  const [strokes, setStrokes] = useState(5);
 
   const computeSGS = (strokes, min, sec) => {
     return (Number(strokes) + Number(min))
@@ -77,7 +81,12 @@ function LiveRoundForm(props) {
     props.toggleModalOpen();
     props.setMode(RoundsMode.ROUNDSTABLE);
   }
-
+  const minusStroke = () => {
+    if(strokes <=1)
+        setStrokes(1);
+    else
+        setStrokes(strokes -1);
+  }
     
   return (
     <>
@@ -91,7 +100,7 @@ function LiveRoundForm(props) {
       <div className="mb-3 centered">
           <span> 
             18 Open Division<br></br>
-            Tee time: 8:22<br></br>
+            Tee time: {teeTime}<br></br>
             Playing holes 1 through 18<br></br>
           </span>
       </div>
@@ -103,7 +112,7 @@ function LiveRoundForm(props) {
             props.setMode(RoundsMode.ROUNDSTABLE);
             props.toggleModalOpen();
           }}>
-            <span>Start Time: 99:99:99</span>
+            <span>Start Time: {currentTime}</span>
             <br></br>
             <span className = "fm-legend-sm">Click again to update</span>
         </button>
@@ -136,7 +145,7 @@ function LiveRoundForm(props) {
           props.setMode(RoundsMode.ROUNDSTABLE);
           props.toggleModalOpen();
         }}>
-          <span>99:99:99</span>
+          <span>{currentTime}</span>
           <br></br>
           <span className = "fm-legend-sm">Click When in Hole</span>
       </button>
@@ -147,20 +156,22 @@ function LiveRoundForm(props) {
         className="mode-page-btn-gray action-dialog action-button"
         onClick={() => {
           console.log('log manually');
-          props.setMode(RoundsMode.ROUNDSTABLE);
-          props.toggleModalOpen();
+          setStrokes(strokes+1);
         }}>
           <span>+</span>
       </button>
+        
+      {strokes == par?
       <h1 id="roundFormHeader" className="mode-page-header">
-        5 (Par)
-      </h1>
+        {par + "(par)"}
+      </h1> :
+      <h1 id="roundFormHeader" className="mode-page-header">
+        {strokes}
+      </h1>}
       <button type="button"
         className="mode-page-btn-gray action-dialog action-button"
-        onClick={() => {
-          console.log('log manually');
-          props.setMode(RoundsMode.ROUNDSTABLE);
-          props.toggleModalOpen();
+        onClick={() => {  
+          minusStroke();
         }}>
           <span>-</span>
       </button>
