@@ -40,7 +40,7 @@ function RoundForm(props) {
             setPrevRound(true);
           }}>
             <FontAwesomeIcon icon="clipboard-check" />
-            <span>&nbsp;Log Previously Played</span>
+            <span>Log Previously Played</span>
         </button>
       </div> 
     </div>:
