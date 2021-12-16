@@ -45,33 +45,33 @@ function LiveRoundForm(props) {
 
   const [cumulativeTime, setCumulativeTime] = useState([])
   
-  const computeSGS = (strokes, min, sec) => {
-    return (Number(strokes) + Number(min))
-      + ":" + sec;
-  }
+  // const computeSGS = (strokes, min, sec) => {
+  //   return (Number(strokes) + Number(min))
+  //     + ":" + sec;
+  // }
      
-  const handleDataChange = (event) => {
-    const name = event.target.name;
-    if (name === "seconds") {
-      const newSec = (event.target.value.length < 2 ? "0" +
-        event.target.value : event.target.value);
-      const newSGS = computeSGS(state.strokes, state.minutes,
-        newSec);
-      setState( prev => ({...prev, seconds: newSec, SGS: newSGS}));
-  } else if (name === "strokes") {
-      const newStrokes = event.target.value;
-      const newSGS = computeSGS(newStrokes, state.minutes,
-        state.seconds);
-      setState(prev => ({...prev, strokes: newStrokes, SGS: newSGS }));
-    } else if (name === "minutes") {
-      const newMin = event.target.value;
-      const newSGS = computeSGS(state.strokes, newMin,
-        state.seconds);
-      setState(prev => ({...prev, minutes: newMin, SGS: newSGS }));
-    } else {
-      setState(prev => ({ ...prev, [name]: event.target.value }));
-    }
-  }
+  // const handleDataChange = (event) => {
+  //   const name = event.target.name;
+  //   if (name === "seconds") {
+  //     const newSec = (event.target.value.length < 2 ? "0" +
+  //       event.target.value : event.target.value);
+  //     const newSGS = computeSGS(state.strokes, state.minutes,
+  //       newSec);
+  //     setState( prev => ({...prev, seconds: newSec, SGS: newSGS}));
+  // } else if (name === "strokes") {
+  //     const newStrokes = event.target.value;
+  //     const newSGS = computeSGS(newStrokes, state.minutes,
+  //       state.seconds);
+  //     setState(prev => ({...prev, strokes: newStrokes, SGS: newSGS }));
+  //   } else if (name === "minutes") {
+  //     const newMin = event.target.value;
+  //     const newSGS = computeSGS(state.strokes, newMin,
+  //       state.seconds);
+  //     setState(prev => ({...prev, minutes: newMin, SGS: newSGS }));
+  //   } else {
+  //     setState(prev => ({ ...prev, [name]: event.target.value }));
+  //   }
+  // }
     
 
 //NOTE: useEffect will be in App.js to be able to run the update of the information to the database
@@ -103,19 +103,6 @@ function LiveRoundForm(props) {
     return () => clearInterval(interval);
   }, [currentTime]);
 
-  // useEffect(() => {
-  //   let interval = null;
-  //   let difference = startTime - curr;
-  //   if (isActive) {
-  //     interval = setInterval(() => {
-  //       setElapsedTime({hr:difference.getHours, min:difference.getMinutes(), sec:difference.getSeconds()});
-  //     }, 1000);
-  //   } else if (!isActive && elapsedTime !== 0) {
-  //     clearInterval(interval);
-  //   }
-  //   return () => clearInterval(interval);
-  // }, [elapsedTime]);
-
   const openHole = () => {
     if(start)
       setHoleOpen(true);
@@ -132,15 +119,16 @@ function LiveRoundForm(props) {
     if(holeNumber >=18)
         alert('completed course')
     else
+        setCumulativeTime(cumulativeTime.push({hr:elapsedTime.hr, min: elapsedTime.min, sec: elapsedTime.sec}));
+        setStart(current);
         setHoleNumber(holeNumber+1);
+        setStrokes(par);
   }
 
   const copyStartTime = () => {
     
     setStartTime(current);
     setStart(true);
-    //alert('set new start time'+ startTime.getMinutes +':' + startTime.getMinutes + ':'+ startTime.getSeconds)
-    //setStartTime({hr:current.getHours(), min:current.getMinutes(), sec: current.getSeconds()})
   }
 
   const computeElapsedTime = () => {
@@ -149,16 +137,41 @@ function LiveRoundForm(props) {
 
   useEffect(() => {
     let interval = null;
+    let changeHour = 0
+    let changeMin = 0 ;
+    let changeSec = 0 ;
     //setStartTime(current);
     if (isActive) {
       interval = setInterval(() => {
-        setElapsedTime({hr:(current.getHours() - startTime.getHours()), min:(current.getMinutes() - startTime.getMinutes()), sec:(current.getSeconds() - startTime.getSeconds())});
+        changeHour = current.getHours() - startTime.getHours();
+        changeMin = current.getMinutes() - startTime.getMinutes();
+        changeSec = current.getSeconds() - startTime.getSeconds();
+
+        if (changeHour < 0)
+        {
+          changeHour = 60 - Math.abs(changeHour);
+        }
+        if (changeMin < 0)
+        {
+          changeMin = 60 - Math.abs(changeMin);
+          changeHour--;
+        }
+        if (changeSec < 0)
+        {
+          changeSec = 60 - Math.abs(changeSec);
+          changeMin--;
+        }
+
+
+        setElapsedTime({hr:(changeHour), min:(changeMin), sec:(changeSec)});
       }, 1000);
     } else if (!isActive && currentTime !== 0) {
       clearInterval(interval);
     }
     return () => clearInterval(interval);
   }, [elapsedTime]);
+
+
   return (
     <>
     {!holeOpen?
