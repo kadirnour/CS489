@@ -8,14 +8,18 @@ function RoundsTable(props){
     for (let r = 0; r < props.rounds.length; ++r) {
       table.push(
         <tr key={r}>
-          <td><button id="roundPicBtn" type="button" 
-                className="navbar-btn navbar-profile-btn"
-                style={{backgroundImage: props.rounds[r].imageUrl === "" ? 
-                            `url(./images/sslogo.png)` : 
-                            `url(${props.rounds[r].imageUrl})`}}
-                >
-            </button></td>
-          <td>{props.rounds[r].date.substring(0,10)}</td>
+          <td>
+            <div style={{display: 'flex'}}>
+              {props.rounds[r].imageUrl !== "" ? 
+              <button id="roundPicBtn" type="button" 
+                  className="navbar-btn navbar-profile-btn"
+                  style={{backgroundImage: `url(${props.rounds[r].imageUrl})`}}
+                  >
+              </button>
+            : null}
+            {props.rounds[r].date.substring(0,10)}
+            </div>
+          </td>
           <td>{props.rounds[r].course}</td>
           <td>{(Number(props.rounds[r].strokes) + 
               Number(props.rounds[r].minutes)) +
@@ -56,9 +60,11 @@ function RoundsTable(props){
         <tr>
         <th scope="col" role="columnheader" 
             className="sortable-header cell-align-middle" 
-            aria-sort="none">
+            aria-sort="none"
+            >
             <button className="btn bg-transparent table-sort-btn" 
-                    aria-label="Sort ascending by date">
+                    aria-label="Sort ascending by date"
+                    >
               <FontAwesomeIcon icon="sort" /> 
             </button>Date
         </th>
