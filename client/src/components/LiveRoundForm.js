@@ -171,6 +171,11 @@ function LiveRoundForm(props) {
     return () => clearInterval(interval);
   }, [elapsedTime]);
 
+  function pad(num, size) {
+    num = num.toString();
+    while (num.length < size) num = "0" + num;
+    return num;
+}
 
   return (
     <>
@@ -194,7 +199,7 @@ function LiveRoundForm(props) {
           onClick={() => {        
             copyStartTime()
           }}>
-            <span>Start Time: {currentTime.hr + ':' + currentTime.min + ':' + currentTime.sec}</span>
+            <span>Start Time: {pad(currentTime.hr,2) + ':' + pad(currentTime.min,2) + ':' + pad(currentTime.sec,2)}</span>
             <br></br>
             <span className = "fm-legend-sm">Click again to update</span>
         </button>
@@ -227,7 +232,7 @@ function LiveRoundForm(props) {
           props.setMode(RoundsMode.ROUNDSTABLE);
           props.toggleModalOpen();
         }}>
-          <span>{elapsedTime.hr + ':'+ elapsedTime.min + ':' +elapsedTime.sec}</span>
+          <span>{pad(elapsedTime.hr,2) + ':'+ pad(elapsedTime.min,2) + ':' + pad(elapsedTime.sec,2)}</span>
           <br></br>
           <span className = "fm-legend-sm">Click When in Hole</span>
       </button>
