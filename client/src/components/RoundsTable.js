@@ -10,10 +10,10 @@ function RoundsTable(props){
         <tr key={r}>
           <td>
             <div style={{display: 'flex'}}>
-              {props.rounds[r].imageUrl !== "" ? 
+              {props.rounds[r].images[0].imageUrl !== "" ? 
               <button id="roundPicBtn" type="button" 
                   className="navbar-btn navbar-profile-btn"
-                  style={{backgroundImage: `url(${props.rounds[r].imageUrl})`}}
+                  style={{backgroundImage: `url(${props.rounds[r].images[0].imageUrl})`}}
                   >
               </button>
             : null}

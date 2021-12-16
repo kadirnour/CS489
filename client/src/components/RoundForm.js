@@ -22,8 +22,7 @@ function RoundForm(props) {
           seconds: "00",
           SGS: "140:00",
           notes: "",
-          imageName: "",
-          imageUrl: "",
+          images: [{imageName:"",imageUrl:""}],
           btnIcon: "calendar",
           btnLabel: "Log Round",
         } : {
@@ -92,11 +91,12 @@ function RoundForm(props) {
       if (res.status === 200) {
         const json = await res.json();
         console.log("upload response json", json);
-        setState((prev) => ({ ...prev, imageName: json.imageName, imageUrl: json.imageUrl }));
+        setState((prev) => ({ ...prev, images: json.images }));   // ADD IMAGE INSTEAD OF REPLACING
+        //setState((prev) => ({ ...prev, images: {imageName: json.imageName, imageUrl: json.imageUrl} }));
         // setMessage("File Uploaded");
       }
     } catch (err) {
-      setState((prev) => ({ ...prev, imageName: "", imageUrl: "" }));
+      setState((prev) => ({ ...prev, images: {imageName: "", imageUrl: ""} }));
       // if (err.response.status === 500) {
       //   setMessage("There was a problem with the server");
       // } else {
@@ -104,6 +104,31 @@ function RoundForm(props) {
       // }
     }
   };
+
+  const displayImages = () => {
+    const allImages = [];
+    for (let r = 0; r < state.images.length; ++r) {
+      console.log(state.images[r]);
+      allImages.push(
+        <tr key={r}>
+          <td>
+            <label htmlFor="roundImage">
+              Image:
+              {state.images[r].imageName !== "" ? (
+                <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
+                  <span style={{ marginRight: "25px" }}>{state.images[r].imageName} </span>
+                  <img style={{ height: "200px" }} src={state.images[r].imageUrl} alt="" />
+                </div>
+              ) : (
+                <div className="form-text">No image has been uploaded for this round.</div>
+              )}
+            </label>
+          </td>
+        </tr>
+      );
+    }
+    return allImages;
+  }
 
     
   return (
@@ -196,17 +221,15 @@ function RoundForm(props) {
           </label>
         </div>
         <div className="mb-3 centered">
-          <label htmlFor="roundImage">
-            Image:
-            {state.imageName !== "" ? (
-              <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
-                <span style={{ marginRight: "25px" }}>{state.imageName} </span>
-                <img style={{ height: "200px" }} src={state.imageUrl} alt="" />
-              </div>
-            ) : (
-              <div className="form-text">No image has been uploaded for this round.</div>
-            )}
-          </label>
+        <table id="imagesTable" className="table table-hover caption-top">
+          <tbody>
+            {state.images === null || state.images.length === 0 ? 
+              <tr>
+                <td colSpan={state.images.length} scope="rowgroup"><i></i></td>
+              </tr> : displayImages()
+            }
+          </tbody>
+        </table>
         </div>
         <div className="mb-3 centered">
           <label htmlFor="roundNotes">Notes:

@@ -20,7 +20,7 @@ uploadRoute.post("/upload", function (req, res) {
       return res.status(500).send({ message: err.message });
     } else {
       console.log(`uploaded ${file.name} okay`);
-      return res.status(200).send({ imageName: file.name, imageUrl: `/static/media/${file.name}` });
+      return res.status(200).send({ images: [{imageName: file.name, imageUrl: `/static/media/${file.name}`}] });
     }
   });
 });
