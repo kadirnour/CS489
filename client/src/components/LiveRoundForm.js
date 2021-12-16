@@ -137,12 +137,27 @@ function LiveRoundForm(props) {
 
   const copyStartTime = () => {
     
-    setStartTime(currentTime);
+    setStartTime(current);
     setStart(true);
     //alert('set new start time'+ startTime.getMinutes +':' + startTime.getMinutes + ':'+ startTime.getSeconds)
     //setStartTime({hr:current.getHours(), min:current.getMinutes(), sec: current.getSeconds()})
   }
 
+  const computeElapsedTime = () => {
+    setElapsedTime({hr:currentTime.hr-startTime.hr,min:currentTime.min-startTime.min,sec:currentTime.sec-startTime.sec })
+  }
+
+  useEffect(() => {
+    let interval = null;
+    if (isActive) {
+      interval = setInterval(() => {
+        setElapsedTime({hr:(startTime - current).getHours(), min:(startTime - current).getMinutes(), sec:(startTime - current).getSeconds()});
+      }, 1000);
+    } else if (!isActive && currentTime !== 0) {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [elapsedTime]);
   return (
     <>
     {!holeOpen?
@@ -194,10 +209,11 @@ function LiveRoundForm(props) {
       <button type="button"
         className="mode-page-btn action-dialog action-button"
         onClick={() => {
+          computeElapsedTime()
           props.setMode(RoundsMode.ROUNDSTABLE);
           props.toggleModalOpen();
         }}>
-          <span>{currentTime.hr - startTime.hr + ':'+currentTime.hr- startTime.min + ':' +currentTime.hr- startTime.sec}</span>
+          <span>{elapsedTime.hr + ':'+ elapsedTime.min + ':' +elapsedTime.sec}</span>
           <br></br>
           <span className = "fm-legend-sm">Click When in Hole</span>
       </button>
