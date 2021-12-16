@@ -32,7 +32,7 @@ function LiveRoundForm(props) {
   });
   const current = new Date();
   const [holeOpen,setHoleOpen] = useState(false);
-  const [startTime, setStartTime] = useState();
+  const [startTime, setStartTime] = useState(current);
   const [currentTime, setCurrentTime] = useState({hr:0,min:0,sec:0});
   const [elapsedTime, setElapsedTime] = useState({hr:0,min:0,sec:0});
   const [teeTime, setTeeTime] = useState("8:22");
@@ -149,9 +149,10 @@ function LiveRoundForm(props) {
 
   useEffect(() => {
     let interval = null;
+    //setStartTime(current);
     if (isActive) {
       interval = setInterval(() => {
-        setElapsedTime({hr:(startTime - current).getHours(), min:(startTime - current).getMinutes(), sec:(startTime - current).getSeconds()});
+        setElapsedTime({hr:(current.getHours() - startTime.getHours()), min:(current.getMinutes() - startTime.getMinutes()), sec:(current.getSeconds() - startTime.getSeconds())});
       }, 1000);
     } else if (!isActive && currentTime !== 0) {
       clearInterval(interval);
