@@ -8,6 +8,13 @@ function RoundsTable(props){
     for (let r = 0; r < props.rounds.length; ++r) {
       table.push(
         <tr key={r}>
+          <td><button id="roundPicBtn" type="button" 
+                className="navbar-btn navbar-profile-btn"
+                style={{backgroundImage: props.rounds[r].imageUrl === "" ? 
+                            `url(./images/sslogo.png)` : 
+                            `url(${props.rounds[r].imageUrl})`}}
+                >
+            </button></td>
           <td>{props.rounds[r].date.substring(0,10)}</td>
           <td>{props.rounds[r].course}</td>
           <td>{(Number(props.rounds[r].strokes) + 
