@@ -38,7 +38,7 @@ function LiveRoundForm(props) {
   const [teeTime, setTeeTime] = useState("8:22");
   const [isActive, setIsActive] = useState(true);
   const [par, setPar] = useState(5);
-  const [strokes, setStrokes] = useState(1);
+  const [strokes, setStrokes] = useState(par);
   const [holeNumber, setHoleNumber] = useState(1);
   const [start, setStart] = useState(false);
 
