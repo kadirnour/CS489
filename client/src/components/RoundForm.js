@@ -13,7 +13,7 @@ function RoundForm(props) {
     let today = new Date(Date.now() - new Date().getTimezoneOffset() * 60000);
     return props.mode === RoundsMode.LOGROUND
       ? {
-          date: today.toISOString().substr(0, 10),
+          date: today.toISOString().slice(0, 10),
           course: "",
           type: "practice",
           holes: "18",
@@ -22,6 +22,8 @@ function RoundForm(props) {
           seconds: "00",
           SGS: "140:00",
           notes: "",
+          imageName: "",
+          imageUrl: "",
           btnIcon: "calendar",
           btnLabel: "Log Round",
         } : {
@@ -30,6 +32,7 @@ function RoundForm(props) {
           btnLabel: "Update Round",
         };
   });
+  const [file, setFile] = useState();
 
   const computeSGS = (strokes, min, sec) => {
     return (Number(strokes) + Number(min))
@@ -77,6 +80,31 @@ function RoundForm(props) {
     props.setMode(RoundsMode.ROUNDSTABLE);
   }
 
+  const handleFileUploadSubmit = async (e) => {
+    e.preventDefault();
+    const data = new FormData();
+    data.append("file", file);
+    try {
+      const res = await fetch("/upload", {
+        method: "POST",
+        body: data,
+      });
+      if (res.status === 200) {
+        const json = await res.json();
+        console.log("upload response json", json);
+        setState((prev) => ({ ...prev, imageName: json.imageName, imageUrl: json.imageUrl }));
+        // setMessage("File Uploaded");
+      }
+    } catch (err) {
+      setState((prev) => ({ ...prev, imageName: "", imageUrl: "" }));
+      // if (err.response.status === 500) {
+      //   setMessage("There was a problem with the server");
+      // } else {
+      //   setMessage(err.response.data.message);
+      // }
+    }
+  };
+
     
   return (
     <div id="roundsModeDialog"
@@ -85,6 +113,14 @@ function RoundForm(props) {
       <h1 id="roundFormHeader" className="mode-page-header">
         {props.mode === RoundsMode.LOGROUND ? "Log Round" : "Edit Round"}
       </h1>
+      <form onSubmit={handleFileUploadSubmit}>
+        <div className="mt-4 mb-3 centered">
+          <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
+            <input type="file" accept="image/*" onChange={(e) => setFile(e.target.files[0])} />
+            <input type="submit" value="Upload File" className="btn btn-primary mx-3" />
+          </div>
+        </div>
+      </form>
       <form id="logRoundForm"
         onSubmit={handleSubmit} noValidate>
         <div className="mb-3 centered">
@@ -112,7 +148,7 @@ function RoundForm(props) {
         </div>
         <div className="mb-3 centered">
           <label htmlFor="roundType">Type:
-            <select id="roundType" name="type" id="roundType" className="form-control centered"
+            <select id="roundType" name="type"className="form-control centered"
               value={state.type} onChange={handleDataChange}>
               <option value="practice">Practice</option>
               <option value="tournament">Tournament</option>
@@ -157,6 +193,19 @@ function RoundForm(props) {
           <label htmlFor="roundSGS">Speedgolf Score:
             <input name="SGS" className="form-control centered" type="text"
               size="6" value={state.SGS} readOnly={true} />
+          </label>
+        </div>
+        <div className="mb-3 centered">
+          <label htmlFor="roundImage">
+            Image:
+            {state.imageName !== "" ? (
+              <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
+                <span style={{ marginRight: "25px" }}>{state.imageName} </span>
+                <img style={{ height: "200px" }} src={state.imageUrl} alt="" />
+              </div>
+            ) : (
+              <div className="form-text">No image has been uploaded for this round.</div>
+            )}
           </label>
         </div>
         <div className="mb-3 centered">
