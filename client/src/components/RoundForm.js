@@ -68,6 +68,7 @@ function RoundForm(props) {
     event.preventDefault();
     setState(prev => ({...prev, btnIcon: "spinner", btnLabel: "Saving..."}));
     handleSubmitCallback();
+    alert('oops')
   }
 
   const handleSubmitCallback = async () => {
