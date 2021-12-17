@@ -491,29 +491,30 @@ You can access our team's deployed app at [this Heroku site](https://anime-is-re
 </table>
 
 #### Context Statements
-| Team Member | Context Statement |
-|-------------|-------------------|
-|TM1| <*Optional but encouraged*: Brief statement explaining your communication to this milestone> |
-|TM2| <*Optional but encouraged*: Brief statement explaining your communication to this milestone> |
-|TM3| <*Optional but encouraged*: Brief statement explaining your communication to this milestone> |
-|TM4| <*Optional but encouraged*: Brief statement explaining your communication to this milestone> |
-|TM5| <*Optional but encouraged*: Brief statement explaining your communication to this milestone> |
+| Team Member   | Context Statement |
+|---------------|-------------------|
+|Kevin Hermanson| <*Due to erratic finals schedule, no meetings were officially schedules - resulting in the dicciculty collaborating in this sprint>|
+|Matthew Molitor| <*Diving issues among multiple team members made it difficult to track precise story points completed for each task>|
+|Zachary Penn   | <*>|
+|Ayleah Hill    | <*I was not able to start working on this project until the end of thanksgiving break, this limited my ability to make progress by the end of the initial deadline. As a result of having us having mixed communication it was hard for us to keep track of everything>|
+|Kadir Nour     | <*Was not initially added to the group text chat that was set up for a different project>|
 
 ### Retrospective
 
 [Link to Recording](https://wsu.zoom.us/recording)
 
 #### What went well
-  - Item 1
-  - Item 2
-  - Item x
+  - Efficiency: completed several tasks during a difficult period (finals week)
+  - Collaboration: several team members were assigned to multiple tasks, rather than each member assigned a single task. We were able to     complete tasks faster this way, while mainting a level of subject knowledge that was consistent across the team
+  - Communication: We communicated consistently throughout the course of this milestone, and individual members met with other members that were assigned the same task
+  - Task delegation: all team members were eager to be assigned new tasks for this milestone
   
  #### What we'd like to improve
-  - Item 1
-  - Item 2
-  - Item x
+  - Communication: Total communication through slack, as well as meetings was very small
+  - Pull requests: Once again, we did not clear pull requests in a timely manner
   
 #### Changes we plan to implement in next milestone period
-  - Item 1
-  - Item 2
-  - Item x
+  - Division of Tasks: divide tasks assigned to multiple team members into smaller sub tasks, so that we are able to work more simultaneously
+  - Division of Tasks: creating sub branching for each team member 
+  - Timeliness: merge all pull requests before the date of the demo
+
