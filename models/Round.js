@@ -3,6 +3,12 @@ import mongoose from 'mongoose';
 const RoundSchema = new mongoose.Schema({
     date: {type: Date, required: true},
     course: {type: String, required: true},
+    images:[
+      {
+      imageName: {type: String},
+      imageUrl: {type: String}
+      }
+    ],
     type: {type: String, required: true, enum: ['practice','tournament']},
     holes: {type: Number, required: true, min: 1, max: 18},
     strokes: {type: Number, required: true, min: 1, max: 300},
