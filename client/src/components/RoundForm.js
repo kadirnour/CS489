@@ -92,16 +92,9 @@ function RoundForm(props) {
         const json = await res.json();
         console.log("upload response json", json);
         setState((prev) => ({ ...prev, images: json.images }));   // ADD IMAGE INSTEAD OF REPLACING
-        //setState((prev) => ({ ...prev, images: {imageName: json.imageName, imageUrl: json.imageUrl} }));
-        // setMessage("File Uploaded");
       }
     } catch (err) {
       setState((prev) => ({ ...prev, images: {imageName: "", imageUrl: ""} }));
-      // if (err.response.status === 500) {
-      //   setMessage("There was a problem with the server");
-      // } else {
-      //   setMessage(err.response.data.message);
-      // }
     }
   };
 
