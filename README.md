@@ -396,12 +396,19 @@ You can access our team's deployed app at [this Heroku site](https://anime-is-re
   </thead> 
   <tbody>
     <tr>
-      <td><a href="https://github.com/issue">Issue #</a></td><td><a href="https://github.com/PR">PR #</a></td><td>5</td><td>3</td><td>1</td><td>1</td><td>0</td><td>0</td><td>100</td><td></td>
+      <td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/57">Issue #57</a></td><td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/pull/82">PR #82</a></td><td>13</td><td>4</td><td>5</td><td>0</td><td>0</td><td>4</td><td>50</td><td>Front end implementation completed, does not actually log a round to the database</td>
     </tr>
     <tr>
-     <td><a href="https://github.com/issue">Issue #</a></td><td><a href="https://github.com/PR">PR #</a></td><td>3</td><td>0</td><td>0</td><td>0</td><td>0.8</td><td>0.4</td><td>40</td><td>Updated database schema. Updated server routes. Did not implement UI.</td>
+      <td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/20">Issue #20</a></td><td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/pull/81">PR #81</a></td><td>8</td><td>0</td><td>0</td><td>4</td><td>4</td><td>0</td><td>100</td><td></td>
     </tr>
-    <tr><td colspan="2" align="right"><b>Totals:</b></td><td><b>8</b></td><td><b>3</b></td><td><b>1</b></td><td><b>1</b></td><td><b>0.8</b></td><td><b>0.4</b></td><td colspan="2"></td>
+    <tr>
+      <td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/42">Issue #42</a></td><td><a></a></td><td>4</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>100</td><td></td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/40">Issue #40</a></td><td><a></a></td><td>4</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>100</td><td></td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/issues/43">Issue #43</a></td><td><a href="https://github.com/wsu-cpts489-fa21/tp-anime-is-real/pull/83">PR #83</a></td><td>3</td><td>0</td><td>3</td><td>0</td><td>0</td><td>0</td><td>100</td><td></td>
     </tr>
   </tbody>
 </table>
@@ -409,18 +416,16 @@ You can access our team's deployed app at [this Heroku site](https://anime-is-re
 #### Context Statements
 | Team Member | Context Statement |
 |-------------|-------------------|
-|TM1| <*Optional but encouraged*: Brief statement explaining your contribution to this milestone> |
-|TM2| <*Optional but encouraged*: Brief statement explaining your contribution to this milestone> |
-|TM3| <*Optional but encouraged*: Brief statement explaining your contribution to this milestone> |
-|TM4| <*Optional but encouraged*: Brief statement explaining your contribution to this milestone> |
-|TM5| <*Optional but encouraged*: Brief statement explaining your contribution to this milestone> |
+|TM1| <*Assigned liveround tracking> |
+|TM2| <*Implemented the GUI for liveround> |
+|TM3| <*Implemented picture and document addition to rounds page> |
+|TM4| <*Assigned liveround tracking> |
+|TM5| <*Implemented picture and document addition to rounds page> |
 
 ### Testing
 
 |Issue | Test File | Feature Tested | Results Summary | 
 |------|-----------|----------------|-----------------|
-|[Issue #](https://github.com/issue)| [Google.js](https://www.github.com/)|Google Authentication| [3/3 tests passed](https://yoursite.com/animated.gif) | [
-|[Issue #](https://github.com/issue)| [routes.js](https://www.github.com/)|PUT and DELETE routes for rounds | [15/15 tests passed](https://yoursite.com/animated.gif) |
   
 ### Communication
  
@@ -436,15 +441,19 @@ You can access our team's deployed app at [this Heroku site](https://anime-is-re
   </thead> 
   <tbody>
     <tr>
-      <td>11/9/21</td><td>5</td><td>2</td><td>1</td><td>1</td><td>1</td><td>0</td>
+      <td>12/11/21</td><td>2</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td>
     </tr>
     <tr>
-     <td>11/12/21</td><td>4</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td>
+      <td>12/15/21</td><td>7</td><td>3</td><td>1</td><td>1</td><td>1</td><td>1</td>
     </tr>
-    <tr><td align="right"><b>Totals:</b></td><td><b>9</b></td><td><b>3</b></td><td><b>2</b></td><td><b>1</b></td><td><b>1</b></td><td><b>1</b></td>
+    <tr>
+     <td>12/16/21</td><td>1</td><td>1</td><td>1</td><td>0</td><td>2</td><td>2</td>
+    </tr>
+    <tr><td align="right"><b>Totals:</b></td><td><b>10</b></td><td><b>4</b></td><td><b>5</b></td><td><b>1</b></td><td><b>3</b></td><td><b>4</b></td>
     </tr>
   </tbody>
 </table>
+
 
 #### Zoom Meetings
 <table> 
@@ -457,13 +466,10 @@ You can access our team's deployed app at [this Heroku site](https://anime-is-re
     </tr>
   </thead> 
   <tbody>
-    <tr>
-      <td>11/9/21</td><td>17</td><td>&check;</td><td>&check;</td><td></td><td>&check;</td><td>&check;</td>
-    </tr>
      <tr>
-      <td>11/12/21</td><td>31</td><td>&check;</td><td>&check;</td><td></td><td></td><td>&check;</td>
+      <td>12/16/21</td><td>58</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td>
     </tr>
-    <tr><td align="right"><b>Totals:</b></td><td><b>48</b></td><td><b>2</b></td><td><b>2</b></td><td><b>0</b></td><td><b>1</b></td><td><b>2</b></td>
+    <tr><td align="right"><b>Totals:</b></td><td><b>58</b></td><td><b>1</b></td><td><b>1</b></td><td><b>1</b></td><td><b>1</b></td><td><b>1</b></td>
     </tr>
   </tbody>
 </table>
@@ -475,17 +481,11 @@ You can access our team's deployed app at [this Heroku site](https://anime-is-re
       <th colspan="2"></th><th colspan="5">In attendance?</th><th></th>
     </tr> 
     <tr>
-      <th>Date</th><th>Duration (min)</th><th>TM1</th><th>TM2</th><th>TM3</th><th>TM4</th><th>TM5</th><th>Notes</th>
+      <th>Date</th><th>Duration (min)</th><th>Kevin H.</th><th>Matt M.</th><th>Zach P.</th><th>Ayleah H.</th><th>Kadir N.</th>
     </tr>
   </thead> 
   <tbody>
-    <tr>
-      <td>11/10/21</td><td>45</td><td>&check;</td><td>&check;</td><td></td><td>&check;</td><td>&check;</td><td>We met in CUB conference room</td>
-    </tr>
-     <tr>
-      <td>11/14/21</td><td>20</td><td>&check;</td><td>&check;</td><td></td><td></td><td>&check;</td><td>We met at Starbucks for coffee</td>
-    </tr>
-    <tr><td align="right"><b>Totals:</b></td><td><b>65</b></td><td><b>2</b></td><td><b>2</b></td><td><b>0</b></td><td><b>1</b></td><td><b>2</b></td><td></td>
+    <tr><td align="right"><b>Totals:</b></td><td><b>0</b></td><td><b>0</b></td><td><b>0</b></td><td><b>0</b></td><td><b>0</b></td><td><b>0</b></td><td></td>
     </tr>
   </tbody>
 </table>
@@ -494,14 +494,14 @@ You can access our team's deployed app at [this Heroku site](https://anime-is-re
 | Team Member   | Context Statement |
 |---------------|-------------------|
 |Kevin Hermanson| <*Due to erratic finals schedule, no meetings were officially schedules - resulting in the dicciculty collaborating in this sprint>|
-|Matthew Molitor| <*Diving issues among multiple team members made it difficult to track precise story points completed for each task>|
+|Matthew Molitor| <*Dividing issues among multiple team members made it difficult to track precise story points completed for each task>|
 |Zachary Penn   | <*>|
-|Ayleah Hill    | <*I was not able to start working on this project until the end of thanksgiving break, this limited my ability to make progress by the end of the initial deadline. As a result of having us having mixed communication it was hard for us to keep track of everything>|
-|Kadir Nour     | <*Was not initially added to the group text chat that was set up for a different project>|
+|Ayleah Hill    | <*>|
+|Kadir Nour     | <*>|
 
 ### Retrospective
 
-[Link to Recording](https://wsu.zoom.us/recording)
+[Link to Recording](https://files.slack.com/files-tmb/T02BD34SQDT-F02QXC76E7Q-62ff8b26d8/video1571159004.mp4)
 
 #### What went well
   - Efficiency: completed several tasks during a difficult period (finals week)
