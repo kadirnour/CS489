@@ -199,32 +199,16 @@ function App() {
   const addRound = async(newRoundData) => {
     //const url = "/rounds/" + this.state.userData.accountData.id;
     const url = "/rounds/" + userData.accountData.id;
-    let res = await fetch(url, {
+    const res = await fetch(url, {
                   method: 'POST',
-                  headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                                },
-                          method: 'POST',
-                          body: JSON.stringify(newRoundData)
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify(newRoundData)
                 }); 
     if (res.status == 201) { 
-      // const newRounds = [...this.state.userData.rounds];
-      // newRounds.push(newRoundData);
-      // const newUserData = {accountData: this.state.userData.accountData,
-      //                      identityData: this.state.userData.identityData,
-      //                      speedgolfData: this.state.userData.speedgolfData,
-      //                      rounds: newRounds};
-      // this.setState({userData: newUserData});
-
-      const newRounds = [...userData.rounds];
-      newRounds.push(newRoundData);
-      const newUserData = {accountData: userData.accountData,
-                           identityData: userData.identityData,
-                           speedgolfData: userData.speedgolfData,
-                           rounds: newRounds};
+      const data = await res.json();
+      const newRounds = [...userData.rounds, data.newRoundData];      const newUserData = { ...userData, rounds: newRounds };
+      localStorage.setItem(newUserData.accountData.email, JSON.stringify(newUserData));
       setUserData(newUserData);
-
       return("New round logged.");  
     } else { 
       const resText = await res.text();
@@ -279,23 +263,17 @@ function App() {
     }
   };
 
-  const deleteRound = (id) => {
-    var mongoose_delete = require('mongoose-delete');
-    //const newRounds = [...this.state.userData.rounds];
-    const newRounds = [...userData.rounds];
-    let r;
-    alert("goal id: "+id);
-    for (r = 0; r < newRounds.length; ++r) {
-        let myId = newRounds[r]._id;
-        if (r === id) {
-            alert('deleteround');
-            //this.state.userData.deleteOne('_id', myId);
-            userData.deleteOne('_id', myId);
-            break;
-        }
+  const deleteRound = async (idx) => {
+    const url = `/rounds/${userData.accountData.id}/${userData.rounds[idx].id}`;
+    let res = await fetch(url, { method: "DELETE" });
+    if (res.status === 200) {
+      const newRounds = [...userData.rounds];
+      newRounds.splice(idx, 1);
+      const newUserData = { ...userData, rounds: newRounds };
+      localStorage.setItem(newUserData.accountData.email, JSON.stringify(newUserData));
+      setUserData(newUserData);
     }
-    delete newRounds[r];    
-  }
+  };
 
   const handleClose= () =>
   {

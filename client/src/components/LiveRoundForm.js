@@ -11,7 +11,8 @@ import RoundsMode  from './RoundsMode.js';
 function LiveRoundForm(props) {
   const [state, setState] = useState(() => {
     let today = new Date(Date.now() - new Date().getTimezoneOffset() * 60000);
-    return  {
+    return props.mode === RoundsMode.LOGROUND
+      ? {
           date: today.toISOString().substr(0, 10),
           course: "",
           type: "practice",
@@ -23,6 +24,10 @@ function LiveRoundForm(props) {
           notes: "",
           btnIcon: "calendar",
           btnLabel: "Log Round",
+        } : {
+          ...props.roundData,
+          btnIcon: "edit",
+          btnLabel: "Update Round",
         };
   });
   const current = new Date();
@@ -40,10 +45,10 @@ function LiveRoundForm(props) {
 
   const [cumulativeTime, setCumulativeTime] = useState([])
   
-  const computeSGS = (strokes, min, sec) => {
-    return (Number(strokes) + Number(min))
-      + ":" + sec;
-  }
+  // const computeSGS = (strokes, min, sec) => {
+  //   return (Number(strokes) + Number(min))
+  //     + ":" + sec;
+  // }
      
   // const handleDataChange = (event) => {
   //   const name = event.target.name;
@@ -79,8 +84,8 @@ function LiveRoundForm(props) {
 
   const handleSubmitCallback = async () => {
     const newRound = { ...state};
-    // delete newRound.btnIcon;
-    // delete newRound.btnLabel;
+    delete newRound.btnIcon;
+    delete newRound.btnLabel;
     await props.saveRound(newRound);
     props.toggleModalOpen();
     props.setMode(RoundsMode.ROUNDSTABLE);
@@ -111,20 +116,13 @@ function LiveRoundForm(props) {
   }
   
   const completeHole = () => {
-
-    setHoleNumber(holeNumber+1);
-    setStrokes(par);   
-    setCumulativeTime(cumulativeTime.push({hr:elapsedTime.hr, min: elapsedTime.min, sec: elapsedTime.sec}));
-    alert("1" + cumulativeTime)
-    setState({strokes:state.strokes+strokes});
-    alert("2" + state.strokes);
-    setStart(current);
-
     if(holeNumber >=18)
-    {
-      handleSubmitCallback();
-      alert('completed course')
-    }
+        alert('completed course')
+    else
+        //setCumulativeTime(cumulativeTime.push({hr:elapsedTime.hr, min: elapsedTime.min, sec: elapsedTime.sec}));
+        setStart(current);
+        setHoleNumber(holeNumber+1);
+        setStrokes(par);
   }
 
   const copyStartTime = () => {
