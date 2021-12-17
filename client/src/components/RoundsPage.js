@@ -3,8 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import RoundsMode  from './RoundsMode.js';
 import RoundsTable from './RoundsTable.js';
 import RoundForm from './RoundForm.js';
-import PreviousRoundForm from './RoundForm.js';
 import FloatingButton from './FloatingButton.js'
+import LiveRoundForm from './LiveRoundForm.js'
 
 function RoundsPage(props){
     
@@ -49,7 +49,7 @@ function RoundsPage(props){
                         icon="calendar"
                         label={"Log Round"}
                         menuOpen={props.menuOpen}
-                        action={()=>SetMode(RoundsMode.LOGROUND)}
+                        action={()=>SetMode(RoundsMode.LIVESELECT)}
 
                            />
             </>
@@ -69,7 +69,7 @@ function RoundsPage(props){
         if(mode == RoundsMode.EDITROUND){
             console.log(mode)
             return (
-            <PreviousRoundForm mode={mode}
+            <RoundForm mode={mode}
                 editId = {editId}
                 roundData={props.rounds[editId]}
                 saveRound={props.updateRound}
@@ -77,10 +77,45 @@ function RoundsPage(props){
                 toggleModalOpen={props.toggleModalOpen} />
                 );
             }
+        if(mode == RoundsMode.LIVESELECT){
+            console.log(mode)
+            return (
+                <div id="roundsModeDialog" className="mode-page action-dialog" role="dialog"
+                    aria-modal="true" aria-labelledby="roundFormHeader" tabIndex="0">
+                    <h1 id="roundFormHeader" className="mode-page-header">
+                        {props.mode === RoundsMode.LOGROUND ? "Log Round" : "Edit Round"}
+                    </h1>
+                    <div className="round-form-btn-container">
+                        <button type="button"
+                        className="mode-page-btn action-dialog action-button"
+                        onClick={() => {
+                            SetMode(RoundsMode.LIVEROUND);
+                        }}>
+                            <FontAwesomeIcon icon="clock" />
+                            <span>&nbsp;Track Live (GUI)</span>
+                        </button>
+                        <button type="button"
+                        className="mode-page-btn action-dialog action-button"
+                        onClick={() => {
+                            SetMode(RoundsMode.LOGROUND);
+                        }}>
+                            <FontAwesomeIcon icon="clipboard-check" />
+                            <span>Log Previously Played</span>
+                        </button>
+                    </div> 
+            </div>
+            );
+        }
+        if(mode == RoundsMode.LIVEROUND){
+            return (
+                <LiveRoundForm  setMode={SetMode}
+                                saveRound={props.addRound}/>
+                    );
+        }
             else{
                 console.log(mode)
                 return null;
             }
         
-    } 
+    }
 export default RoundsPage;

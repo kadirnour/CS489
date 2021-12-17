@@ -30,6 +30,7 @@ roundRoute.post('/rounds/:userId', async (req, res, next) => {
       const round = new Round(req.body);
       const error = round.validateSync();
       if (error) { //Schema validation error occurred
+        console.log("bad sche");
         return res.status(400).send("Round not added to database. " + error.message);
       }
       const status = await User.updateOne(

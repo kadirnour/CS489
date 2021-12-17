@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { now } from 'mongoose';
 import React, { useState, useEffect } from 'react';
 import RoundsMode  from './RoundsMode.js';
 
@@ -7,189 +8,122 @@ import RoundsMode  from './RoundsMode.js';
  * Displays the round form for both adding a new round and modifying an existing round.
  * Function allows changes to current information in the web application.
  * @param {props} the properties of the current state the application is in.
- */
-function LiveRoundForm(props) {
-  const [state, setState] = useState(() => {
-    let today = new Date(Date.now() - new Date().getTimezoneOffset() * 60000);
-    return props.mode === RoundsMode.LOGROUND
-      ? {
-          date: today.toISOString().substr(0, 10),
-          course: "",
-          type: "practice",
-          holes: "18",
-          strokes: 80,
-          minutes: 60,
-          seconds: "00",
-          SGS: "140:00",
-          notes: "",
-          btnIcon: "calendar",
-          btnLabel: "Log Round",
-        } : {
-          ...props.roundData,
-          btnIcon: "edit",
-          btnLabel: "Update Round",
-        };
-  });
-  const current = new Date();
-  const [holeOpen,setHoleOpen] = useState(false);
-  const [startTime, setStartTime] = useState(current);
-  const [currentTime, setCurrentTime] = useState({hr:0,min:0,sec:0});
-  const [elapsedTime, setElapsedTime] = useState({hr:0,min:0,sec:0});
-  const [teeTime, setTeeTime] = useState("8:22");
-  const [isActive, setIsActive] = useState(true);
-  const [par, setPar] = useState(5);
-  const [strokes, setStrokes] = useState(par);
-  const [holeNumber, setHoleNumber] = useState(1);
-  const [start, setStart] = useState(false);
+ */ 
+export default function LiveRoundForm(props){
 
+  const [roundData,setRoundData] = useState({});
+  const [clock, setClock] = useState();
+  const [timer, setTimer] = useState("00:00:00");
+  const [startTime, setStartTime] = useState(0);
 
-  const [cumulativeTime, setCumulativeTime] = useState([])
-  
-  // const computeSGS = (strokes, min, sec) => {
-  //   return (Number(strokes) + Number(min))
-  //     + ":" + sec;
-  // }
-     
-  // const handleDataChange = (event) => {
-  //   const name = event.target.name;
-  //   if (name === "seconds") {
-  //     const newSec = (event.target.value.length < 2 ? "0" +
-  //       event.target.value : event.target.value);
-  //     const newSGS = computeSGS(state.strokes, state.minutes,
-  //       newSec);
-  //     setState( prev => ({...prev, seconds: newSec, SGS: newSGS}));
-  // } else if (name === "strokes") {
-  //     const newStrokes = event.target.value;
-  //     const newSGS = computeSGS(newStrokes, state.minutes,
-  //       state.seconds);
-  //     setState(prev => ({...prev, strokes: newStrokes, SGS: newSGS }));
-  //   } else if (name === "minutes") {
-  //     const newMin = event.target.value;
-  //     const newSGS = computeSGS(state.strokes, newMin,
-  //       state.seconds);
-  //     setState(prev => ({...prev, minutes: newMin, SGS: newSGS }));
-  //   } else {
-  //     setState(prev => ({ ...prev, [name]: event.target.value }));
-  //   }
-  // }
-    
+  const [scoreMode, setScoreMode] = useState(false);
 
-//NOTE: useEffect will be in App.js to be able to run the update of the information to the database
-//NOTE: see saveRound() function
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setState(prev => ({...prev, btnIcon: "spinner", btnLabel: "Saving..."}));
-    handleSubmitCallback();
+  const [holeOutTime, setHoleOutTime] = useState([]);
+  const [strokes, setStrokes] = useState(0);
+  const [count, setCount] = useState(5);
+  const [holeNum, setHoleNum] = useState(1);
+  const [enable, setEnable] = useState(false);
+
+  const initialIzeRoundData = () => {
+    setRoundData(
+      {
+        date: Date().slice(0,10), //TODO: fix date
+        course: "Default",
+        type: "practice",
+        holes: "18",
+        strokes: 0,
+        minutes: 0,
+        seconds: 0,
+        SGS: "",
+        notes: ""
+      }
+    );
   }
 
-  const handleSubmitCallback = async () => {
-    const newRound = { ...state};
-    delete newRound.btnIcon;
-    delete newRound.btnLabel;
-    await props.saveRound(newRound);
-    props.toggleModalOpen();
+  const handleSubmit = async() => {
+    setStartTime(0);
+
+    const courseName = prompt("Enter Course Name");
+    let rd = {...roundData};
+    rd["course"] = courseName;
+    rd["SGS"] = computeSGS(rd.strokes, rd.minutes, rd.seconds);
+    setRoundData(rd);
+
+    //send to database
+    props.saveRound(rd);
+
+    //reset UI
+    setScoreMode(false);
+    setHoleOutTime([]);
+    setCount(5);
+    setHoleNum(1);
+    setEnable(false);
+
     props.setMode(RoundsMode.ROUNDSTABLE);
+  };
+
+  const computeSGS = (strokes, min, sec) => {
+    return (Number(strokes) + Number(min))
+      + ":" + sec;
   }
 
+  const incrementTimer = () => {
+    console.log("timer");
+    let hour = Number(timer.substring(0,2)), min = Number(timer.substring(3,5)), 
+        sec = Number(timer.substring(6,8));
+
+
+      sec += 1;
+      if(sec == 60){
+        sec = 0;
+        min += 1;
+      }
+      if(min == 60){
+        min = 0;
+        hour += 1;
+      }
+      
+      sec = String(sec).padStart(2,'0');
+      min = String(min).padStart(2,'0');
+      hour = String(hour).padStart(2,'0');
+      
+      setTimer(hour + ":" + min + ":" + sec);
+
+  };
+
+//component did mount to initialize data, clock and timer 
   useEffect(() => {
-    let interval = null;
-    if (isActive) {
-      interval = setInterval(() => {
-        setCurrentTime({hr:current.getHours(), min:current.getMinutes(), sec:current.getSeconds()});
-      }, 1000);
-    } else if (!isActive && currentTime !== 0) {
-      clearInterval(interval);
-    }
-    return () => clearInterval(interval);
-  }, [currentTime]);
+    initialIzeRoundData();
+    setClock(new Date());
 
-  const openHole = () => {
-    if(start)
-      setHoleOpen(true);
-  }
+  }, []);
 
-  const minusStroke = () => {
-    if(strokes <=1)
-        setStrokes(1);
-    else
-        setStrokes(strokes -1);
-  }
-  
-  const completeHole = () => {
-    if(holeNumber >=18)
-        alert('completed course')
-    else
-        setCumulativeTime(cumulativeTime.push({hr:elapsedTime.hr, min: elapsedTime.min, sec: elapsedTime.sec}));
-        setStart(current);
-        setHoleNumber(holeNumber+1);
-        setStrokes(par);
-  }
-
-  const copyStartTime = () => {
-    
-    setStartTime(current);
-    setStart(true);
-  }
-
-  const computeElapsedTime = () => {
-    setElapsedTime({hr:currentTime.hr-startTime.hr,min:currentTime.min-startTime.min,sec:currentTime.sec-startTime.sec })
-  }
-
+//component did update to advance clock
   useEffect(() => {
-    let interval = null;
-    let changeHour = 0
-    let changeMin = 0 ;
-    let changeSec = 0 ;
-    //setStartTime(current);
-    if (isActive) {
-      interval = setInterval(() => {
-        changeHour = current.getHours() - startTime.getHours();
-        changeMin = current.getMinutes() - startTime.getMinutes();
-        changeSec = current.getSeconds() - startTime.getSeconds();
+    setClock(new Date());
+  });
 
-        if (changeHour < 0)
-        {
-          changeHour = 60 - Math.abs(changeHour);
-        }
-        if (changeMin < 0)
-        {
-          changeMin = 60 - Math.abs(changeMin);
-          changeHour--;
-        }
-        if (changeSec < 0)
-        {
-          changeSec = 60 - Math.abs(changeSec);
-          changeMin--;
-        }
-
-
-        setElapsedTime({hr:(changeHour), min:(changeMin), sec:(changeSec)});
-      }, 1000);
-    } else if (!isActive && currentTime !== 0) {
+  //timer
+  useEffect(() => {
+    const interval = setInterval(incrementTimer, 1000);
+    return ()=>{
       clearInterval(interval);
-    }
-    return () => clearInterval(interval);
-  }, [elapsedTime]);
-
-  function pad(num, size) {
-    num = num.toString();
-    while (num.length < size) num = "0" + num;
-    return num;
-}
+    };
+  }, [timer]);
 
   return (
     <>
-    {!holeOpen?
-    <div id="roundsModeDialog"
-      className="mode-page action-dialog" role="dialog"
+    {
+      !scoreMode ?
+    <div className="mode-page action-dialog" role="dialog"
       aria-modal="true" aria-labelledby="roundFormHeader" tabIndex="0">
-      <h1 id="roundFormHeader" className="mode-page-header">
+      <h1 className="mode-page-header">
         Live Round
       </h1>
       <div className="mb-3 centered">
           <span> 
             18 Open Division<br></br>
-            Tee time: {teeTime}<br></br>
+            Tee time: 8:22 <br></br>
             Playing holes 1 through 18<br></br>
           </span>
       </div>
@@ -197,34 +131,135 @@ function LiveRoundForm(props) {
         <button type="button"
           className="mode-page-btn action-dialog action-button"
           onClick={() => {        
-            copyStartTime()
+            setStartTime(clock.toString().substring(16,24));
           }}>
-            <span>Start Time: {pad(currentTime.hr,2) + ':' + pad(currentTime.min,2) + ':' + pad(currentTime.sec,2)}</span>
-            <br></br>
-            <span className = "fm-legend-sm">Click again to update</span>
+            { !startTime ? 
+            <>
+              <h1>Start Round Timer</h1>
+              <span className = "fm-legend-sm">(No time recorded yet)</span>
+            </>
+              :
+            <>
+              <h1>Start Time: {startTime}</h1>
+              <span className = "fm-legend-sm">Click again to update</span>
+            </>
+            }
         </button>
         <button type="button"
           className="mode-page-btn-green action-dialog action-button"
           onClick={() => {
-            openHole()
+            if(startTime){
+              setScoreMode(prev => !scoreMode);
+            }
           }}>
             <span>Go to Scoring</span>
             <FontAwesomeIcon icon = "angle-right"></FontAwesomeIcon>
         </button>
       </div> 
-    </div>:
-    <div id="roundsModeDialog"
-    className="mode-page action-dialog" role="dialog"
-    aria-modal="true" aria-labelledby="roundFormHeader" tabIndex="0">
-    <h1 id="roundFormHeader" className="mode-page-header">
-      Hole {holeNumber}
-    </h1>
-    <h2 className="mb-3 centered">
+    </div> 
+    : 
+    <div id="score-container"
+      className="mode-page action-dialog" role="dialog"
+      aria-modal="true" aria-labelledby="roundFormHeader" tabIndex="0">
+      <h1 id="roundFormHeader" className="mode-page-header">
+        Hole {holeNum > 18 ? 18 : holeNum}
+      </h1>
+      <h2 className="mb-3 centered">
         <span> 
           Record Hole-Out Time:
         </span>
-    </h2>
-    <div className="round-page-btn-container-live">
+      </h2>
+      <div className="round-page-btn-container-live">
+      <button type="button"
+        className="mode-page-btn action-dialog action-button"
+        style={enable ? {"background": "#5d8de0"} : {"background": "#13294E"}}
+        onClick={() => {
+          let outTime = timer; //TODO: might not work
+          let hnum = String(holeNum);
+          setHoleOutTime([...holeOutTime, {[hnum]: {"hole-out-time": outTime, "strokes": -1}}])
+          setEnable(true);
+        }}>
+          <h1>{timer}</h1>
+          <span className = "fm-legend-sm">Click When in Hole</span>
+      </button>
+      <h1 className="mb-3 centered">
+        Record Strokes
+      </h1>
+      <button type="button"
+        className={`mode-page-btn-gray action-dialog action-button ${!enable ? " disabled" : ""}`}
+        onClick={() => {
+          setCount(count + 1);
+        }}>
+          <span>+</span>
+      </button>
+        
+      {
+      count == 5 ?
+      <h1 className="mode-page-header">
+        5 (par)
+      </h1> 
+      :
+      <h1 className="mode-page-header">
+        {count}
+      </h1>}
+      <button type="button"
+        className={`mode-page-btn-gray action-dialog action-button ${!enable ? " disabled" : ""}`}
+        onClick={() => {  
+          setCount(Math.max(0, count - 1));
+        }}>
+          <span>-</span>
+      </button>
+      {
+        holeNum <= 18 ? 
+        <button type="button"
+          className={`mode-page-btn-green action-dialog action-button ${!enable ? " disabled" : ""}`}
+          onClick={() => {
+            let newRoundData = {...roundData};
+            let hot = [...holeOutTime];
+
+            newRoundData["strokes"] += count;
+            newRoundData["minutes"] = Number(timer.substring(3,5));
+            newRoundData["seconds"] = Number(timer.substring(6,8));
+            
+            hot[hot.length - 1][holeNum].strokes = count; // saves number of strokes in current round
+
+            setHoleNum(holeNum + 1);
+            setStrokes(strokes + count);
+            setEnable(false);
+            setRoundData(newRoundData);
+            setHoleOutTime(hot);
+        }}>
+          <span>Save &amp; Next Hole</span>
+          <FontAwesomeIcon icon = "angle-right"></FontAwesomeIcon>
+        </button>
+    :
+        <button type="button"
+          className="mode-page-btn-green action-dialog action-button"
+          onClick={() => {
+            handleSubmit();
+          }}>
+            <span>Submit Round</span>
+            <FontAwesomeIcon icon = "angle-right"></FontAwesomeIcon>
+        </button>
+      }
+    </div>
+
+  </div>
+  }
+    {/* // :
+    // <div id="roundsModeDialog"
+    // className="mode-page action-dialog" role="dialog"
+    // aria-modal="true" aria-labelledby="roundFormHeader" tabIndex="0">
+    // <h1 id="roundFormHeader" className="mode-page-header">
+    //   Hole {holeNumber}
+    // </h1>
+    // <h2 className="mb-3 centered">
+    //     <span> 
+    //       Record Hole-Out Time:
+    //     </span>
+    // </h2> */}
+
+    {/* <div className="round-page-btn-container-live">
       <button type="button"
         className="mode-page-btn action-dialog action-button"
         onClick={() => {
@@ -270,12 +305,9 @@ function LiveRoundForm(props) {
           <span>Save &amp; Next Hole</span>
           <FontAwesomeIcon icon = "angle-right"></FontAwesomeIcon>
       </button>
-    </div> 
-  </div>}
+    </div>  
+
+  </div>}*/}
     </>
   );
- }
-
-
-  
-export default LiveRoundForm;
+};
