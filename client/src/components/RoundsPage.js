@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import RoundsMode  from './RoundsMode.js';
 import RoundsTable from './RoundsTable.js';
 import RoundForm from './RoundForm.js';
+import PreviousRoundForm from './RoundForm.js';
 import FloatingButton from './FloatingButton.js'
 
 function RoundsPage(props){
@@ -68,7 +69,7 @@ function RoundsPage(props){
         if(mode == RoundsMode.EDITROUND){
             console.log(mode)
             return (
-            <RoundForm mode={mode}
+            <PreviousRoundForm mode={mode}
                 editId = {editId}
                 roundData={props.rounds[editId]}
                 saveRound={props.updateRound}
