@@ -1,5 +1,4 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { now } from 'mongoose';
 import React, { useState, useEffect } from 'react';
 import RoundsMode  from './RoundsMode.js';
 
@@ -298,72 +297,8 @@ export default function LiveRoundForm(props){
             <FontAwesomeIcon icon = "angle-right"></FontAwesomeIcon>
         </button>
       }
+      </div>
     </div>
-
-  </div>
-  }
-    {/* // :
-    // <div id="roundsModeDialog"
-    // className="mode-page action-dialog" role="dialog"
-    // aria-modal="true" aria-labelledby="roundFormHeader" tabIndex="0">
-    // <h1 id="roundFormHeader" className="mode-page-header">
-    //   Hole {holeNumber}
-    // </h1>
-    // <h2 className="mb-3 centered">
-    //     <span> 
-    //       Record Hole-Out Time:
-    //     </span>
-    // </h2> */}
-
-    {/* <div className="round-page-btn-container-live">
-      <button type="button"
-        className="mode-page-btn action-dialog action-button"
-        onClick={() => {
-          computeElapsedTime()
-          props.setMode(RoundsMode.ROUNDSTABLE);
-          props.toggleModalOpen();
-        }}>
-          <span>{pad(elapsedTime.hr,2) + ':'+ pad(elapsedTime.min,2) + ':' + pad(elapsedTime.sec,2)}</span>
-          <br></br>
-          <span className = "fm-legend-sm">Click When in Hole</span>
-      </button>
-      <h1 id="roundFormHeader" className="mb-3 centered">
-        Record Strokes
-      </h1>
-      <button type="button"
-        className="mode-page-btn-gray action-dialog action-button"
-        onClick={() => {
-          console.log('log manually');
-          setStrokes(strokes+1);
-        }}>
-          <span>+</span>
-      </button>
-        
-      {strokes == par?
-      <h1 id="roundFormHeader" className="mode-page-header">
-        {par + "(par)"}
-      </h1> :
-      <h1 id="roundFormHeader" className="mode-page-header">
-        {strokes}
-      </h1>}
-      <button type="button"
-        className="mode-page-btn-gray action-dialog action-button"
-        onClick={() => {  
-          minusStroke();
-        }}>
-          <span>-</span>
-      </button>
-      <button type="button"
-        className="mode-page-btn-green action-dialog action-button"
-        onClick={() => {
-          completeHole();
-        }}>
-          <span>Save &amp; Next Hole</span>
-          <FontAwesomeIcon icon = "angle-right"></FontAwesomeIcon>
-      </button>
-    </div>  
-
-  </div>}*/}
     </>
   );
 };
