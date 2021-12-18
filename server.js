@@ -41,7 +41,7 @@ mongoose.connect(connectStr, {useNewUrlParser: true, useUnifiedTopology: true})
 
 passportConfig(app); //Configure session and passport
 app
-  .use(express.static(path.resolve()))
+  .use(express.static(path.join(path.resolve(), "client", "build")))
   //.use(express.static(buildPath))
   .use(express.json({ limit: '20mb' }))
   .use(fileUpload())
