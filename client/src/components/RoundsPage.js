@@ -8,11 +8,9 @@ import LiveRoundForm from './LiveRoundForm.js'
 
 function RoundsPage(props){
     
-            const [state, setState] = useState()
-            const [mode, setMode] = useState(RoundsMode.ROUNDSTABLE)
-            const [deleteId, setDeleteId] = useState(-1)
-            const [editId, setEditId]= useState(-1)        
-            console.log(mode)
+    const [mode, setMode] = useState(RoundsMode.ROUNDSTABLE)
+    const [editId, setEditId]= useState(-1)        
+    console.log(mode)
 
    const SetMode = (newMode) => {
         setMode(newMode);
@@ -22,12 +20,16 @@ function RoundsPage(props){
     const initiateEditRound = (val) => {
         setEditId(val)
         setMode(RoundsMode.EDITROUND) 
-        setState(props.toggleModalOpen)
+        //setState(props.toggleModalOpen)
     }
     
-    const initiateDeleteRound = (val) => {
-        setDeleteId(val);
-        alert("Confirm delete goes here!");
+    const initiateDeleteRound = (idx) => {
+        //setDeleteId(val);
+        //alert("Confirm delete goes here!");
+        if (window.confirm(`Do you want to delete this round?`)) {
+            props.deleteRound(idx);
+        }
+
     }
 
     if(mode == RoundsMode.ROUNDSTABLE)
@@ -38,9 +40,7 @@ function RoundsPage(props){
                     <RoundsTable rounds={props.rounds}
                                 initiateDeleteRound={initiateDeleteRound}
                                 deleteRound={props.deleteRound} 
-                                deleteId={deleteId}
                                 initiateEditRound= {initiateEditRound}
-                                updateRound= {props.updateRound}
                                 setMode={SetMode} 
                                 toggleModalOpen={props.toggleModalOpen}
                                 menuOpen={props.menuOpen} /> 

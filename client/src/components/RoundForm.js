@@ -22,6 +22,7 @@ function RoundForm(props) {
           seconds: 0,
           SGS: "140:00",
           notes: "",
+          images: [{imageName:"",imageUrl:""}],
           btnIcon: "calendar",
           btnLabel: "Log Round",
         } : {
@@ -30,6 +31,7 @@ function RoundForm(props) {
           btnLabel: "Update Round",
         };
   });
+  const [file, setFile] = useState();
 
   const computeSGS = (strokes, min, sec) => {
     sec = sec < 10 ? "0" + sec : sec;
@@ -85,6 +87,50 @@ function RoundForm(props) {
     props.setMode(RoundsMode.ROUNDSTABLE);
   }
 
+  const handleFileUploadSubmit = async (e) => {
+    e.preventDefault();
+    const data = new FormData();
+    data.append("file", file);
+    try {
+      const res = await fetch("/upload", {
+        method: "POST",
+        body: data,
+      });
+      if (res.status === 200) {
+        const json = await res.json();
+        console.log("upload response json", json);
+        setState((prev) => ({ ...prev, images: json.images }));   // ADD IMAGE INSTEAD OF REPLACING
+      }
+    } catch (err) {
+      setState((prev) => ({ ...prev, images: {imageName: "", imageUrl: ""} }));
+    }
+  };
+
+  const displayImages = () => {
+    const allImages = [];
+    for (let r = 0; r < state.images.length; ++r) {
+      console.log(state.images[r]);
+      allImages.push(
+        <tr key={r}>
+          <td>
+            <label htmlFor="roundImage">
+              Image:
+              {state.images[r].imageName !== "" ? (
+                <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
+                  <span style={{ marginRight: "25px" }}>{state.images[r].imageName} </span>
+                  <img style={{ height: "200px" }} src={state.images[r].imageUrl} alt="" />
+                </div>
+              ) : (
+                <div className="form-text">No image has been uploaded for this round.</div>
+              )}
+            </label>
+          </td>
+        </tr>
+      );
+    }
+    return allImages;
+  }
+
     
   return (
     <div id="roundsModeDialog"
@@ -93,6 +139,14 @@ function RoundForm(props) {
       <h1 id="roundFormHeader" className="mode-page-header">
         {props.mode === RoundsMode.LOGROUND ? "Log Round" : "Edit Round"}
       </h1>
+      <form onSubmit={handleFileUploadSubmit}>
+        <div className="mt-4 mb-3 centered">
+          <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
+            <input type="file" accept="image/*" onChange={(e) => setFile(e.target.files[0])} />
+            <input type="submit" value="Upload File" className="btn btn-primary mx-3" />
+          </div>
+        </div>
+      </form>
       <form id="logRoundForm"
         onSubmit={handleSubmit} noValidate>
         <div className="mb-3 centered">
@@ -120,7 +174,7 @@ function RoundForm(props) {
         </div>
         <div className="mb-3 centered">
           <label htmlFor="roundType">Type:
-            <select id="roundType" name="type" id="roundType" className="form-control centered"
+            <select id="roundType" name="type"className="form-control centered"
               value={state.type} onChange={handleDataChange}>
               <option value="practice">Practice</option>
               <option value="tournament">Tournament</option>
@@ -166,6 +220,17 @@ function RoundForm(props) {
             <input name="SGS" className="form-control centered" type="text"
               size="6" value={state.SGS} readOnly={true} />
           </label>
+        </div>
+        <div className="mb-3 centered">
+        <table id="imagesTable" className="table table-hover caption-top">
+          <tbody>
+            {state.images === null || state.images.length === 0 ? 
+              <tr>
+                <td colSpan={state.images.length} scope="rowgroup"><i></i></td>
+              </tr> : displayImages()
+            }
+          </tbody>
+        </table>
         </div>
         <div className="mb-3 centered">
           <label htmlFor="roundNotes">Notes:
