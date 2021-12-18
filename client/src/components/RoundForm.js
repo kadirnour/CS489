@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import RoundsMode  from './RoundsMode.js';
 
 /**
@@ -58,6 +58,14 @@ function RoundForm(props) {
       setState(prev => ({ ...prev, [name]: event.target.value }));
     }
   }
+
+  useEffect(() => {
+    let UIstate = {...state};
+    UIstate["SGS"] = computeSGS(UIstate.strokes, UIstate.minutes, UIstate.seconds);
+    UIstate["date"] = UIstate.date.substring(0,10);
+
+    setState(UIstate);
+  });
     
 
 //NOTE: useEffect will be in App.js to be able to run the update of the information to the database
@@ -131,18 +139,18 @@ function RoundForm(props) {
         <div className="mb-3 centered">
           <label htmlFor="roundStrokes">Strokes:
             <input id="roundStrokes" name="strokes" className="form-control centered" type="number"
-              min="9" max="200" value={state.strokes} aria-describedby="roundStrokesDescr"
+              min="1" max="200" value={state.strokes} aria-describedby="roundStrokesDescr"
               onChange={handleDataChange} required />
           </label>
           <div id="roundStrokesDescr" className="form-text">
-            Enter a strokes value between 9 and 200
+            Enter a strokes value between 1 and 200
           </div>
         </div>
         <div className="mb-3 centered">
           <label htmlFor="roundMinutes">Time:
             <input id="roundMinutes" name="minutes" type="number" size="3"
               aria-describedby="roundTimeDescr"
-              min="10" max="400" value={state.minutes} style={{ textAlign: "right" }}
+              min="0" max="400" value={state.minutes} style={{ textAlign: "right" }}
               onChange={handleDataChange} required /> :
             <input id="roundSeconds" name="seconds" type="number" size="2"
               aria-describedby="roundTimeDescr"
@@ -150,7 +158,7 @@ function RoundForm(props) {
               required />
           </label>
           <div id="roundTimeDescr" className="form-text">
-            Enter a minutes value between 10 and 400, and a seconds value between 0 and 59
+            Enter a minutes value between 0 and 400, and a seconds value between 0 and 59
           </div>
         </div>
         <div className="mb-3 centered">
