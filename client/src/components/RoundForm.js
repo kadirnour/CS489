@@ -60,12 +60,14 @@ function RoundForm(props) {
   }
 
   useEffect(() => {
+    console.log("computing and displaying SGS and date ")
     let UIstate = {...state};
+    console.log(state);
     UIstate["SGS"] = computeSGS(UIstate.strokes, UIstate.minutes, UIstate.seconds);
     UIstate["date"] = UIstate.date.substring(0,10);
 
     setState(UIstate);
-  });
+  }, []);
     
 
 //NOTE: useEffect will be in App.js to be able to run the update of the information to the database

@@ -14,10 +14,11 @@ export default function LiveRoundForm(props){
   const [roundData,setRoundData] = useState({});
   const [clock, setClock] = useState();
   const [timer, setTimer] = useState("00:00:00");
+  const [totalTime, setTotalTime] = useState("00:00:00");
+  const [timeControl, setTimeControl] = useState(false); // true to increment, false to stop
   const [intervalId, setIntervalId] = useState(0);
-  const [control, setControl] = useState(false);
-  const [startTime, setStartTime] = useState(0);
 
+  const [startTime, setStartTime] = useState(0);
   const [scoreMode, setScoreMode] = useState(false);
 
   const [holeOutTime, setHoleOutTime] = useState([]);
@@ -26,6 +27,7 @@ export default function LiveRoundForm(props){
   const [holeNum, setHoleNum] = useState(1);
   const [enable, setEnable] = useState(false);
 
+  //Sets up default state data
   const initialIzeRoundData = () => {
     let today = new Date(Date.now() - new Date().getTimezoneOffset() * 60000);
     setRoundData(
@@ -43,11 +45,16 @@ export default function LiveRoundForm(props){
     );
   }
 
+  //Submits new round data from live scoring. 
+  //Saves hole-out times to notes section of round
   const handleSubmit = async() => {
 
     const courseName = prompt("Enter Course Name");
     let rd = {...roundData};
     rd["course"] = courseName;
+    rd["minutes"] = Number(totalTime.substring(3,5));
+    rd["seconds"] = Number(totalTime.substring(6,8));
+    rd["notes"] = recordHoleOutTime();
     setRoundData(rd);
 
     //send to database
@@ -63,9 +70,65 @@ export default function LiveRoundForm(props){
     props.setMode(RoundsMode.ROUNDSTABLE);
   };
 
+  //Records collected number of strokes and duration of each 
+  //hole
+  const recordHoleOutTime = () => {
+    let holeDataStr = "";
+    let rkey = [];
+    
+    holeDataStr = `Starting Time - ${startTime}\n------------------------\n`;
+    for(let i = 0; i < holeOutTime.length; i++){
+      rkey[i] = Object.keys(holeOutTime[i]);
+      holeDataStr += 
+        `Hole - ${rkey[i]}:\n` +
+        `Strokes - ${holeOutTime[i][i + 1]["strokes"]}\n` +
+        `Time - ${holeOutTime[i][i + 1]["hole-out-time"]}\n` + 
+        `\n------------------------\n`;
+    }
+    
+    
+    return holeDataStr + `Total Time ${totalTime}`;
+  };
+
+  
+  //component did mount to initialize data, clock and timer 
+  useEffect(() => {
+    initialIzeRoundData();
+    setClock(new Date());
+    
+  }, []);
+  
+  //component did update to advance clock
+  useEffect(() => {
+    setClock(new Date());
+  });
+  
+  //Timer used for hole-out times
+  useEffect(() => {
+    console.log("in useEffect");
+    let interval = 0;
+    
+    if(timeControl){
+      console.log("startTime changed");
+      interval = setInterval(incrementTimer, 1000);
+      setIntervalId(interval);
+    }
+    return () => {
+      clearInterval(interval);
+    }
+  }, [timeControl, timer, totalTime]);
+  
+  //Increments global and local round timer 
   const incrementTimer = () => {
-    let hour = Number(timer.substring(0,2)), min = Number(timer.substring(3,5)), 
-        sec = Number(timer.substring(6,8));
+    setTimer(increment(timer));
+    
+    setTotalTime(increment(totalTime));
+  };
+
+  //Helper increment logic
+  const increment = (time) => {
+    let hour = Number(time.substring(0,2)), min = Number(time.substring(3,5)), 
+        sec = Number(time.substring(6,8));
 
       sec += 1;
       if(sec == 60){
@@ -81,35 +144,8 @@ export default function LiveRoundForm(props){
       min = String(min).padStart(2,'0');
       hour = String(hour).padStart(2,'0');
       
-      setTimer(hour + ":" + min + ":" + sec);
+      return (hour + ":" + min + ":" + sec);
   };
-
-//component did mount to initialize data, clock and timer 
-  useEffect(() => {
-    initialIzeRoundData();
-    setClock(new Date());
-
-  }, []);
-
-//component did update to advance clock
-  useEffect(() => {
-    setClock(new Date());
-  });
-
-  //timer
-  useEffect(() => {
-    console.log("in useEffect");
-    let interval = 0;
-
-    if(control){
-      console.log("startTime changed");
-      interval = setInterval(incrementTimer, 1000);
-      setIntervalId(interval);
-    }
-    return () => {
-      clearInterval(interval);
-    }
-  }, [control, timer]);
 
   return (
     <>
@@ -150,7 +186,7 @@ export default function LiveRoundForm(props){
           onClick={() => {
             if(startTime){
               setScoreMode(prev => !scoreMode);
-              setControl(true); //start the timer
+              setTimeControl(true); //start the timer
             }
           }}>
             <span>Go to Scoring</span>
@@ -163,7 +199,8 @@ export default function LiveRoundForm(props){
       className="mode-page action-dialog" role="dialog"
       aria-modal="true" aria-labelledby="roundFormHeader" tabIndex="0">
       <h1 id="roundFormHeader" className="mode-page-header">
-        Hole {holeNum > 18 ? 18 : holeNum}
+      {/* caps display of holeNum to 18 */}
+        Hole {holeNum > 18 ? 18 : holeNum }
       </h1>
       <h2 className="mb-3 centered">
         <span> 
@@ -173,12 +210,14 @@ export default function LiveRoundForm(props){
       <div className="round-page-btn-container-live">
       <button type="button"
         className=" w-100 mode-page-btn action-dialog action-button"
-        style={enable ? {"background": "#5d8de0"} : {"background": "#13294E"}}
+        style={(holeNum > 18) || enable ? {"background": "#5d8de0"} : {"background": "#13294E"}}
+        disabled={holeNum > 18}
         onClick={() => {
-          setControl(false); //stop the timer
+          setTimeControl(false); //stop the timer
           clearInterval(intervalId);
 
           let outTime = timer;
+          
           let hnum = String(holeNum);
           setHoleOutTime([...holeOutTime, {[hnum]: {"hole-out-time": outTime, "strokes": -1}}])
           setEnable(true);
@@ -225,19 +264,25 @@ export default function LiveRoundForm(props){
             let hot = [...holeOutTime];
 
             newRoundData["strokes"] += count;
-            newRoundData["minutes"] = Number(timer.substring(3,5));
+            newRoundData["minutes"] = timer.substring(3,5);
             newRoundData["seconds"] = timer.substring(6,8);
             
             hot[hot.length - 1][holeNum].strokes = count; // saves number of strokes in current round
+            
 
             setHoleNum(holeNum + 1);
-            setStrokes(strokes + count);
             setEnable(false);
+            
+            
+            setStrokes(strokes + count);
             setRoundData(newRoundData);
             setHoleOutTime(hot);
-
-            setTimer("00:00:00")// restart timer
-            setControl(true);
+            
+            if(holeNum < 18){
+              setCount(5);
+              setTimer("00:00:00")// restart all but last hole's timer
+              setTimeControl(true); //start timer
+            }
         }}>
           <span>Save &amp; Next Hole</span>
           <FontAwesomeIcon icon = "angle-right"></FontAwesomeIcon>
