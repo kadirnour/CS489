@@ -38,7 +38,7 @@ export default function LiveRoundForm(props){
         holes: "18",
         strokes: 0,
         minutes: 0,
-        seconds: "00",
+        seconds: 0,
         SGS: "140:00",
         notes: ""
       }
@@ -264,8 +264,8 @@ export default function LiveRoundForm(props){
             let hot = [...holeOutTime];
 
             newRoundData["strokes"] += count;
-            newRoundData["minutes"] = timer.substring(3,5);
-            newRoundData["seconds"] = timer.substring(6,8);
+            newRoundData["minutes"] = Number(timer.substring(3,5));
+            newRoundData["seconds"] = Number(timer.substring(6,8));
             
             hot[hot.length - 1][holeNum].strokes = count; // saves number of strokes in current round
             

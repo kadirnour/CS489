@@ -19,7 +19,7 @@ function RoundForm(props) {
           holes: "18",
           strokes: 80,
           minutes: 60,
-          seconds: "00",
+          seconds: 0,
           SGS: "140:00",
           notes: "",
           btnIcon: "calendar",
@@ -32,6 +32,7 @@ function RoundForm(props) {
   });
 
   const computeSGS = (strokes, min, sec) => {
+    sec = sec < 10 ? "0" + sec : sec;
     return (Number(strokes) + Number(min))
       + ":" + sec;
   }
@@ -39,8 +40,7 @@ function RoundForm(props) {
   const handleDataChange = (event) => {
     const name = event.target.name;
     if (name === "seconds") {
-      const newSec = (event.target.value.length < 2 ? "0" +
-        event.target.value : event.target.value);
+      const newSec = event.target.value;
       const newSGS = computeSGS(state.strokes, state.minutes,
         newSec);
       setState( prev => ({...prev, seconds: newSec, SGS: newSGS}));
@@ -60,9 +60,7 @@ function RoundForm(props) {
   }
 
   useEffect(() => {
-    console.log("computing and displaying SGS and date ")
     let UIstate = {...state};
-    console.log(state);
     UIstate["SGS"] = computeSGS(UIstate.strokes, UIstate.minutes, UIstate.seconds);
     UIstate["date"] = UIstate.date.substring(0,10);
 
@@ -152,11 +150,11 @@ function RoundForm(props) {
           <label htmlFor="roundMinutes">Time:
             <input id="roundMinutes" name="minutes" type="number" size="3"
               aria-describedby="roundTimeDescr"
-              min="0" max="400" value={state.minutes} style={{ textAlign: "right" }}
+              min="0" max="400" value={state.minutes < 10 ? "0" + state.minutes : state.minutes} style={{ textAlign: "right" }}
               onChange={handleDataChange} required /> :
             <input id="roundSeconds" name="seconds" type="number" size="2"
               aria-describedby="roundTimeDescr"
-              min="0" max="60" value={state.seconds} onChange={handleDataChange}
+              min="0" max="60" value={state.seconds < 10 ? "0" + state.seconds : state.seconds} onChange={handleDataChange}
               required />
           </label>
           <div id="roundTimeDescr" className="form-text">
