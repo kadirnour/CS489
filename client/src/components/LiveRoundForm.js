@@ -39,7 +39,8 @@ export default function LiveRoundForm(props){
         minutes: 0,
         seconds: 0,
         SGS: "140:00",
-        notes: ""
+        notes: "",
+        images: [{imageName:"",imageUrl:""}]
       }
     );
   }
@@ -299,6 +300,7 @@ export default function LiveRoundForm(props){
       }
       </div>
     </div>
+    }
     </>
   );
 };
