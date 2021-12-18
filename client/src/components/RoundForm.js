@@ -83,7 +83,7 @@ function RoundForm(props) {
     delete newRound.btnIcon;
     delete newRound.btnLabel;
     await props.saveRound(newRound);
-    props.toggleModalOpen();
+    // props.toggleModalOpen();
     props.setMode(RoundsMode.ROUNDSTABLE);
   }
 
@@ -253,7 +253,7 @@ function RoundForm(props) {
             className="mode-page-btn-cancel action-dialog cancel-button"
             onClick={() => {
               props.setMode(RoundsMode.ROUNDSTABLE);
-              props.toggleModalOpen();
+              // props.toggleModalOpen();
             }}>
             <FontAwesomeIcon icon="window-close" />
             <span>&nbsp;Cancel</span>

@@ -14,7 +14,7 @@ function RoundsPage(props){
 
    const SetMode = (newMode) => {
         setMode(newMode);
-        props.toggleModalOpen()
+        // props.toggleModalOpen()
     }
 
     const initiateEditRound = (val) => {
